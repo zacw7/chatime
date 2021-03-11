@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "224898902976",
+    "project_id": "cs5520-chatime",
+    "storage_bucket": "cs5520-chatime.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:224898902976:android:58cb368ad5faa1e0f27625",
+        "android_client_info": {
+          "package_name": "edu.neu.cs5520.chatime"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "224898902976-jf1gofa77b81t6bis3278q4tt38vl1ho.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCoqY3HiAYL8LCVRlj70n4J1sYSgMS6O9I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "224898902976-jf1gofa77b81t6bis3278q4tt38vl1ho.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
