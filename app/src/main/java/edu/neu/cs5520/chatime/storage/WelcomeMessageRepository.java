@@ -7,17 +7,17 @@ import edu.neu.cs5520.chatime.domain.repository.MessageRepository;
  */
 public class WelcomeMessageRepository implements MessageRepository {
 
-  @Override
-  public String getWelcomeMessage() {
-    String msg = "Welcome, friend!"; // let's be friendly
+    @Override
+    public String getWelcomeMessage() {
+        String msg = "Welcome, friend!"; // let's be friendly
 
-    // let's simulate some network/database lag
-    try {
-      Thread.sleep(2000);
-    } catch (InterruptedException e) {
-      e.printStackTrace();
+        // let's simulate some network/database lag
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        return msg;
     }
-
-    return msg;
-  }
 }

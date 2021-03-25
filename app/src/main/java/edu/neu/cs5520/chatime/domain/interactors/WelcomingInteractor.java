@@ -6,10 +6,10 @@ import edu.neu.cs5520.chatime.domain.interactors.base.Interactor;
 
 public interface WelcomingInteractor extends Interactor {
 
-  interface Callback {
+    interface Callback {
 
-    void onMessageRetrieved(String message);
+        void onMessageRetrieved(String message);
 
-    void onRetrievalFailed(String error);
-  }
+        void onRetrievalFailed(String error);
+    }
 }

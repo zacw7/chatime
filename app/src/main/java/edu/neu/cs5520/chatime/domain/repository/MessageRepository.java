@@ -5,5 +5,5 @@ package edu.neu.cs5520.chatime.domain.repository;
  */
 public interface MessageRepository {
 
-  String getWelcomeMessage();
+    String getWelcomeMessage();
 }

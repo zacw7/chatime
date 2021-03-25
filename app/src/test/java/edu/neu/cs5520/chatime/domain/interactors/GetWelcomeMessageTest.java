@@ -1,20 +1,19 @@
 package edu.neu.cs5520.chatime.domain.interactors;
 
+import static org.mockito.Matchers.anyString;
+import static org.mockito.Mockito.when;
+
+import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
 
 import edu.neu.cs5520.chatime.domain.executor.Executor;
 import edu.neu.cs5520.chatime.domain.executor.MainThread;
 import edu.neu.cs5520.chatime.domain.interactors.impl.WelcomingInteractorImpl;
 import edu.neu.cs5520.chatime.domain.repository.MessageRepository;
 import edu.neu.cs5520.chatime.threading.TestMainThread;
-
-import org.junit.Before;
-import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
-
-import static org.mockito.Matchers.anyString;
-import static org.mockito.Mockito.when;
 
 
 /**

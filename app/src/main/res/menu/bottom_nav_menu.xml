@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-  <item
-    android:id="@+id/navigation_chat_list"
-    android:icon="@drawable/ic_message_black_24dp"
-    android:title="@string/title_chat_list" />
+    <item
+        android:id="@+id/navigation_chat_list"
+        android:icon="@drawable/ic_message_black_24dp"
+        android:title="@string/title_chat_list" />
 
-  <item
-    android:id="@+id/navigation_home"
-    android:icon="@drawable/ic_home_black_24dp"
-    android:title="@string/title_home" />
+    <item
+        android:id="@+id/navigation_home"
+        android:icon="@drawable/ic_home_black_24dp"
+        android:title="@string/title_home" />
 
-  <item
-    android:id="@+id/navigation_bottle_list"
-    android:icon="@drawable/ic_waves_black_24dp"
-    android:title="@string/title_bottle_list" />
+    <item
+        android:id="@+id/navigation_bottle_list"
+        android:icon="@drawable/ic_waves_black_24dp"
+        android:title="@string/title_bottle_list" />
 
 </menu>

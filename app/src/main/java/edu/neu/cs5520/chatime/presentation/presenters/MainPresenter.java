@@ -6,8 +6,8 @@ import edu.neu.cs5520.chatime.presentation.ui.BaseView;
 
 public interface MainPresenter extends BasePresenter {
 
-  interface View extends BaseView {
+    interface View extends BaseView {
 
-    void displayWelcomeMessage(String msg);
-  }
+        void displayWelcomeMessage(String msg);
+    }
 }

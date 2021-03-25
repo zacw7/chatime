@@ -5,13 +5,13 @@ package edu.neu.cs5520.chatime.domain.model;
  */
 public class SampleModel {
 
-  private int mValue;
+    private int mValue;
 
-  public SampleModel(int value) {
-    mValue = value;
-  }
+    public SampleModel(int value) {
+        mValue = value;
+    }
 
-  public int getValue() {
-    return mValue;
-  }
+    public int getValue() {
+        return mValue;
+    }
 }

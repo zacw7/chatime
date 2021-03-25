@@ -1,12 +1,12 @@
 <resources>
-  <string name="app_name">Chatime</string>
-  <string name="title_activity_main">MainActivity</string>
-  <string name="title_home">Home</string>
-  <string name="title_chat_list">Chats</string>
-  <string name="title_bottle_list">Bottles</string>
-  <string name="hint_chat_key"><i>What's in your mind?</i></string>
-  <string name="pick_a_bottle">Pick a bottle</string>
-  <string name="throw_a_bottle">Throw a bottle</string>
-  <string name="welcome_fmt">Welcome, %s!</string>
-  <string name="sign_in_required">Please sign in</string>
+    <string name="app_name">Chatime</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_chat_list">Chats</string>
+    <string name="title_bottle_list">Bottles</string>
+    <string name="hint_chat_key"><i>What\'s in your mind?</i></string>
+    <string name="pick_a_bottle">Pick a bottle</string>
+    <string name="throw_a_bottle">Throw a bottle</string>
+    <string name="welcome_fmt">Welcome, %s!</string>
+    <string name="sign_in_required">Please sign in</string>
 </resources>
