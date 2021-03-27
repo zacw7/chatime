@@ -7,7 +7,7 @@
     tools:context=".presentation.ui.fragments.HomeFragment">
 
     <EditText
-        android:id="@+id/field_chat_key"
+        android:id="@+id/field_chat_topic"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="48dp"
@@ -29,8 +29,8 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="64dp"
-        android:layout_marginStart="96dp"
         android:layout_marginEnd="96dp"
+        android:layout_marginStart="96dp"
         android:elevation="10dp"
         android:text="Let's Chat"
         app:layout_constraintBottom_toTopOf="@+id/divider"

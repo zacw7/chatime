@@ -3,14 +3,16 @@
     package="edu.neu.cs5520.chatime">
 
     <application
+        android:name=".AndroidApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:name="edu.neu.cs5520.chatime.AndroidApplication"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".presentation.ui.activities.ChatActivity"></activity>
+        <activity android:name=".presentation.ui.activities.MatchingActivity" />
         <activity
-            android:name="edu.neu.cs5520.chatime.presentation.ui.activities.MainActivity"
+            android:name=".presentation.ui.activities.MainActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
