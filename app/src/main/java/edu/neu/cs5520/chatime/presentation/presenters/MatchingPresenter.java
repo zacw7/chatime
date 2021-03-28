@@ -5,9 +5,9 @@ import edu.neu.cs5520.chatime.presentation.ui.BaseView;
 
 public interface MatchingPresenter extends BasePresenter {
 
-    void enterChatRoom(String room);
-
     void matchTimeout();
+
+    void checkIfMatched();
 
     interface View extends BaseView {
         void startMatching();

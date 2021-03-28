@@ -4,6 +4,7 @@ import edu.neu.cs5520.chatime.domain.executor.Executor;
 import edu.neu.cs5520.chatime.domain.executor.MainThread;
 import edu.neu.cs5520.chatime.domain.interactors.WelcomingInteractor;
 import edu.neu.cs5520.chatime.domain.interactors.impl.WelcomingInteractorImpl;
+import edu.neu.cs5520.chatime.domain.repository.CurrentChatroomIdRepository;
 import edu.neu.cs5520.chatime.domain.repository.MessageRepository;
 import edu.neu.cs5520.chatime.presentation.presenters.MainPresenter;
 import edu.neu.cs5520.chatime.presentation.presenters.base.AbstractPresenter;
@@ -16,16 +17,20 @@ public class MainPresenterImpl extends AbstractPresenter implements MainPresente
 
     private MainPresenter.View mView;
     private MessageRepository mMessageRepository;
+    private CurrentChatroomIdRepository mCurrentChatroomIdRepository;
 
     public MainPresenterImpl(Executor executor, MainThread mainThread,
-            View view, MessageRepository messageRepository) {
+            View view, MessageRepository messageRepository, CurrentChatroomIdRepository currentChatroomIdRepository) {
         super(executor, mainThread);
         mView = view;
         mMessageRepository = messageRepository;
+        mCurrentChatroomIdRepository = currentChatroomIdRepository;
     }
 
     @Override
     public void resume() {
+
+        mCurrentChatroomIdRepository.resetCurrentChatRoomId();
 
         mView.showProgress();
 

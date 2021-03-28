@@ -13,8 +13,10 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import edu.neu.cs5520.chatime.R;
 import edu.neu.cs5520.chatime.domain.executor.impl.ThreadExecutor;
+import edu.neu.cs5520.chatime.domain.repository.CurrentChatroomIdRepository;
 import edu.neu.cs5520.chatime.presentation.presenters.MatchingPresenter;
 import edu.neu.cs5520.chatime.presentation.presenters.impl.MatchingPresenterImpl;
+import edu.neu.cs5520.chatime.storage.LocalCurrentChatroomIdIdRepository;
 import edu.neu.cs5520.chatime.threading.MainThreadImpl;
 
 public class MatchingActivity extends AppCompatActivity implements MatchingPresenter.View {
@@ -36,19 +38,16 @@ public class MatchingActivity extends AppCompatActivity implements MatchingPrese
         mPresenter = new MatchingPresenterImpl(
                 ThreadExecutor.getInstance(),
                 MainThreadImpl.getInstance(),
-                this
+                this,
+                new LocalCurrentChatroomIdIdRepository(this)
         );
 
         mCountDownTimer = new CountDownTimer(10000, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
+                mPresenter.checkIfMatched();
                 String s = String.valueOf(millisUntilFinished / 1000);
                 mTextMatching.setText(s);
-
-                // TODO - check if found a chat room
-                if (false) {
-                    mPresenter.enterChatRoom("roomid");
-                }
             }
 
             @Override
@@ -83,10 +82,10 @@ public class MatchingActivity extends AppCompatActivity implements MatchingPrese
 
     @Override
     public void enterChatRoom(String roomId) {
-        Intent intent = new Intent(this, ChatActivity.class);
-        Bundle extras = intent.getExtras();
-        extras.putString("ROOM_ID", roomId);
-        startActivity(intent);
+//        Intent intent = new Intent(this, ChatActivity.class);
+//        intent.putExtra(getString(R.string.current_chat_room_id), roomId);
+//        Bundle extras = intent.getExtras();
+//        startActivity(intent);
     }
 
     @Override

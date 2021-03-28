@@ -9,4 +9,6 @@
     <string name="throw_a_bottle">Throw a bottle</string>
     <string name="welcome_fmt">Welcome, %s!</string>
     <string name="sign_in_required">Please sign in</string>
+    <string name="preference_file_key">local_file_storage</string>
+    <string name="current_chat_room_id">CURRENT_CHAT_ROOM_ID</string>
 </resources>
