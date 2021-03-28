@@ -10,7 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".presentation.ui.activities.ChatActivity"></activity>
-        <activity android:name=".presentation.ui.activities.MatchingActivity" />
+        <activity
+            android:name=".presentation.ui.activities.MatchingActivity"
+            android:noHistory="true" />
         <activity
             android:name=".presentation.ui.activities.MainActivity"
             android:screenOrientation="portrait">
