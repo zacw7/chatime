@@ -1,9 +1,11 @@
 package edu.neu.cs5520.chatime.domain.repository;
 
-/**
- * A repository that is responsible for getting our welcome message.
- */
-public interface MessageRepository {
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 
-    String getWelcomeMessage();
+import edu.neu.cs5520.chatime.domain.model.Message;
+
+public interface MessageRepository {
+    void sendMessage(String chatroomId, Message message);
+    void setEventListener(String chatroomId, EventListener<DocumentSnapshot> listener);
 }
