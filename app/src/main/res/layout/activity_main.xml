@@ -24,9 +24,7 @@
             android:layout_gravity="center"
             android:text="@string/app_name"
             android:textColor="#FFFFFF"
-            android:textSize="24sp"
-            tools:layout_editor_absoluteX="166dp"
-            tools:layout_editor_absoluteY="18dp" />
+            android:textSize="24sp" />
     </androidx.appcompat.widget.Toolbar>
 
     <androidx.constraintlayout.widget.ConstraintLayout

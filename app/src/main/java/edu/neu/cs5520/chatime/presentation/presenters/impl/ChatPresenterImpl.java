@@ -109,11 +109,13 @@ public class ChatPresenterImpl extends AbstractPresenter implements ChatPresente
 
         if (value != null && value.exists()) {
             Chatroom chatroom = value.toObject(Chatroom.class);
+            mView.setChatTopic(chatroom.getTopic());
             Map<String, User> userMap = new HashMap<>();
             for (User user : chatroom.getMembers()) {
                 if (mRecipient == null && !user.getUid().equals(
                         mUserRepository.getCurrentUser().getUid())) {
                     mRecipient = user.getUid();
+                    mView.setRecipient(user.getUsername());
                 }
                 userMap.put(user.getUid(), user);
             }

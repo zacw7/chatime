@@ -1,7 +1,9 @@
 package edu.neu.cs5520.chatime.presentation.ui.activities;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -25,6 +27,10 @@ public class ChatActivity extends AppCompatActivity implements ChatPresenter.Vie
     RecyclerView mMessageRecycler;
     @BindView(R.id.field_chat_message)
     EditText mFieldMessage;
+    @BindView(R.id.text_title_recipient)
+    TextView mTextRecipient;
+    @BindView(R.id.text_title_topic)
+    TextView mTextTopic;
 
     private ChatPresenter mPresenter;
 
@@ -48,6 +54,20 @@ public class ChatActivity extends AppCompatActivity implements ChatPresenter.Vie
     public void setupAdapter(ChatMessageAdapter mMessageAdapter) {
         mMessageRecycler.setAdapter(mMessageAdapter);
         mMessageRecycler.setLayoutManager(new LinearLayoutManager(this));
+    }
+
+    @Override
+    public void setRecipient(String recipient) {
+        mTextRecipient.setText(recipient);
+    }
+
+    @Override
+    public void setChatTopic(String topic) {
+        if (topic == null || topic.equals(getString(R.string.default_topic))) {
+            mTextTopic.setVisibility(View.GONE);
+        } else {
+            mTextTopic.setText(topic);
+        }
     }
 
     @OnClick(R.id.button_chat_send)
