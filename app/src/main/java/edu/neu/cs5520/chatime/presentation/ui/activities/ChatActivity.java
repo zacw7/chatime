@@ -7,10 +7,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -19,11 +15,8 @@ import edu.neu.cs5520.chatime.domain.executor.impl.ThreadExecutor;
 import edu.neu.cs5520.chatime.network.FirebaseUserRepository;
 import edu.neu.cs5520.chatime.presentation.presenters.ChatPresenter;
 import edu.neu.cs5520.chatime.presentation.presenters.impl.ChatPresenterImpl;
-import edu.neu.cs5520.chatime.presentation.presenters.impl.MainPresenterImpl;
 import edu.neu.cs5520.chatime.presentation.ui.adapters.ChatMessageAdapter;
-import edu.neu.cs5520.chatime.presentation.ui.viewmodel.MessageViewModel;
 import edu.neu.cs5520.chatime.storage.FirebaseMessageRepository;
-import edu.neu.cs5520.chatime.storage.LocalCurrentChatroomIdIdRepository;
 import edu.neu.cs5520.chatime.threading.MainThreadImpl;
 
 public class ChatActivity extends AppCompatActivity implements ChatPresenter.View {

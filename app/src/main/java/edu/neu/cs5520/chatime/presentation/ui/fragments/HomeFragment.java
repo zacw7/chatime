@@ -17,24 +17,25 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.firebase.ui.auth.AuthUI;
-import com.firebase.ui.auth.AuthUI.IdpConfig;
 import com.firebase.ui.auth.IdpResponse;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import java.util.Arrays;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import edu.neu.cs5520.chatime.R;
 import edu.neu.cs5520.chatime.domain.executor.impl.ThreadExecutor;
-import edu.neu.cs5520.chatime.domain.model.DriftBottle;
+import edu.neu.cs5520.chatime.domain.model.Chatroom;
+import edu.neu.cs5520.chatime.domain.model.Message;
+import edu.neu.cs5520.chatime.domain.model.User;
+import edu.neu.cs5520.chatime.domain.repository.ChatroomRepository;
+import edu.neu.cs5520.chatime.network.FirebaseUserRepository;
 import edu.neu.cs5520.chatime.presentation.presenters.HomePresenter;
 import edu.neu.cs5520.chatime.presentation.presenters.impl.HomePresenterImpl;
-import edu.neu.cs5520.chatime.storage.FirebaseDriftBottleRepository;
+import edu.neu.cs5520.chatime.storage.FirebaseChatroomRepository;
 import edu.neu.cs5520.chatime.storage.FirebaseTopicRepository;
 import edu.neu.cs5520.chatime.threading.MainThreadImpl;
 
@@ -52,7 +53,6 @@ public class HomeFragment extends Fragment implements HomePresenter.View {
 
     private static final int RC_SIGN_IN = 123;
     private HomePresenter mPresenter;
-    private FirebaseAuth mAuth;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
@@ -64,29 +64,35 @@ public class HomeFragment extends Fragment implements HomePresenter.View {
                 ThreadExecutor.getInstance(),
                 MainThreadImpl.getInstance(),
                 this,
-                new FirebaseDriftBottleRepository(),
-                new FirebaseTopicRepository()
+                new FirebaseTopicRepository(),
+                new FirebaseUserRepository()
         );
-        mAuth = FirebaseAuth.getInstance();
-        checkSignInStatus();
         return root;
     }
 
     @OnClick(R.id.button_start_chat)
     public void submitTopic() {
         String topic = mFieldChatTopic.getText().toString();
-        mPresenter.submitTopic(mAuth.getUid(), topic);
+        mPresenter.submitTopic(topic);
     }
 
     @OnClick(R.id.button_pick)
     public void pickRandomBottle() {
-        mPresenter.pickRandomBottle();
     }
 
-    @Override
-    public void displayDriftBottle(DriftBottle bottle) {
-        Toast.makeText(getActivity(), "Bottle Picked: " + bottle.getContent(),
-                Toast.LENGTH_LONG).show();
+    @OnClick(R.id.button_throw)
+    public void tmp() {
+        ChatroomRepository chatroomRepository = new FirebaseChatroomRepository();
+        Chatroom chatroom = new Chatroom("id-777", "xx",
+                Arrays.asList(
+                        new User("xgbk6Plb0Pcvx6kbMJ6xFX1o4pD2", "zac", "zacwen7@icloud.com", "profile_url"),
+                        new User("xxxxxxxxxxxxxxxxxxxxxxxxxxxx", "jacob", "jacob@icloud.com", "profile_url")
+                ),
+                Arrays.asList(
+                        new Message("xgbk6Plb0Pcvx6kbMJ6xFX1o4pD2", "xxxxxxxxxxxxxxxxxxxxxxxxxxxx", "hello!!", System.currentTimeMillis() - 90000L),
+                        new Message("xxxxxxxxxxxxxxxxxxxxxxxxxxxx", "xgbk6Plb0Pcvx6kbMJ6xFX1o4pD2", "hello back!!", System.currentTimeMillis())
+                ));
+        chatroomRepository.createChatroom(chatroom);
     }
 
     @Override
@@ -103,6 +109,12 @@ public class HomeFragment extends Fragment implements HomePresenter.View {
     public void launchActivity(Class<? extends Activity> cls) {
         Intent intent = new Intent(getActivity(), cls);
         startActivity(intent);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        mPresenter.resume();
     }
 
     @Override
@@ -139,27 +151,6 @@ public class HomeFragment extends Fragment implements HomePresenter.View {
                         Toast.LENGTH_LONG)
                         .show();
             }
-        }
-    }
-
-    private void checkSignInStatus() {
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        if (currentUser == null) {
-            // Choose authentication providers
-            List<IdpConfig> providers = Arrays.asList(
-                    new AuthUI.IdpConfig.EmailBuilder().build(),
-                    new AuthUI.IdpConfig.PhoneBuilder().build());
-            // Create and launch sign-in intent
-            startActivityForResult(
-                    AuthUI.getInstance()
-                            .createSignInIntentBuilder()
-                            .setAvailableProviders(providers)
-                            .build(),
-                    RC_SIGN_IN);
-        } else {
-            Toast.makeText(getActivity(),
-                    getString(R.string.welcome_fmt, currentUser.getDisplayName()),
-                    Toast.LENGTH_LONG).show();
         }
     }
 }

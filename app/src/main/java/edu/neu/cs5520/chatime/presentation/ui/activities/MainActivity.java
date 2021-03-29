@@ -13,15 +13,20 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import com.firebase.ui.auth.AuthUI;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+import java.util.Arrays;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import edu.neu.cs5520.chatime.R;
 import edu.neu.cs5520.chatime.domain.executor.impl.ThreadExecutor;
+import edu.neu.cs5520.chatime.network.FirebaseUserRepository;
 import edu.neu.cs5520.chatime.presentation.presenters.MainPresenter;
 import edu.neu.cs5520.chatime.presentation.presenters.impl.MainPresenterImpl;
-import edu.neu.cs5520.chatime.storage.WelcomeMessageRepository;
+import edu.neu.cs5520.chatime.storage.LocalCurrentChatroomIdIdRepository;
 import edu.neu.cs5520.chatime.threading.MainThreadImpl;
 
 @SuppressLint("NonConstantResourceId")
@@ -32,6 +37,7 @@ public class MainActivity extends AppCompatActivity implements MainPresenter.Vie
     @BindView(R.id.nav_view)
     BottomNavigationView mNavView;
 
+    private static final int RC_SIGN_IN = 123;
     private MainPresenter mPresenter;
 
     @Override
@@ -47,7 +53,8 @@ public class MainActivity extends AppCompatActivity implements MainPresenter.Vie
                 ThreadExecutor.getInstance(),
                 MainThreadImpl.getInstance(),
                 this,
-                new WelcomeMessageRepository()
+                new LocalCurrentChatroomIdIdRepository(this),
+                new FirebaseUserRepository()
         );
 
         // Passing each menu ID as a set of Ids because each
@@ -84,6 +91,21 @@ public class MainActivity extends AppCompatActivity implements MainPresenter.Vie
     }
 
     @Override
+    public void showSignIn() {
+        // Choose authentication providers
+        List<AuthUI.IdpConfig> providers = Arrays.asList(
+                new AuthUI.IdpConfig.EmailBuilder().build(),
+                new AuthUI.IdpConfig.PhoneBuilder().build());
+        // Create and launch sign-in intent
+        startActivityForResult(
+                AuthUI.getInstance()
+                        .createSignInIntentBuilder()
+                        .setAvailableProviders(providers)
+                        .build(),
+                RC_SIGN_IN);
+    }
+
+    @Override
     protected void onResume() {
         super.onResume();
 
@@ -98,11 +120,6 @@ public class MainActivity extends AppCompatActivity implements MainPresenter.Vie
     @Override
     public void hideProgress() {
         Toast.makeText(this, "Retrieved!", Toast.LENGTH_LONG).show();
-    }
-
-    @Override
-    public void displayWelcomeMessage(String msg) {
-
     }
 
     @Override
