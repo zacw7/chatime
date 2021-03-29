@@ -1,5 +1,6 @@
 package edu.neu.cs5520.chatime.presentation.ui.activities;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -19,6 +20,7 @@ import edu.neu.cs5520.chatime.presentation.presenters.impl.MatchingPresenterImpl
 import edu.neu.cs5520.chatime.storage.LocalCurrentChatroomIdIdRepository;
 import edu.neu.cs5520.chatime.threading.MainThreadImpl;
 
+@SuppressLint("NonConstantResourceId")
 public class MatchingActivity extends AppCompatActivity implements MatchingPresenter.View {
 
     @BindView(R.id.text_matching)
@@ -47,6 +49,11 @@ public class MatchingActivity extends AppCompatActivity implements MatchingPrese
             public void onTick(long millisUntilFinished) {
                 mPresenter.checkIfMatched();
                 String s = String.valueOf(millisUntilFinished / 1000);
+
+                if (millisUntilFinished < 9000) {
+                    CurrentChatroomIdRepository tmp = new LocalCurrentChatroomIdIdRepository(getBaseContext());
+                    tmp.saveCurrentChatRoomId("id-777");
+                }
                 mTextMatching.setText(s);
             }
 
@@ -82,10 +89,9 @@ public class MatchingActivity extends AppCompatActivity implements MatchingPrese
 
     @Override
     public void enterChatRoom(String roomId) {
-//        Intent intent = new Intent(this, ChatActivity.class);
-//        intent.putExtra(getString(R.string.current_chat_room_id), roomId);
-//        Bundle extras = intent.getExtras();
-//        startActivity(intent);
+        Intent intent = new Intent(this, ChatActivity.class);
+        intent.putExtra(getString(R.string.current_chat_room_id), roomId);
+        startActivity(intent);
     }
 
     @Override
