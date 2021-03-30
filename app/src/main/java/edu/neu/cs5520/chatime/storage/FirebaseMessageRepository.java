@@ -1,10 +1,13 @@
 package edu.neu.cs5520.chatime.storage;
 
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.EventListener;
-import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.functions.FirebaseFunctions;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import edu.neu.cs5520.chatime.domain.model.Message;
 import edu.neu.cs5520.chatime.domain.repository.MessageRepository;
@@ -12,22 +15,29 @@ import edu.neu.cs5520.chatime.domain.repository.MessageRepository;
 public class FirebaseMessageRepository implements MessageRepository {
 
     private final String TAG = "FIRESTORE";
-    private final String COLLECTION_PATH = "chatrooms";
-    private FirebaseFirestore mDb;
+    private final String COLLECTION_PATH_FMT = "rooms/%s/messages";
+    private CollectionReference mMessagesRef;
+    private FirebaseFunctions mFunctions;
+    private String mRoomId;
 
-    public FirebaseMessageRepository() {
-        mDb = FirebaseFirestore.getInstance();
+    public FirebaseMessageRepository(String roomId) {
+        mRoomId = roomId;
+        mFunctions = FirebaseFunctions.getInstance();
+        mMessagesRef = FirebaseFirestore.getInstance().collection(String.format(COLLECTION_PATH_FMT, roomId));
     }
 
     @Override
-    public void sendMessage(String chatroomId,  Message message) {
-        DocumentReference topicRef = mDb.collection(COLLECTION_PATH).document(chatroomId);
-        topicRef.update("messages", FieldValue.arrayUnion(message));
+    public void sendMessage(String to, String content) {
+        Map<String, Object> data = new HashMap<>();
+        data.put("roomId", mRoomId);
+        data.put("to", to);
+        data.put("content", content);
+
+        mFunctions.getHttpsCallable("sendMessage").call(data);
     }
 
     @Override
-    public void setEventListener(String chatroomId, EventListener<DocumentSnapshot> listener) {
-        final DocumentReference docRef = mDb.collection("chatrooms").document(chatroomId);
-        docRef.addSnapshotListener(listener);
+    public void setMessageEventListener(EventListener<QuerySnapshot> listener) {
+        mMessagesRef.addSnapshotListener(listener);
     }
 }
