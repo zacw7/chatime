@@ -1,6 +1,7 @@
 package edu.neu.cs5520.chatime.presentation.ui.activities;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -26,7 +27,6 @@ import edu.neu.cs5520.chatime.domain.executor.impl.ThreadExecutor;
 import edu.neu.cs5520.chatime.network.FirebaseUserRepository;
 import edu.neu.cs5520.chatime.presentation.presenters.MainPresenter;
 import edu.neu.cs5520.chatime.presentation.presenters.impl.MainPresenterImpl;
-import edu.neu.cs5520.chatime.storage.LocalCurrentChatroomIdIdRepository;
 import edu.neu.cs5520.chatime.threading.MainThreadImpl;
 
 @SuppressLint("NonConstantResourceId")
@@ -53,7 +53,6 @@ public class MainActivity extends AppCompatActivity implements MainPresenter.Vie
                 ThreadExecutor.getInstance(),
                 MainThreadImpl.getInstance(),
                 this,
-                new LocalCurrentChatroomIdIdRepository(this),
                 new FirebaseUserRepository()
         );
 
@@ -103,6 +102,14 @@ public class MainActivity extends AppCompatActivity implements MainPresenter.Vie
                         .setAvailableProviders(providers)
                         .build(),
                 RC_SIGN_IN);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == RC_SIGN_IN && resultCode == RESULT_OK) {
+            mPresenter.onSigned();
+        }
     }
 
     @Override

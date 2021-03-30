@@ -1,32 +1,39 @@
 package edu.neu.cs5520.chatime.presentation.presenters.impl;
 
+import android.util.Log;
+
+import com.google.firebase.messaging.FirebaseMessaging;
+
 import edu.neu.cs5520.chatime.domain.executor.Executor;
 import edu.neu.cs5520.chatime.domain.executor.MainThread;
-import edu.neu.cs5520.chatime.domain.repository.CurrentChatroomIdRepository;
 import edu.neu.cs5520.chatime.domain.repository.UserRepository;
 import edu.neu.cs5520.chatime.presentation.presenters.MainPresenter;
 import edu.neu.cs5520.chatime.presentation.presenters.base.AbstractPresenter;
 
 public class MainPresenterImpl extends AbstractPresenter implements MainPresenter {
 
+    private final static String TAG = "MAIN_PRESENTER";
     private MainPresenter.View mView;
-    private CurrentChatroomIdRepository mCurrentChatroomIdRepository;
     private UserRepository mUserRepository;
 
     public MainPresenterImpl(Executor executor, MainThread mainThread,
-            View view, CurrentChatroomIdRepository currentChatroomIdRepository,
-            UserRepository userRepository) {
+            View view, UserRepository userRepository) {
         super(executor, mainThread);
         mView = view;
-        mCurrentChatroomIdRepository = currentChatroomIdRepository;
         mUserRepository = userRepository;
     }
 
     @Override
+    public void onSigned() {
+        subscribeTo(mUserRepository.getCurrentUser().getUid());
+    }
+
+    @Override
     public void resume() {
-        mCurrentChatroomIdRepository.resetCurrentChatRoomId();
         if (mUserRepository.getCurrentUser() == null) {
             mView.showSignIn();
+        } else {
+            onSigned();
         }
     }
 
@@ -48,5 +55,16 @@ public class MainPresenterImpl extends AbstractPresenter implements MainPresente
     @Override
     public void onError(String message) {
         mView.showError(message);
+    }
+
+    private void subscribeTo(String uid) {
+        FirebaseMessaging.getInstance().subscribeToTopic(uid)
+                .addOnCompleteListener(task -> {
+                    String msg = "Subscribed: " + uid;
+                    if (!task.isSuccessful()) {
+                        msg = "Subscribe failed";
+                    }
+                    Log.d(TAG, msg);
+                });
     }
 }

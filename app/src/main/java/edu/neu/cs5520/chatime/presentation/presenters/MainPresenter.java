@@ -6,6 +6,8 @@ import edu.neu.cs5520.chatime.presentation.ui.BaseView;
 
 public interface MainPresenter extends BasePresenter {
 
+    void onSigned();
+
     interface View extends BaseView {
         void showSignIn();
     }
