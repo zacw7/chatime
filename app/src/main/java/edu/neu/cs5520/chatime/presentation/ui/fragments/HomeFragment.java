@@ -21,21 +21,14 @@ import com.firebase.ui.auth.IdpResponse;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-import java.util.Arrays;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import edu.neu.cs5520.chatime.R;
 import edu.neu.cs5520.chatime.domain.executor.impl.ThreadExecutor;
-import edu.neu.cs5520.chatime.domain.model.Chatroom;
-import edu.neu.cs5520.chatime.domain.model.Message;
-import edu.neu.cs5520.chatime.domain.model.User;
-import edu.neu.cs5520.chatime.domain.repository.ChatroomRepository;
 import edu.neu.cs5520.chatime.network.FirebaseUserRepository;
 import edu.neu.cs5520.chatime.presentation.presenters.HomePresenter;
 import edu.neu.cs5520.chatime.presentation.presenters.impl.HomePresenterImpl;
-import edu.neu.cs5520.chatime.storage.FirebaseChatroomRepository;
 import edu.neu.cs5520.chatime.storage.FirebaseTopicRepository;
 import edu.neu.cs5520.chatime.threading.MainThreadImpl;
 
@@ -73,26 +66,10 @@ public class HomeFragment extends Fragment implements HomePresenter.View {
     @OnClick(R.id.button_start_chat)
     public void submitTopic() {
         String topic = mFieldChatTopic.getText().toString();
+        if (topic.isEmpty()) {
+            topic = getString(R.string.default_topic);
+        }
         mPresenter.submitTopic(topic);
-    }
-
-    @OnClick(R.id.button_pick)
-    public void pickRandomBottle() {
-    }
-
-    @OnClick(R.id.button_throw)
-    public void tmp() {
-        ChatroomRepository chatroomRepository = new FirebaseChatroomRepository();
-        Chatroom chatroom = new Chatroom("id-777", "xx",
-                Arrays.asList(
-                        new User("xgbk6Plb0Pcvx6kbMJ6xFX1o4pD2", "zac", "zacwen7@icloud.com", "profile_url"),
-                        new User("xxxxxxxxxxxxxxxxxxxxxxxxxxxx", "jacob", "jacob@icloud.com", "profile_url")
-                ),
-                Arrays.asList(
-                        new Message("xgbk6Plb0Pcvx6kbMJ6xFX1o4pD2", "xxxxxxxxxxxxxxxxxxxxxxxxxxxx", "hello!!", System.currentTimeMillis() - 90000L),
-                        new Message("xxxxxxxxxxxxxxxxxxxxxxxxxxxx", "xgbk6Plb0Pcvx6kbMJ6xFX1o4pD2", "hello back!!", System.currentTimeMillis())
-                ));
-        chatroomRepository.createChatroom(chatroom);
     }
 
     @Override
