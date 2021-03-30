@@ -1,6 +1,6 @@
 package edu.neu.cs5520.chatime.domain.repository;
 
-public interface CurrentChatroomIdRepository {
+public interface CurrentRoomIdRepository {
     String getCurrentChatRoomId();
 
     void saveCurrentChatRoomId(String chatroomId);

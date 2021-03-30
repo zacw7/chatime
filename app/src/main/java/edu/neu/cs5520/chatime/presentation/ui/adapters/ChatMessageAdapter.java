@@ -73,8 +73,7 @@ public class ChatMessageAdapter extends RecyclerView.Adapter {
     public int getItemViewType(int position) {
         MessageViewModel message = mItemList.get(position);
 
-        // TODO:
-        if (message.getFrom().equals("zac")) {
+        if (message.getFromUid().equals(mUid)) {
             // If the current user is the sender of the message
             return VIEW_TYPE_MESSAGE_SENT;
         } else {
@@ -104,7 +103,7 @@ public class ChatMessageAdapter extends RecyclerView.Adapter {
             mTextMessage.setText(message.getContent());
             mTextDate.setText(message.getDate());
             mTextTime.setText(message.getTime());
-            mTextUsername.setText(message.getFrom());
+            mTextUsername.setText(message.getFromUsername());
 //            mImageProfile.setImageResource(message.getProfileUrl());
 
             if (message.isDateShowing()) {

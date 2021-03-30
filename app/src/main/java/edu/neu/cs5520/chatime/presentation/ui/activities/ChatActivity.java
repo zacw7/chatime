@@ -18,6 +18,7 @@ import edu.neu.cs5520.chatime.network.FirebaseUserRepository;
 import edu.neu.cs5520.chatime.presentation.presenters.ChatPresenter;
 import edu.neu.cs5520.chatime.presentation.presenters.impl.ChatPresenterImpl;
 import edu.neu.cs5520.chatime.presentation.ui.adapters.ChatMessageAdapter;
+import edu.neu.cs5520.chatime.storage.FirebaseChatroomRepository;
 import edu.neu.cs5520.chatime.storage.FirebaseMessageRepository;
 import edu.neu.cs5520.chatime.threading.MainThreadImpl;
 
@@ -40,12 +41,13 @@ public class ChatActivity extends AppCompatActivity implements ChatPresenter.Vie
         setContentView(R.layout.activity_chat);
         ButterKnife.bind(this);
 
+        String roomId = getIntent().getStringExtra(getString(R.string.current_chat_room_id));
         mPresenter = new ChatPresenterImpl(
                 ThreadExecutor.getInstance(),
                 MainThreadImpl.getInstance(),
                 this,
-                getIntent().getStringExtra(getString(R.string.current_chat_room_id)),
-                new FirebaseMessageRepository(),
+                new FirebaseMessageRepository(roomId),
+                new FirebaseChatroomRepository(roomId),
                 new FirebaseUserRepository()
         );
     }
@@ -68,6 +70,11 @@ public class ChatActivity extends AppCompatActivity implements ChatPresenter.Vie
         } else {
             mTextTopic.setText(topic);
         }
+    }
+
+    @Override
+    public void enableChat() {
+
     }
 
     @OnClick(R.id.button_chat_send)

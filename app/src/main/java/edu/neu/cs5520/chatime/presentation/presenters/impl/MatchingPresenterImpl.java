@@ -2,19 +2,16 @@ package edu.neu.cs5520.chatime.presentation.presenters.impl;
 
 import edu.neu.cs5520.chatime.domain.executor.Executor;
 import edu.neu.cs5520.chatime.domain.executor.MainThread;
-import edu.neu.cs5520.chatime.domain.repository.CurrentChatroomIdRepository;
 import edu.neu.cs5520.chatime.presentation.presenters.MatchingPresenter;
 import edu.neu.cs5520.chatime.presentation.presenters.base.AbstractPresenter;
 
 public class MatchingPresenterImpl extends AbstractPresenter implements MatchingPresenter {
 
     private MatchingPresenter.View mView;
-    private CurrentChatroomIdRepository mCurrentChatroomIdRepository;
 
-    public MatchingPresenterImpl(Executor executor, MainThread mainThread, View view, CurrentChatroomIdRepository currentChatroomIdRepository) {
+    public MatchingPresenterImpl(Executor executor, MainThread mainThread, View view) {
         super(executor, mainThread);
         mView = view;
-        mCurrentChatroomIdRepository = currentChatroomIdRepository;
     }
 
     @Override
@@ -23,12 +20,10 @@ public class MatchingPresenterImpl extends AbstractPresenter implements Matching
     }
 
     @Override
-    public void checkIfMatched() {
-        String chatroomId = mCurrentChatroomIdRepository.getCurrentChatRoomId();
-        if (chatroomId != null) {
-            mCurrentChatroomIdRepository.resetCurrentChatRoomId();
+    public void checkRoomId(String roomId) {
+        if (roomId != null) {
             mView.cancelMatching();
-            mView.enterChatRoom(chatroomId);
+            mView.enterChatRoom(roomId);
         }
     }
 

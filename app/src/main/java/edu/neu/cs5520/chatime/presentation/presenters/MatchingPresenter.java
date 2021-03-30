@@ -7,7 +7,7 @@ public interface MatchingPresenter extends BasePresenter {
 
     void matchTimeout();
 
-    void checkIfMatched();
+    void checkRoomId(String roomId);
 
     interface View extends BaseView {
         void startMatching();

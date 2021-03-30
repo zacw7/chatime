@@ -4,16 +4,16 @@ public class User {
     private String mUid;
     private String mUsername;
     private String mEmail;
-    private String mProfileUrl;
+    private String mPictureUrl;
 
     public User() {
     }
 
-    public User(String uid, String username, String email, String profileUrl) {
+    public User(String uid, String username, String email, String pictureUrl) {
         mUid = uid;
         mUsername = username;
         mEmail = email;
-        mProfileUrl = profileUrl;
+        mPictureUrl = pictureUrl;
     }
 
     public String getUid() {
@@ -40,11 +40,21 @@ public class User {
         mEmail = email;
     }
 
-    public String getProfileUrl() {
-        return mProfileUrl;
+    public String getPictureUrl() {
+        return mPictureUrl;
     }
 
-    public void setProfileUrl(String profileUrl) {
-        mProfileUrl = profileUrl;
+    public void setPictureUrl(String pictureUrl) {
+        mPictureUrl = pictureUrl;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "mUid='" + mUid + '\'' +
+                ", mUsername='" + mUsername + '\'' +
+                ", mEmail='" + mEmail + '\'' +
+                ", mPictureUrl='" + mPictureUrl + '\'' +
+                '}';
     }
 }

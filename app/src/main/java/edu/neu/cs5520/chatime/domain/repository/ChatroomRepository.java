@@ -1,7 +1,8 @@
 package edu.neu.cs5520.chatime.domain.repository;
 
-import edu.neu.cs5520.chatime.domain.model.Chatroom;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.DocumentSnapshot;
 
 public interface ChatroomRepository {
-    void createChatroom(Chatroom chatroom);
+    void getRoomInfo(OnSuccessListener<DocumentSnapshot> listener);
 }

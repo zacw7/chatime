@@ -9,7 +9,6 @@ import com.google.firebase.functions.FirebaseFunctions;
 import java.util.HashMap;
 import java.util.Map;
 
-import edu.neu.cs5520.chatime.domain.model.Message;
 import edu.neu.cs5520.chatime.domain.repository.MessageRepository;
 
 public class FirebaseMessageRepository implements MessageRepository {

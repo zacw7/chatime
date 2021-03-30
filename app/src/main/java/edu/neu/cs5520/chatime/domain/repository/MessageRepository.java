@@ -1,11 +1,9 @@
 package edu.neu.cs5520.chatime.domain.repository;
 
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
-
-import edu.neu.cs5520.chatime.domain.model.Message;
+import com.google.firebase.firestore.QuerySnapshot;
 
 public interface MessageRepository {
-    void sendMessage(String chatroomId, Message message);
-    void setEventListener(String chatroomId, EventListener<DocumentSnapshot> listener);
+    void sendMessage(String to, String content);
+    void setMessageEventListener(EventListener<QuerySnapshot> listener);
 }

@@ -10,6 +10,7 @@ public interface ChatPresenter extends BasePresenter {
 
     interface View extends BaseView {
         void setupAdapter(ChatMessageAdapter mMessageAdapter);
+        void enableChat();
         void setRecipient(String recipient);
         void setChatTopic(String topic);
     }

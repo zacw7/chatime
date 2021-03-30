@@ -1,7 +1,7 @@
 package edu.neu.cs5520.chatime.presentation.ui.viewmodel;
 
-import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Locale;
 import java.util.Map;
 
@@ -10,8 +10,10 @@ import edu.neu.cs5520.chatime.domain.model.User;
 
 public class MessageViewModel {
     String mContent;
-    String mFrom;
-    String mTo;
+    String mFromUid;
+    String mToUid;
+    String mFromUsername;
+    String mToUsername;
     String mDate;
     String mTime;
     String mProfileUrl;
@@ -22,25 +24,35 @@ public class MessageViewModel {
     public MessageViewModel(Message message, Map<String, User> userMap) {
         User userFrom = userMap.get(message.getFrom());
         User userTo = userMap.get(message.getTo());
-        Timestamp ts = new Timestamp(message.getTimestamp());
+        Date date = message.getTimestamp().toDate();
         mContent = message.getContent();
-        mFrom = userFrom.getUsername();
-        mTo = userTo.getUsername();
-        mDate = DATE_FMT.format(ts);
-        mTime = TIME_FMT.format(ts);
-        mProfileUrl = userFrom.getProfileUrl().toString();
+        mFromUid = userFrom.getUid();
+        mToUid = userTo.getUid();
+        mFromUsername = userFrom.getUsername();
+        mToUsername = userTo.getUsername();
+        mDate = DATE_FMT.format(date);
+        mTime = TIME_FMT.format(date);
+        mProfileUrl = userFrom.getPictureUrl();
     }
 
     public String getContent() {
         return mContent;
     }
 
-    public String getFrom() {
-        return mFrom;
+    public String getFromUid() {
+        return mFromUid;
     }
 
-    public String getTo() {
-        return mTo;
+    public String getToUid() {
+        return mToUid;
+    }
+
+    public String getFromUsername() {
+        return mFromUsername;
+    }
+
+    public String getToUsername() {
+        return mToUsername;
     }
 
     public String getDate() {
