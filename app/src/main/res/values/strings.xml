@@ -4,12 +4,22 @@
     <string name="title_home">Home</string>
     <string name="title_chat_list">Chats</string>
     <string name="title_bottle_list">Bottles</string>
+    <string name="title_profile">Profile</string>
     <string name="hint_chat_key"><i>What\'s in your mind?</i></string>
     <string name="pick_a_bottle">Pick a bottle</string>
     <string name="throw_a_bottle">Throw a bottle</string>
+    <string name="username">Username</string>
+    <string name="email">Email</string>
+    <string name="edit">Edit</string>
+    <string name="submit">Submit</string>
+    <string name="confirm">Confirm</string>
+    <string name="upload">Upload</string>
     <string name="welcome_fmt">Welcome, %s!</string>
     <string name="sign_in_required">Please sign in</string>
     <string name="preference_file_key">local_file_storage</string>
     <string name="current_chat_room_id">CURRENT_CHAT_ROOM_ID</string>
     <string name="default_topic">#DEFAULT_TOPIC#</string>
+    <string name="upload_from_gallery">Upload from Gallery</string>
+    <string name="take_photo_from_camera">Take Photo from Camera</string>
+    <string name="edit_profile_photo">Edit Profile Photo</string>
 </resources>

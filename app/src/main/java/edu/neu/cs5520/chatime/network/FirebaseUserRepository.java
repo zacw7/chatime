@@ -2,6 +2,7 @@ package edu.neu.cs5520.chatime.network;
 
 import android.net.Uri;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
@@ -24,29 +25,29 @@ public class FirebaseUserRepository implements UserRepository {
             return null;
         }
         User user = new User(firebaseUser.getUid(), firebaseUser.getDisplayName(),
-                firebaseUser.getEmail(), "");
+                firebaseUser.getEmail(), firebaseUser.getPhotoUrl().toString());
         return user;
     }
 
     @Override
-    public void updateUsername(String username) {
+    public void updateUsername(String username, OnCompleteListener<Void> onCompleteListener) {
         FirebaseUser firebaseUser = mAuth.getCurrentUser();
         if (firebaseUser != null) {
             UserProfileChangeRequest profileUpdate = new UserProfileChangeRequest.Builder()
                     .setDisplayName(username)
                     .build();
-            firebaseUser.updateProfile(profileUpdate);
+            firebaseUser.updateProfile(profileUpdate).addOnCompleteListener(onCompleteListener);
         }
     }
 
     @Override
-    public void updatePhotoUri(String photoUrl) {
+    public void updatePhotoUrl(String photoUrl, OnCompleteListener<Void> onCompleteListener) {
         FirebaseUser firebaseUser = mAuth.getCurrentUser();
         if (firebaseUser != null) {
             UserProfileChangeRequest profileUpdate = new UserProfileChangeRequest.Builder()
                     .setPhotoUri(Uri.parse(photoUrl))
                     .build();
-            firebaseUser.updateProfile(profileUpdate);
+            firebaseUser.updateProfile(profileUpdate).addOnCompleteListener(onCompleteListener);
         }
     }
 }

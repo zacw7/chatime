@@ -82,7 +82,8 @@ public class MainActivity extends AppCompatActivity implements MainPresenter.Vie
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_profile) {
-            Toast.makeText(MainActivity.this, "Profile button clicked", Toast.LENGTH_LONG).show();
+            Intent intent = new Intent(this, ProfileActivity.class);
+            startActivity(intent);
             return true;
         }
 
