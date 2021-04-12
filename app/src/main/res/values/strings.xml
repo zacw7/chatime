@@ -22,4 +22,12 @@
     <string name="upload_from_gallery">Upload from Gallery</string>
     <string name="take_photo_from_camera">Take Photo from Camera</string>
     <string name="edit_profile_photo">Edit Profile Photo</string>
+    <string name="create_a_drift_bottle">Create Drift Bottle</string>
+    <string name="add_a_photo">Add a photo</string>
+    <string name="remove">Remove</string>
+    <string name="write_your_message_here">Write your message here...</string>
+    <string name="allow_multiple_receivers">Allow multiple receivers</string>
+    <string name="create">Create</string>
+    <string name="record_a_voice_message">Record a voice message</string>
+    <string name="send_to">Send to</string>
 </resources>
