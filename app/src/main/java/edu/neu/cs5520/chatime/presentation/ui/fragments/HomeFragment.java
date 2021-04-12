@@ -26,9 +26,12 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import edu.neu.cs5520.chatime.R;
 import edu.neu.cs5520.chatime.domain.executor.impl.ThreadExecutor;
+import edu.neu.cs5520.chatime.domain.model.User;
+import edu.neu.cs5520.chatime.domain.repository.UserRepository;
 import edu.neu.cs5520.chatime.network.FirebaseUserRepository;
 import edu.neu.cs5520.chatime.presentation.presenters.HomePresenter;
 import edu.neu.cs5520.chatime.presentation.presenters.impl.HomePresenterImpl;
+import edu.neu.cs5520.chatime.presentation.ui.activities.CreateBottleActivity;
 import edu.neu.cs5520.chatime.storage.FirebaseTopicRepository;
 import edu.neu.cs5520.chatime.threading.MainThreadImpl;
 
@@ -41,7 +44,7 @@ public class HomeFragment extends Fragment implements HomePresenter.View {
     Button mButtonStartChat;
     @BindView(R.id.button_pick)
     Button mButtonPick;
-    @BindView(R.id.button_throw)
+    @BindView(R.id.button_home_create_bottle)
     Button mButtonThrow;
 
     private static final int RC_SIGN_IN = 123;
@@ -70,6 +73,18 @@ public class HomeFragment extends Fragment implements HomePresenter.View {
             topic = getString(R.string.default_topic);
         }
         mPresenter.submitTopic(topic);
+    }
+
+    @OnClick(R.id.button_home_create_bottle)
+    public void launchCreateBottleActivity() {
+        Intent intent = new Intent(getActivity(), CreateBottleActivity.class);
+        startActivity(intent);
+    }
+
+    @OnClick(R.id.button_pick)
+    public void tmp() {
+        UserRepository userRepository = new FirebaseUserRepository();
+        User user = userRepository.getCurrentUser();
     }
 
     @Override

@@ -22,7 +22,6 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".presentation.ui.activities.CreateBottleActivity"
-            android:noHistory="true"
             android:screenOrientation="portrait" />
         <activity
             android:name=".presentation.ui.activities.MainActivity"
