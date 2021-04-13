@@ -93,6 +93,124 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/image_add_audio"
                     app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layout_create_bottle_audio"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/text_add_audio_record"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/record"
+                    app:layout_constraintEnd_toEndOf="@+id/fab_add_audio_record"
+                    app:layout_constraintStart_toStartOf="@+id/fab_add_audio_record"
+                    app:layout_constraintTop_toBottomOf="@+id/fab_add_audio_record" />
+
+                <TextView
+                    android:id="@+id/text_add_audio_play"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/play"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="@+id/fab_add_audio_play"
+                    app:layout_constraintStart_toStartOf="@+id/fab_add_audio_play"
+                    app:layout_constraintTop_toBottomOf="@+id/fab_add_audio_play" />
+
+                <TextView
+                    android:id="@+id/text_add_audio_delete"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/delete"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="@+id/fab_add_audio_delete"
+                    app:layout_constraintStart_toStartOf="@+id/fab_add_audio_delete"
+                    app:layout_constraintTop_toBottomOf="@+id/fab_add_audio_delete" />
+
+                <TextView
+                    android:id="@+id/text_add_audio_cancel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/cancel"
+                    app:layout_constraintEnd_toEndOf="@+id/fab_add_audio_cancel"
+                    app:layout_constraintHorizontal_bias="0.8"
+                    app:layout_constraintStart_toStartOf="@+id/fab_add_audio_cancel"
+                    app:layout_constraintTop_toBottomOf="@+id/fab_add_audio_cancel" />
+
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/fab_add_audio_record"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    android:contentDescription="@string/record"
+                    android:focusable="true"
+                    app:backgroundTint="@color/green"
+                    app:fabCustomSize="@dimen/dp_40"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.25"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.0"
+                    app:srcCompat="@drawable/ic_baseline_fiber_manual_record_24" />
+
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/fab_add_audio_play"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    android:contentDescription="@string/play"
+                    android:focusable="true"
+                    android:visibility="gone"
+                    app:backgroundTint="@color/green"
+                    app:fabCustomSize="@dimen/dp_40"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.25"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.0"
+                    app:srcCompat="@drawable/ic_baseline_play_arrow_24" />
+
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/fab_add_audio_delete"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    android:contentDescription="@string/delete"
+                    android:focusable="true"
+                    android:visibility="gone"
+                    app:backgroundTint="@color/green"
+                    app:fabCustomSize="@dimen/dp_40"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.0"
+                    app:srcCompat="@drawable/ic_baseline_delete_24" />
+
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/fab_add_audio_cancel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    android:contentDescription="@string/cancel"
+                    android:focusable="true"
+                    app:backgroundTint="@android:color/darker_gray"
+                    app:fabCustomSize="@dimen/dp_40"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.75"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.0"
+                    app:srcCompat="@drawable/ic_baseline_clear_24" />
+
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout

@@ -10,9 +10,18 @@ public interface CreateBottlePresenter extends BasePresenter {
 
     void addPhoto(Uri uri);
     void removePhoto();
+    void startAudioAdding();
+    void cancelAudioAdding();
+    void addAudio(Uri uri);
+    void removeAudio();
 
     interface View extends BaseView {
         void displayAddedPhoto(Uri uri);
         void hidePhotoPreview();
+        void startAudioRecorder();
+        void closeAudioRecorder();
+        void startAudioPlayer();
+        void closeAudioPlayer();
+        void closeAudioSection();
     }
 }

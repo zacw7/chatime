@@ -18,6 +18,7 @@ public class CreateBottlePresenterImpl extends AbstractPresenter implements
     private StorageRepository mStorageRepository;
     private UserRepository mUserRepository;
     private Uri mPhotoUri;
+    private Uri mAudioUri;
 
     public CreateBottlePresenterImpl(Executor executor, MainThread mainThread, View view,
             StorageRepository storageRepository, UserRepository userRepository) {
@@ -37,6 +38,33 @@ public class CreateBottlePresenterImpl extends AbstractPresenter implements
     public void removePhoto() {
         mPhotoUri = null;
         mView.hidePhotoPreview();
+    }
+
+    @Override
+    public void startAudioAdding() {
+        if (mAudioUri == null) {
+            mView.startAudioRecorder();
+        }
+    }
+
+    @Override
+    public void cancelAudioAdding() {
+        mAudioUri = null;
+        mView.closeAudioSection();
+    }
+
+    @Override
+    public void addAudio(Uri uri) {
+        mAudioUri = uri;
+        mView.closeAudioRecorder();
+        mView.startAudioPlayer();
+    }
+
+    @Override
+    public void removeAudio() {
+        mAudioUri = null;
+        mView.closeAudioPlayer();
+        mView.startAudioRecorder();
     }
 
     @Override
