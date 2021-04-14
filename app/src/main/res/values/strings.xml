@@ -29,7 +29,7 @@
     <string name="allow_multiple_receivers">Allow multiple receivers</string>
     <string name="create">Create</string>
     <string name="record_an_audio_message">Record an audio message</string>
-    <string name="send_to">Send to</string>
+    <string name="add_location">Add a location</string>
     <string name="from_gallery">From Gallery</string>
     <string name="from_camera">From Camera</string>
     <string name="record">Record</string>
@@ -37,4 +37,6 @@
     <string name="play">Play</string>
     <string name="delete">Delete</string>
     <string name="cancel">Cancel</string>
+    <string name="clear">Clear</string>
+    <string name="fmt_add_location">Your bottle will be dropped at %s</string>
 </resources>

@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
@@ -25,6 +26,13 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.FileProvider;
 
 import com.bumptech.glide.Glide;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.switchmaterial.SwitchMaterial;
 
@@ -46,7 +54,8 @@ import edu.neu.cs5520.chatime.storage.FirebaseStorageRepository;
 import edu.neu.cs5520.chatime.threading.MainThreadImpl;
 
 @SuppressLint("NonConstantResourceId")
-public class CreateBottleActivity extends AppCompatActivity implements CreateBottlePresenter.View {
+public class CreateBottleActivity extends AppCompatActivity implements
+        CreateBottlePresenter.View, OnMapReadyCallback {
 
     @BindView(R.id.field_bottle_content)
     EditText mFieldBottleContent;
@@ -54,6 +63,8 @@ public class CreateBottleActivity extends AppCompatActivity implements CreateBot
     ConstraintLayout mLayoutAddPhoto;
     @BindView(R.id.layout_create_bottle_audio)
     ConstraintLayout mLayoutAddAudio;
+    @BindView(R.id.layout_location_picker)
+    ConstraintLayout mLayoutLocationPicker;
     @BindView(R.id.image_create_bottle_photo)
     ImageView mImageBottlePhoto;
     @BindView(R.id.radio_from_camera)
@@ -66,7 +77,7 @@ public class CreateBottleActivity extends AppCompatActivity implements CreateBot
     ImageView mImageAddAudio;
     @BindView(R.id.image_add_photo)
     ImageView mImageAddPhoto;
-    @BindView(R.id.image_send_to)
+    @BindView(R.id.image_add_location)
     ImageView mImageSendTo;
     @BindView(R.id.image_multiple_receivers)
     ImageView mImageMultipleReceivers;
@@ -78,6 +89,8 @@ public class CreateBottleActivity extends AppCompatActivity implements CreateBot
     FloatingActionButton mFabAudioPlay;
     @BindView(R.id.fab_add_audio_delete)
     FloatingActionButton mFabAudioDelete;
+    @BindView(R.id.fab_add_location_cancel)
+    FloatingActionButton mFabLocationCancel;
     @BindView(R.id.text_add_audio_record)
     TextView mTextAudioRecord;
     @BindView(R.id.text_add_audio_cancel)
@@ -86,6 +99,12 @@ public class CreateBottleActivity extends AppCompatActivity implements CreateBot
     TextView mTextAudioPlay;
     @BindView(R.id.text_add_audio_delete)
     TextView mTextAudioDelete;
+    @BindView(R.id.text_add_location)
+    TextView mTextLocation;
+    @BindView(R.id.button_location_confirm)
+    Button mButtonLoactionConfirm;
+    @BindView(R.id.button_location_clear)
+    Button mButtonLoactionClear;
 
     private static final String TAG = "CreateBottleActivity";
     private static final int REQUEST_RECORD_AUDIO_PERMISSION = 200;
@@ -98,10 +117,12 @@ public class CreateBottleActivity extends AppCompatActivity implements CreateBot
     private CreateBottlePresenter mPresenter;
     private MediaRecorder mMediaRecorder;
     private MediaPlayer mMediaPlayer;
+    private GoogleMap mMap;
     private String mCurrentPhotoPath;
     private String mCurrentAudioPath;
     private boolean mAudioRecording;
     private boolean mAudioPlaying;
+    private Marker mMarker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -115,6 +136,89 @@ public class CreateBottleActivity extends AppCompatActivity implements CreateBot
                 new FirebaseStorageRepository(),
                 new FirebaseUserRepository()
         );
+    }
+
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        mMap = googleMap;
+        mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+        mMap.setTrafficEnabled(false);
+        mMap.setBuildingsEnabled(false);
+        mMap.setIndoorEnabled(false);
+
+        // Add a marker in Sydney and move the camera
+        if (mMarker == null) {
+            mMarker = mMap.addMarker(new MarkerOptions().position(new LatLng(38, -122)).title("Drop it here!"));
+        }
+
+        mMarker.showInfoWindow();
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(mMarker.getPosition()));
+
+        mMap.getUiSettings().setZoomControlsEnabled(true);
+        mMap.getUiSettings().setRotateGesturesEnabled(false);
+        mMap.getUiSettings().setScrollGesturesEnabled(true);
+
+        mMap.setOnCameraMoveStartedListener(i -> mMarker.hideInfoWindow());
+        mMap.setOnCameraIdleListener(() -> mMarker.showInfoWindow());
+        mMap.setOnCameraMoveListener(() -> mMarker.setPosition(mMap.getCameraPosition().target));
+
+        mLayoutLocationPicker.setVisibility(View.VISIBLE);
+    }
+
+    @OnClick(R.id.layout_add_location)
+    public void addLocation() {
+        mPresenter.startLocationAdding();
+    }
+
+    @OnClick(R.id.button_location_confirm)
+    public void onLocationConfirm() {
+        mPresenter.addLocation(mMap.getCameraPosition().target);
+    }
+
+    @OnClick(R.id.button_location_clear)
+    public void onLocationClear() {
+        mPresenter.removeLocation();
+    }
+
+    @OnClick(R.id.fab_add_location_cancel)
+    public void onLocationCancel() {
+        mPresenter.cancelLocationAdding();
+    }
+
+    @Override
+    public void startLocationPicker() {
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.map_add_location);
+        mapFragment.getMapAsync(this);
+        mButtonLoactionConfirm.setVisibility(View.VISIBLE);
+        mButtonLoactionClear.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void saveLocation(String location) {
+        mTextLocation.setText(getString(R.string.fmt_add_location, location));
+        mImageSendTo.setColorFilter(getResources().getColor(R.color.blue));
+
+        mButtonLoactionConfirm.setVisibility(View.GONE);
+        mButtonLoactionClear.setVisibility(View.VISIBLE);
+
+        mMap.getUiSettings().setScrollGesturesEnabled(false);
+    }
+
+    @Override
+    public void clearLocation() {
+        mTextLocation.setText(R.string.add_location);
+        mImageSendTo.clearColorFilter();
+
+        mButtonLoactionConfirm.setVisibility(View.VISIBLE);
+        mButtonLoactionClear.setVisibility(View.GONE);
+
+        mMap.getUiSettings().setScrollGesturesEnabled(true);
+    }
+
+    @Override
+    public void closeLocationPicker() {
+        mLayoutLocationPicker.setVisibility(View.GONE);
     }
 
     @OnClick(R.id.layout_add_photo)
@@ -164,7 +268,7 @@ public class CreateBottleActivity extends AppCompatActivity implements CreateBot
     @Override
     public void displayAddedPhoto(Uri uri) {
         mLayoutAddPhoto.setVisibility(View.VISIBLE);
-        mImageAddPhoto.setColorFilter(getResources().getColor(R.color.red));
+        mImageAddPhoto.setColorFilter(getResources().getColor(R.color.orange));
         Glide.with(this).load(uri).into(mImageBottlePhoto);
         mRadioFromCamera.setEnabled(false);
         mRadioFromGallery.setEnabled(false);
@@ -309,7 +413,7 @@ public class CreateBottleActivity extends AppCompatActivity implements CreateBot
     @OnClick(R.id.switch_multiple_receivers)
     public void onMultipleReceiversClick() {
         if (mSwitchMultipleReceivers.isChecked()) {
-            mImageMultipleReceivers.setColorFilter(getResources().getColor(R.color.orange));
+            mImageMultipleReceivers.setColorFilter(getResources().getColor(R.color.red));
         } else {
             mImageMultipleReceivers.clearColorFilter();
         }

@@ -2,6 +2,10 @@ package edu.neu.cs5520.chatime.presentation.presenters.impl;
 
 import android.net.Uri;
 
+import com.google.android.gms.maps.model.LatLng;
+
+import java.util.Locale;
+
 import edu.neu.cs5520.chatime.domain.executor.Executor;
 import edu.neu.cs5520.chatime.domain.executor.MainThread;
 import edu.neu.cs5520.chatime.domain.repository.StorageRepository;
@@ -19,6 +23,8 @@ public class CreateBottlePresenterImpl extends AbstractPresenter implements
     private UserRepository mUserRepository;
     private Uri mPhotoUri;
     private Uri mAudioUri;
+    private LatLng mLocation;
+    private boolean mAllowMultipleReceivers;
 
     public CreateBottlePresenterImpl(Executor executor, MainThread mainThread, View view,
             StorageRepository storageRepository, UserRepository userRepository) {
@@ -65,6 +71,43 @@ public class CreateBottlePresenterImpl extends AbstractPresenter implements
         mAudioUri = null;
         mView.closeAudioPlayer();
         mView.startAudioRecorder();
+    }
+
+    @Override
+    public void startLocationAdding() {
+        if (mLocation == null) {
+            mView.startLocationPicker();
+        }
+    }
+
+    @Override
+    public void cancelLocationAdding() {
+        mLocation = null;
+        mView.clearLocation();
+        mView.closeLocationPicker();
+    }
+
+    @Override
+    public void addLocation(LatLng location) {
+        mLocation = location;
+        mView.saveLocation(String.format(Locale.US, "lat/lng: (%.2f, %.2f)", location.latitude,
+                location.longitude));
+    }
+
+    @Override
+    public void removeLocation() {
+        mLocation = null;
+        mView.clearLocation();
+    }
+
+    @Override
+    public void setAllowMultipleReceivers(boolean allowMultipleUser) {
+        mAllowMultipleReceivers = allowMultipleUser;
+    }
+
+    @Override
+    public void submitBottle(String content) {
+
     }
 
     @Override
