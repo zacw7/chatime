@@ -5,9 +5,9 @@ import android.net.Uri;
 import edu.neu.cs5520.chatime.domain.executor.Executor;
 import edu.neu.cs5520.chatime.domain.executor.MainThread;
 import edu.neu.cs5520.chatime.domain.interactors.UpdateUserProfilePhotoInteractor;
-import edu.neu.cs5520.chatime.domain.interactors.UploadFileInteractor;
+import edu.neu.cs5520.chatime.domain.interactors.UploadProfilePhotoInteractor;
 import edu.neu.cs5520.chatime.domain.interactors.impl.UpdateUserProfilePhotoInteractorImpl;
-import edu.neu.cs5520.chatime.domain.interactors.impl.UploadFileInteractorImpl;
+import edu.neu.cs5520.chatime.domain.interactors.impl.UploadProfilePhotoInteractorImpl;
 import edu.neu.cs5520.chatime.domain.repository.StorageRepository;
 import edu.neu.cs5520.chatime.domain.repository.UserRepository;
 import edu.neu.cs5520.chatime.presentation.presenters.EditProfilePhotoPresenter;
@@ -15,7 +15,7 @@ import edu.neu.cs5520.chatime.presentation.presenters.base.AbstractPresenter;
 
 public class EditProfilePhotoPresenterImpl extends AbstractPresenter implements
         EditProfilePhotoPresenter,
-        UploadFileInteractor.Callback,
+        UploadProfilePhotoInteractor.Callback,
         UpdateUserProfilePhotoInteractor.Callback {
 
     private final String TAG = "EditProfilePhotoPresenter";
@@ -41,9 +41,9 @@ public class EditProfilePhotoPresenterImpl extends AbstractPresenter implements
 
     @Override
     public void onUploadButtonClick() {
-        UploadFileInteractor
-                interactor = new UploadFileInteractorImpl(mExecutor,
-                mMainThread, this, mStorageRepository, mFile, FOLDER);
+        UploadProfilePhotoInteractor
+                interactor = new UploadProfilePhotoInteractorImpl(mExecutor,
+                mMainThread, this, mStorageRepository, mFile);
         interactor.execute();
         mView.showProgress();
     }
@@ -61,16 +61,16 @@ public class EditProfilePhotoPresenterImpl extends AbstractPresenter implements
     }
 
     @Override
-    public void onUploadFileSucceed(String location) {
+    public void onUploadProfilePhotoSucceed(String location) {
         UpdateUserProfilePhotoInteractor interactor = new UpdateUserProfilePhotoInteractorImpl(
                 mExecutor, mMainThread, this, mUserRepository, location);
         interactor.execute();
     }
 
     @Override
-    public void onUploadFileFailed(String message) {
+    public void onUploadProfilePhotoFailed(String error) {
         mView.hideProgress();
-        mView.showError(message);
+        mView.showError(error);
     }
 
     @Override

@@ -5,33 +5,44 @@ import android.net.Uri;
 import com.google.android.gms.maps.model.LatLng;
 
 import java.util.Locale;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import edu.neu.cs5520.chatime.domain.executor.Executor;
 import edu.neu.cs5520.chatime.domain.executor.MainThread;
+import edu.neu.cs5520.chatime.domain.interactors.CreateDriftBottleInteractor;
+import edu.neu.cs5520.chatime.domain.interactors.UploadAudioInteractor;
+import edu.neu.cs5520.chatime.domain.interactors.UploadDriftBottlePhotoInteractor;
+import edu.neu.cs5520.chatime.domain.interactors.impl.CreateDriftBottleInteractorImpl;
+import edu.neu.cs5520.chatime.domain.interactors.impl.UploadAudioInteractorImpl;
+import edu.neu.cs5520.chatime.domain.interactors.impl.UploadDriftBottlePhotoInteractorImpl;
+import edu.neu.cs5520.chatime.domain.model.DriftBottle;
+import edu.neu.cs5520.chatime.domain.repository.DriftBottleRepository;
 import edu.neu.cs5520.chatime.domain.repository.StorageRepository;
-import edu.neu.cs5520.chatime.domain.repository.UserRepository;
 import edu.neu.cs5520.chatime.presentation.presenters.CreateBottlePresenter;
 import edu.neu.cs5520.chatime.presentation.presenters.base.AbstractPresenter;
 
 public class CreateBottlePresenterImpl extends AbstractPresenter implements
-        CreateBottlePresenter {
+        CreateBottlePresenter, UploadDriftBottlePhotoInteractor.Callback,
+        UploadAudioInteractor.Callback, CreateDriftBottleInteractor.Callback {
 
     private final String TAG = "EditProfilePhotoPresenter";
-    private final String FOLDER = "profiles";
     private View mView;
     private StorageRepository mStorageRepository;
-    private UserRepository mUserRepository;
+    private DriftBottleRepository mDriftBottleRepository;
     private Uri mPhotoUri;
     private Uri mAudioUri;
     private LatLng mLocation;
-    private boolean mAllowMultipleReceivers;
+    private boolean mAllowingMultipleReceivers;
+    private DriftBottle mDriftBottle;
+    private AtomicInteger mNumOfBackgroundTasks;
 
     public CreateBottlePresenterImpl(Executor executor, MainThread mainThread, View view,
-            StorageRepository storageRepository, UserRepository userRepository) {
+            StorageRepository storageRepository, DriftBottleRepository driftBottleRepository) {
         super(executor, mainThread);
         mView = view;
         mStorageRepository = storageRepository;
-        mUserRepository = userRepository;
+        mDriftBottleRepository = driftBottleRepository;
     }
 
     @Override
@@ -101,13 +112,84 @@ public class CreateBottlePresenterImpl extends AbstractPresenter implements
     }
 
     @Override
-    public void setAllowMultipleReceivers(boolean allowMultipleUser) {
-        mAllowMultipleReceivers = allowMultipleUser;
+    public void setAllowingMultipleReceivers(boolean allowMultipleUser) {
+        mAllowingMultipleReceivers = allowMultipleUser;
     }
 
     @Override
-    public void submitBottle(String content) {
+    public void createBottle(String content) {
+        if (content == null || content.isEmpty()) {
+            mView.showError("Content cannot be null");
+            return;
+        }
+        mView.showProgress();
+        mDriftBottle = new DriftBottle();
+        mDriftBottle.setContent(content);
+        mDriftBottle.setAllowingMultipleReceivers(mAllowingMultipleReceivers);
 
+        mNumOfBackgroundTasks = new AtomicInteger(0);
+        if (mPhotoUri != null) {
+            mNumOfBackgroundTasks.incrementAndGet();
+            UploadDriftBottlePhotoInteractor
+                    interactor = new UploadDriftBottlePhotoInteractorImpl(mExecutor,
+                    mMainThread, this, mStorageRepository, mPhotoUri);
+            interactor.execute();
+        }
+        if (mAudioUri != null) {
+            mNumOfBackgroundTasks.incrementAndGet();
+            UploadAudioInteractor
+                    interactor = new UploadAudioInteractorImpl(mExecutor,
+                    mMainThread, this, mStorageRepository, mAudioUri);
+            interactor.execute();
+        }
+
+        if (mNumOfBackgroundTasks.get() == 0) {
+            fireDriftBottleCreatingTask();
+        }
+    }
+
+    @Override
+    public void onCreateDriftBottleSucceed(String message) {
+        mView.showError("The drift bottle has been dropped!");
+        mView.hideProgress();
+    }
+
+    @Override
+    public void onCreateDriftBottleFailed(String error) {
+        mView.showError("Something went wrong.");
+        mView.hideProgress();
+    }
+
+    @Override
+    public void onUploadAudioSucceed(String location) {
+        mDriftBottle.setAudioUrl(location);
+        if (mNumOfBackgroundTasks.decrementAndGet() == 0) {
+            fireDriftBottleCreatingTask();
+        }
+    }
+
+    @Override
+    public void onUploadAudioFailed(String error) {
+        mView.showError(error);
+        if (mNumOfBackgroundTasks.decrementAndGet() == 0) {
+            fireDriftBottleCreatingTask();
+        }
+    }
+
+    @Override
+    public void onUploadDriftBottlePhotoSucceed(String location) {
+        mDriftBottle.setPhotoUrl(location);
+        if (mNumOfBackgroundTasks.decrementAndGet() == 0) {
+            fireDriftBottleCreatingTask();
+        }
+    }
+
+    @Override
+    public void onUploadDriftBottlePhotoFailed(String error) {
+        mView.showError(error);
+        if (mNumOfBackgroundTasks.decrementAndGet() == 0) {
+            fireDriftBottleCreatingTask();
+        }
     }
 
     @Override
@@ -134,4 +216,10 @@ public class CreateBottlePresenterImpl extends AbstractPresenter implements
         mView.showError(message);
     }
 
+    private void fireDriftBottleCreatingTask() {
+        CreateDriftBottleInteractor
+                interactor = new CreateDriftBottleInteractorImpl(mExecutor,
+                mMainThread, this, mDriftBottleRepository, mDriftBottle);
+        interactor.execute();
+    }
 }

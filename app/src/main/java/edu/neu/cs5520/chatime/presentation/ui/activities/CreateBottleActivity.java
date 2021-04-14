@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -47,9 +48,9 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import edu.neu.cs5520.chatime.R;
 import edu.neu.cs5520.chatime.domain.executor.impl.ThreadExecutor;
-import edu.neu.cs5520.chatime.network.FirebaseUserRepository;
 import edu.neu.cs5520.chatime.presentation.presenters.CreateBottlePresenter;
 import edu.neu.cs5520.chatime.presentation.presenters.impl.CreateBottlePresenterImpl;
+import edu.neu.cs5520.chatime.storage.FirebaseDriftBottleRepository;
 import edu.neu.cs5520.chatime.storage.FirebaseStorageRepository;
 import edu.neu.cs5520.chatime.threading.MainThreadImpl;
 
@@ -102,9 +103,11 @@ public class CreateBottleActivity extends AppCompatActivity implements
     @BindView(R.id.text_add_location)
     TextView mTextLocation;
     @BindView(R.id.button_location_confirm)
-    Button mButtonLoactionConfirm;
+    Button mButtonLocationConfirm;
     @BindView(R.id.button_location_clear)
-    Button mButtonLoactionClear;
+    Button mButtonLocationClear;
+    @BindView(R.id.pb_create_drift_bottle)
+    ProgressBar mProgressBar;
 
     private static final String TAG = "CreateBottleActivity";
     private static final int REQUEST_RECORD_AUDIO_PERMISSION = 200;
@@ -134,7 +137,7 @@ public class CreateBottleActivity extends AppCompatActivity implements
                 MainThreadImpl.getInstance(),
                 this,
                 new FirebaseStorageRepository(),
-                new FirebaseUserRepository()
+                new FirebaseDriftBottleRepository()
         );
     }
 
@@ -190,8 +193,8 @@ public class CreateBottleActivity extends AppCompatActivity implements
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map_add_location);
         mapFragment.getMapAsync(this);
-        mButtonLoactionConfirm.setVisibility(View.VISIBLE);
-        mButtonLoactionClear.setVisibility(View.GONE);
+        mButtonLocationConfirm.setVisibility(View.VISIBLE);
+        mButtonLocationClear.setVisibility(View.GONE);
     }
 
     @Override
@@ -199,8 +202,8 @@ public class CreateBottleActivity extends AppCompatActivity implements
         mTextLocation.setText(getString(R.string.fmt_add_location, location));
         mImageSendTo.setColorFilter(getResources().getColor(R.color.blue));
 
-        mButtonLoactionConfirm.setVisibility(View.GONE);
-        mButtonLoactionClear.setVisibility(View.VISIBLE);
+        mButtonLocationConfirm.setVisibility(View.GONE);
+        mButtonLocationClear.setVisibility(View.VISIBLE);
 
         mMap.getUiSettings().setScrollGesturesEnabled(false);
     }
@@ -210,8 +213,8 @@ public class CreateBottleActivity extends AppCompatActivity implements
         mTextLocation.setText(R.string.add_location);
         mImageSendTo.clearColorFilter();
 
-        mButtonLoactionConfirm.setVisibility(View.VISIBLE);
-        mButtonLoactionClear.setVisibility(View.GONE);
+        mButtonLocationConfirm.setVisibility(View.VISIBLE);
+        mButtonLocationClear.setVisibility(View.GONE);
 
         mMap.getUiSettings().setScrollGesturesEnabled(true);
     }
@@ -359,8 +362,6 @@ public class CreateBottleActivity extends AppCompatActivity implements
 
             mFabAudioPlay.setImageResource(R.drawable.ic_baseline_play_arrow_24);
             mTextAudioPlay.setText(R.string.play);
-
-            Toast.makeText(getApplicationContext(), "Stop playing", Toast.LENGTH_LONG).show();
         } else {
             // start
             mMediaPlayer = new MediaPlayer();
@@ -372,7 +373,6 @@ public class CreateBottleActivity extends AppCompatActivity implements
             } catch (IOException e) {
                 Log.e(TAG, "prepare() failed");
             }
-            Toast.makeText(getApplicationContext(), "Start playing", Toast.LENGTH_LONG).show();
 
             mFabAudioPlay.setImageResource(R.drawable.ic_baseline_stop_24);
             mTextAudioPlay.setText(R.string.stop);
@@ -388,7 +388,6 @@ public class CreateBottleActivity extends AppCompatActivity implements
             mMediaRecorder.release();
             mMediaRecorder = null;
             mPresenter.addAudio(Uri.fromFile(new File(mCurrentAudioPath)));
-            Toast.makeText(getApplicationContext(), "Stop recording", Toast.LENGTH_LONG).show();
         } else {
             // start
             mMediaRecorder = new MediaRecorder();
@@ -405,7 +404,6 @@ public class CreateBottleActivity extends AppCompatActivity implements
             mMediaRecorder.start();
             mFabAudioRecord.setImageResource(R.drawable.ic_baseline_stop_24);
             mTextAudioRecord.setText(R.string.stop);
-            Toast.makeText(getApplicationContext(), "Start recording", Toast.LENGTH_LONG).show();
         }
         mAudioRecording = !mAudioRecording;
     }
@@ -413,10 +411,17 @@ public class CreateBottleActivity extends AppCompatActivity implements
     @OnClick(R.id.switch_multiple_receivers)
     public void onMultipleReceiversClick() {
         if (mSwitchMultipleReceivers.isChecked()) {
+            mPresenter.setAllowingMultipleReceivers(true);
             mImageMultipleReceivers.setColorFilter(getResources().getColor(R.color.red));
         } else {
+            mPresenter.setAllowingMultipleReceivers(false);
             mImageMultipleReceivers.clearColorFilter();
         }
+    }
+
+    @OnClick(R.id.button_create_bottle)
+    public void onCreateButton() {
+        mPresenter.createBottle(mFieldBottleContent.getText().toString());
     }
 
     @Override
@@ -427,17 +432,17 @@ public class CreateBottleActivity extends AppCompatActivity implements
 
     @Override
     public void showProgress() {
-
+        mProgressBar.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void hideProgress() {
-
+        mProgressBar.setVisibility(View.GONE);
     }
 
     @Override
     public void showError(String message) {
-
+        Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
     }
 
     private void dispatchTakePictureIntent() {
