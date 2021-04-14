@@ -18,6 +18,14 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.firebase.ui.auth.IdpResponse;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MapStyleOptions;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -36,7 +44,7 @@ import edu.neu.cs5520.chatime.storage.FirebaseTopicRepository;
 import edu.neu.cs5520.chatime.threading.MainThreadImpl;
 
 @SuppressLint("NonConstantResourceId")
-public class HomeFragment extends Fragment implements HomePresenter.View {
+public class HomeFragment extends Fragment implements HomePresenter.View, OnMapReadyCallback {
 
     @BindView(R.id.field_chat_topic)
     EditText mFieldChatTopic;
@@ -49,6 +57,7 @@ public class HomeFragment extends Fragment implements HomePresenter.View {
 
     private static final int RC_SIGN_IN = 123;
     private HomePresenter mPresenter;
+    private GoogleMap mMap;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
@@ -63,7 +72,26 @@ public class HomeFragment extends Fragment implements HomePresenter.View {
                 new FirebaseTopicRepository(),
                 new FirebaseUserRepository()
         );
+
+        SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager()
+                .findFragmentById(R.id.map_home);
+        mapFragment.getMapAsync(this);
+
         return root;
+    }
+
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        mMap = googleMap;
+        mMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(getActivity(), R.raw.map_style_json));
+        mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+        mMap.setTrafficEnabled(false);
+        mMap.setBuildingsEnabled(false);
+        mMap.setIndoorEnabled(false);
+        mMap.getUiSettings().setZoomControlsEnabled(false);
+        mMap.getUiSettings().setRotateGesturesEnabled(false);
+        mMap.getUiSettings().setScrollGesturesEnabled(false);
+        mMap.getUiSettings().setMapToolbarEnabled(false);
     }
 
     @OnClick(R.id.button_start_chat)
