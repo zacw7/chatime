@@ -8,4 +8,6 @@ import edu.neu.cs5520.chatime.domain.model.DriftBottle;
 public interface DriftBottleRepository {
     void createDriftBottle(DriftBottle driftBottle,
             OnCompleteListener<HttpsCallableResult> onCompleteListener);
+
+    void fetchDriftBottle(OnCompleteListener<DriftBottle> onCompleteListener);
 }

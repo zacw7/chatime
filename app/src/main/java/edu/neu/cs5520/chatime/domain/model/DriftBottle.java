@@ -3,7 +3,9 @@ package edu.neu.cs5520.chatime.domain.model;
 import com.google.firebase.Timestamp;
 
 public class DriftBottle {
+    private String mId;
     private String mCreatorUid;
+    private String mCreatorUsername;
     private String mContent;
     private String mPhotoUrl;
     private String mAudioUrl;
@@ -14,12 +16,28 @@ public class DriftBottle {
     public DriftBottle() {
     }
 
+    public String getId() {
+        return mId;
+    }
+
+    public void setId(String id) {
+        mId = id;
+    }
+
     public String getCreatorUid() {
         return mCreatorUid;
     }
 
     public void setCreatorUid(String creatorUid) {
         mCreatorUid = creatorUid;
+    }
+
+    public String getCreatorUsername() {
+        return mCreatorUsername;
+    }
+
+    public void setCreatorUsername(String creatorUsername) {
+        mCreatorUsername = creatorUsername;
     }
 
     public String getContent() {
