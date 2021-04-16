@@ -269,7 +269,7 @@ public class CreateBottleActivity extends AppCompatActivity implements
     @Override
     public void displayAddedPhoto(Uri uri) {
         mLayoutAddPhoto.setVisibility(View.VISIBLE);
-        mImageAddPhoto.setColorFilter(getResources().getColor(R.color.orange));
+        mImageAddPhoto.setColorFilter(getResources().getColor(R.color.red));
         Glide.with(this).load(uri).into(mImageBottlePhoto);
         mRadioFromCamera.setEnabled(false);
         mRadioFromGallery.setEnabled(false);
