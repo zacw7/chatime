@@ -18,14 +18,10 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.firebase.ui.auth.IdpResponse;
-import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MapStyleOptions;
-import com.google.android.gms.maps.model.Marker;
-import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -75,6 +71,7 @@ public class HomeFragment extends Fragment implements HomePresenter.View, OnMapR
 
         SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager()
                 .findFragmentById(R.id.map_home);
+        mapFragment.getView().setClickable(false);
         mapFragment.getMapAsync(this);
 
         return root;
@@ -85,6 +82,7 @@ public class HomeFragment extends Fragment implements HomePresenter.View, OnMapR
         mMap = googleMap;
         mMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(getActivity(), R.raw.map_style_json));
         mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+
         mMap.setTrafficEnabled(false);
         mMap.setBuildingsEnabled(false);
         mMap.setIndoorEnabled(false);
