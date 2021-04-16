@@ -14,9 +14,7 @@ import edu.neu.cs5520.chatime.domain.repository.UserRepository;
 import edu.neu.cs5520.chatime.presentation.presenters.ChatListPresenter;
 import edu.neu.cs5520.chatime.presentation.presenters.base.AbstractPresenter;
 import edu.neu.cs5520.chatime.presentation.ui.adapters.ChatListAdapter;
-import edu.neu.cs5520.chatime.presentation.ui.adapters.ChatMessageAdapter;
 import edu.neu.cs5520.chatime.presentation.ui.viewmodel.ChatViewModel;
-import edu.neu.cs5520.chatime.presentation.ui.viewmodel.MessageViewModel;
 
 public class ChatListPresenterImpl extends AbstractPresenter implements ChatListPresenter,
         GetRoomListInteractor.Callback, ChatListAdapter.OnItemClickListener {
@@ -84,7 +82,7 @@ public class ChatListPresenterImpl extends AbstractPresenter implements ChatList
             for (User member : room.getMembers()) {
                 if (!mMeUid.equals(member.getUid())) {
                     model.setUsername(member.getUsername());
-                    model.setPictureUrl(member.getPictureUrl());
+                    model.setPictureUrl(member.getPhotoUrl());
                 }
             }
             mItemList.add(model);

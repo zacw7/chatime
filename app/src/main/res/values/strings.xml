@@ -40,4 +40,9 @@
     <string name="clear">Clear</string>
     <string name="fmt_add_location">Your bottle will be dropped at %s</string>
     <string name="let_s_chat">Let\'s Chat</string>
+    <string name="sign_out">Sign out</string>
+    <string name="matching_failed">Not able to find anyone to chat with. Returning to Home...</string>
+    <string name="fmt_lv">Lv %d</string>
+    <string name="fmt_score">%d/100</string>
+    <string name="about_me">About Me</string>
 </resources>

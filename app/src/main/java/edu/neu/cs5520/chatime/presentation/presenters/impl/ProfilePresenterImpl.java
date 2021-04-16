@@ -2,15 +2,19 @@ package edu.neu.cs5520.chatime.presentation.presenters.impl;
 
 import edu.neu.cs5520.chatime.domain.executor.Executor;
 import edu.neu.cs5520.chatime.domain.executor.MainThread;
-import edu.neu.cs5520.chatime.domain.interactors.UpdateUserDisplayNameInteractor;
-import edu.neu.cs5520.chatime.domain.interactors.impl.GetRoomInfoInteractorImpl;
-import edu.neu.cs5520.chatime.domain.interactors.impl.UpdateUserDisplayNameInteractorImpl;
+import edu.neu.cs5520.chatime.domain.interactors.RetrieveUserProfileInteractor;
+import edu.neu.cs5520.chatime.domain.interactors.UpdateUserProfileInteractor;
+import edu.neu.cs5520.chatime.domain.interactors.impl.RetrieveUserProfileInteractorImpl;
+import edu.neu.cs5520.chatime.domain.interactors.impl.UpdateUserProfileInteractorImpl;
+import edu.neu.cs5520.chatime.domain.model.User;
 import edu.neu.cs5520.chatime.domain.repository.UserRepository;
 import edu.neu.cs5520.chatime.presentation.presenters.ProfilePresenter;
 import edu.neu.cs5520.chatime.presentation.presenters.base.AbstractPresenter;
+import edu.neu.cs5520.chatime.presentation.ui.viewmodel.ProfileViewModel;
 
 public class ProfilePresenterImpl extends AbstractPresenter implements ProfilePresenter,
-        UpdateUserDisplayNameInteractor.Callback {
+        RetrieveUserProfileInteractor.Callback,
+        UpdateUserProfileInteractor.Callback {
 
     private final String TAG = "ProfilePresenter";
     private View mView;
@@ -24,14 +28,24 @@ public class ProfilePresenterImpl extends AbstractPresenter implements ProfilePr
     }
 
     @Override
-    public void onUserDisplayNameUpdateSucceed(String message) {
+    public void onRetrieveUserProfileSucceed(User user) {
+        mView.loadUserProfile(new ProfileViewModel(user));
+    }
+
+    @Override
+    public void onRetrieveUserProfileFailed(String error) {
+        mView.showError(error);
+    }
+
+    @Override
+    public void onUserProfileUpdateSucceed(String message) {
         mView.showError(message);
         mView.hideProgress();
         mView.resetElements();
     }
 
     @Override
-    public void onUserDisplayNameUpdateFailed(String message) {
+    public void onUserProfileUpdateFailed(String message) {
         mView.showError(message);
         mView.hideProgress();
         mView.resetElements();
@@ -39,9 +53,9 @@ public class ProfilePresenterImpl extends AbstractPresenter implements ProfilePr
     }
 
     @Override
-    public void editProfile(String username) {
-        UpdateUserDisplayNameInteractor interactor = new UpdateUserDisplayNameInteractorImpl(mExecutor,
-                mMainThread, this, mUserRepository, username);
+    public void editProfile(String username, String about) {
+        UpdateUserProfileInteractor interactor = new UpdateUserProfileInteractorImpl(mExecutor,
+                mMainThread, this, mUserRepository, username, about);
         interactor.execute();
         mView.showProgress();
     }
@@ -72,6 +86,8 @@ public class ProfilePresenterImpl extends AbstractPresenter implements ProfilePr
     }
 
     private void reloadProfile() {
-        mView.loadUserProfile(mUserRepository.getCurrentUser());
+        RetrieveUserProfileInteractor interactor = new RetrieveUserProfileInteractorImpl(mExecutor,
+                mMainThread, this, mUserRepository);
+        interactor.execute();
     }
 }

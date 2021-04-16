@@ -32,7 +32,7 @@ public class MessageViewModel {
         mToUsername = userTo.getUsername();
         mDate = DATE_FMT.format(date);
         mTime = TIME_FMT.format(date);
-        mProfileUrl = userFrom.getPictureUrl();
+        mProfileUrl = userFrom.getPhotoUrl();
     }
 
     public String getContent() {

@@ -55,7 +55,7 @@ public class MatchingActivity extends AppCompatActivity implements MatchingPrese
 
             @Override
             public void onFinish() {
-                mTextMatching.setText("Not able to find anyone to chat with. Returning to Home...");
+                mTextMatching.setText(R.string.matching_failed);
                 mPresenter.matchTimeout();
             }
         };

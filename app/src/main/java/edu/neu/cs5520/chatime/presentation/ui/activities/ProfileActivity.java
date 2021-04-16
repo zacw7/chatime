@@ -1,14 +1,18 @@
 package edu.neu.cs5520.chatime.presentation.ui.activities;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
+import com.firebase.ui.auth.AuthUI;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
@@ -18,11 +22,11 @@ import butterknife.OnClick;
 import de.hdodenhof.circleimageview.CircleImageView;
 import edu.neu.cs5520.chatime.R;
 import edu.neu.cs5520.chatime.domain.executor.impl.ThreadExecutor;
-import edu.neu.cs5520.chatime.domain.model.User;
 import edu.neu.cs5520.chatime.network.FirebaseUserRepository;
 import edu.neu.cs5520.chatime.presentation.presenters.ProfilePresenter;
 import edu.neu.cs5520.chatime.presentation.presenters.impl.ProfilePresenterImpl;
 import edu.neu.cs5520.chatime.presentation.ui.fragments.EditProfilePhotoFragment;
+import edu.neu.cs5520.chatime.presentation.ui.viewmodel.ProfileViewModel;
 import edu.neu.cs5520.chatime.threading.MainThreadImpl;
 
 @SuppressLint("NonConstantResourceId")
@@ -30,14 +34,22 @@ public class ProfileActivity extends AppCompatActivity implements ProfilePresent
 
     @BindView(R.id.image_profile)
     CircleImageView mImageProfile;
+    @BindView(R.id.text_email)
+    TextView mTextEmail;
+    @BindView(R.id.text_profile_lv)
+    TextView mTextLv;
+    @BindView(R.id.text_profile_score)
+    TextView mTextScore;
     @BindView(R.id.field_username)
     EditText mFieldUsername;
-    @BindView(R.id.field_email)
-    EditText mFieldEmail;
+    @BindView(R.id.field_about_me)
+    EditText mFieldAboutMe;
     @BindView(R.id.button_profile_edit)
     Button mButtonEdit;
     @BindView(R.id.button_profile_submit)
     Button mButtonSubmit;
+    @BindView(R.id.pb_profile_score)
+    ProgressBar mPbScore;
 
     private ProfilePresenter mPresenter;
     private EditProfilePhotoFragment mEditProfilePhotoFragment;
@@ -58,12 +70,17 @@ public class ProfileActivity extends AppCompatActivity implements ProfilePresent
     }
 
     @Override
-    public void loadUserProfile(User user) {
+    public void loadUserProfile(ProfileViewModel user) {
+        mTextEmail.setText(user.getEmail());
         mFieldUsername.setText(user.getUsername());
-        mFieldEmail.setText(user.getEmail());
-        if (user.getPictureUrl() != null && !user.getPictureUrl().isEmpty()) {
+        mFieldAboutMe.setText(user.getAbout());
+        mTextLv.setText(getString(R.string.fmt_lv, user.getLevel()));
+        mTextScore.setText(getString(R.string.fmt_score, user.getCurScore()));
+        mPbScore.setProgress(user.getCurScore());
+
+        if (user.getPhotoUrl() != null && !user.getPhotoUrl().isEmpty()) {
             StorageReference pictureRef = FirebaseStorage.getInstance().getReferenceFromUrl(
-                    user.getPictureUrl());
+                    user.getPhotoUrl());
             Glide.with(this).load(pictureRef).into(mImageProfile);
         }
     }
@@ -71,7 +88,7 @@ public class ProfileActivity extends AppCompatActivity implements ProfilePresent
     @Override
     public void resetElements() {
         mFieldUsername.setEnabled(false);
-        mFieldEmail.setEnabled(false);
+        mFieldAboutMe.setEnabled(false);
         mButtonEdit.setEnabled(true);
         mButtonEdit.setVisibility(View.VISIBLE);
         mButtonSubmit.setEnabled(false);
@@ -84,6 +101,7 @@ public class ProfileActivity extends AppCompatActivity implements ProfilePresent
         mButtonEdit.setEnabled(false);
 
         mFieldUsername.setEnabled(true);
+        mFieldAboutMe.setEnabled(true);
 
         mButtonSubmit.setEnabled(true);
         mButtonSubmit.setVisibility(View.VISIBLE);
@@ -94,13 +112,21 @@ public class ProfileActivity extends AppCompatActivity implements ProfilePresent
         mButtonSubmit.setEnabled(false);
         mButtonSubmit.setVisibility(View.VISIBLE);
 
-        mPresenter.editProfile(mFieldUsername.getText().toString());
+        mPresenter.editProfile(mFieldUsername.getText().toString(),
+                mFieldAboutMe.getText().toString());
     }
 
     @OnClick(R.id.image_profile)
     public void showModalBottomSheetForProfilePhotoUpdate() {
         mEditProfilePhotoFragment.show(getSupportFragmentManager(),
                 "edit_profile_photo_dialog_fragment");
+    }
+
+    @OnClick(R.id.button_sign_out)
+    public void onSignOut() {
+        AuthUI.getInstance()
+                .signOut(this)
+                .addOnCompleteListener(task -> startActivity(new Intent(this, MainActivity.class)));
     }
 
     @Override
@@ -112,7 +138,7 @@ public class ProfileActivity extends AppCompatActivity implements ProfilePresent
     @Override
     public void disableEdit() {
         mFieldUsername.setEnabled(false);
-        mFieldEmail.setEnabled(false);
+        mFieldAboutMe.setEnabled(false);
     }
 
     @Override

@@ -1,18 +1,18 @@
 package edu.neu.cs5520.chatime.presentation.presenters;
 
 
-import edu.neu.cs5520.chatime.domain.model.User;
 import edu.neu.cs5520.chatime.presentation.presenters.base.BasePresenter;
 import edu.neu.cs5520.chatime.presentation.ui.BaseView;
+import edu.neu.cs5520.chatime.presentation.ui.viewmodel.ProfileViewModel;
 
 public interface ProfilePresenter extends BasePresenter {
 
-    void editProfile(String username);
+    void editProfile(String username, String aboutMe);
 
     interface View extends BaseView {
         void resetElements();
 
-        void loadUserProfile(User user);
+        void loadUserProfile(ProfileViewModel user);
 
         void disableEdit();
     }
