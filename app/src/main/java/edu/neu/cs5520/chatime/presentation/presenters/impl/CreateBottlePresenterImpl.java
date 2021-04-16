@@ -33,7 +33,6 @@ public class CreateBottlePresenterImpl extends AbstractPresenter implements
     private Uri mPhotoUri;
     private Uri mAudioUri;
     private LatLng mLocation;
-    private boolean mAllowingMultipleReceivers;
     private DriftBottle mDriftBottle;
     private AtomicInteger mNumOfBackgroundTasks;
 
@@ -112,11 +111,6 @@ public class CreateBottlePresenterImpl extends AbstractPresenter implements
     }
 
     @Override
-    public void setAllowingMultipleReceivers(boolean allowMultipleUser) {
-        mAllowingMultipleReceivers = allowMultipleUser;
-    }
-
-    @Override
     public void createBottle(String content) {
         if (content == null || content.isEmpty()) {
             mView.showError("Content cannot be null");
@@ -125,7 +119,6 @@ public class CreateBottlePresenterImpl extends AbstractPresenter implements
         mView.showProgress();
         mDriftBottle = new DriftBottle();
         mDriftBottle.setContent(content);
-        mDriftBottle.setAllowingMultipleReceivers(mAllowingMultipleReceivers);
 
         mNumOfBackgroundTasks = new AtomicInteger(0);
         if (mPhotoUri != null) {

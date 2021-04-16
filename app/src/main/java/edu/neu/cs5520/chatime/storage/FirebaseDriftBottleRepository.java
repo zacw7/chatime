@@ -28,7 +28,6 @@ public class FirebaseDriftBottleRepository implements DriftBottleRepository {
             OnCompleteListener<HttpsCallableResult> onCompleteListener) {
         Map<String, Object> data = new HashMap<>();
         data.put("content", driftBottle.getContent());
-        data.put("multipleReceivers", driftBottle.isAllowingMultipleReceivers());
         if (driftBottle.getAudioUrl() != null) {
             data.put("audioUrl", driftBottle.getAudioUrl());
         }

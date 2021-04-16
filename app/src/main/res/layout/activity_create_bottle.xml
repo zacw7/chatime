@@ -412,43 +412,6 @@
                 android:layout_marginBottom="@dimen/dp_8"
                 android:layout_marginTop="@dimen/dp_8">
 
-                <ImageView
-                    android:id="@+id/image_multiple_receivers"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:contentDescription="@string/allow_multiple_receivers"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/ic_baseline_groups_24" />
-
-                <TextView
-                    android:id="@+id/text_multiple_receivers"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:text="@string/allow_multiple_receivers"
-                    android:textColor="@color/design_default_color_on_secondary"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/image_multiple_receivers"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <com.google.android.material.switchmaterial.SwitchMaterial
-                    android:id="@+id/switch_multiple_receivers"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.0" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginBottom="@dimen/dp_8"
-                android:layout_marginTop="@dimen/dp_8">
-
                 <Button
                     android:id="@+id/button_create_bottle"
                     android:layout_width="wrap_content"

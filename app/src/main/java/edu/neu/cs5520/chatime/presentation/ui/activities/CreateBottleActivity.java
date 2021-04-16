@@ -73,16 +73,12 @@ public class CreateBottleActivity extends AppCompatActivity implements
     RadioButton mRadioFromCamera;
     @BindView(R.id.radio_from_gallery)
     RadioButton mRadioFromGallery;
-    @BindView(R.id.switch_multiple_receivers)
-    SwitchMaterial mSwitchMultipleReceivers;
     @BindView(R.id.image_add_audio)
     ImageView mImageAddAudio;
     @BindView(R.id.image_add_photo)
     ImageView mImageAddPhoto;
     @BindView(R.id.image_add_location)
     ImageView mImageSendTo;
-    @BindView(R.id.image_multiple_receivers)
-    ImageView mImageMultipleReceivers;
     @BindView(R.id.fab_add_audio_record)
     FloatingActionButton mFabAudioRecord;
     @BindView(R.id.fab_add_audio_cancel)
@@ -408,17 +404,6 @@ public class CreateBottleActivity extends AppCompatActivity implements
             mTextAudioRecord.setText(R.string.stop);
         }
         mAudioRecording = !mAudioRecording;
-    }
-
-    @OnClick(R.id.switch_multiple_receivers)
-    public void onMultipleReceiversClick() {
-        if (mSwitchMultipleReceivers.isChecked()) {
-            mPresenter.setAllowingMultipleReceivers(true);
-            mImageMultipleReceivers.setColorFilter(getResources().getColor(R.color.red));
-        } else {
-            mPresenter.setAllowingMultipleReceivers(false);
-            mImageMultipleReceivers.clearColorFilter();
-        }
     }
 
     @OnClick(R.id.button_create_bottle)

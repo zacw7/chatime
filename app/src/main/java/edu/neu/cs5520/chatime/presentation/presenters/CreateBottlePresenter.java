@@ -20,7 +20,6 @@ public interface CreateBottlePresenter extends BasePresenter {
     void cancelLocationAdding();
     void addLocation(LatLng location);
     void removeLocation();
-    void setAllowingMultipleReceivers(boolean allowMultipleUser);
     void createBottle(String content);
 
     interface View extends BaseView {

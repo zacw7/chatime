@@ -9,7 +9,6 @@ public class DriftBottle {
     private String mAudioUrl;
     private Double mLatitude;
     private Double mLongitude;
-    private boolean mAllowingMultipleReceivers;
     private Timestamp mCreatedAt;
 
     public DriftBottle() {
@@ -61,14 +60,6 @@ public class DriftBottle {
 
     public void setLongitude(Double longitude) {
         mLongitude = longitude;
-    }
-
-    public boolean isAllowingMultipleReceivers() {
-        return mAllowingMultipleReceivers;
-    }
-
-    public void setAllowingMultipleReceivers(boolean allowingMultipleReceivers) {
-        mAllowingMultipleReceivers = allowingMultipleReceivers;
     }
 
     public Timestamp getCreatedAt() {
