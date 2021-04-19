@@ -18,6 +18,7 @@
     <string name="sign_in_required">Please sign in</string>
     <string name="preference_file_key">local_file_storage</string>
     <string name="current_chat_room_id">CURRENT_CHAT_ROOM_ID</string>
+    <string name="current_drift_bottle">CURRENT_DRIFT_BOTTLE</string>
     <string name="default_topic">#DEFAULT_TOPIC#</string>
     <string name="upload_from_gallery">Upload from Gallery</string>
     <string name="take_photo_from_camera">Take Photo from Camera</string>
@@ -44,4 +45,9 @@
     <string name="fmt_lv">Lv %d</string>
     <string name="fmt_score">%d/100</string>
     <string name="about_me">About Me</string>
+    <string name="drift_bottle">Drift Bottle</string>
+    <string name="fmt_bottle_audio_label">audio message attached (%d seconds)</string>
+    <string name="photo_attached">photo attached</string>
+    <string name="bottle_location_label">This drift bottle is found at</string>
+    <string name="fmt_bottle_info">By <i>%s</i> at <i>%s</i></string>
 </resources>

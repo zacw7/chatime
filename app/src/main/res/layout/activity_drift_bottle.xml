@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".presentation.ui.activities.DriftBottleActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/head_toolbar_drift_bottle"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/colorPrimaryDark"
+        android:elevation="4dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.ActionBar">
+
+        <TextView
+            android:id="@+id/toolbar_title_drift_bottle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/drift_bottle"
+            android:textColor="#FFFFFF"
+            android:textSize="24sp"
+            tools:layout_editor_absoluteX="161dp"
+            tools:layout_editor_absoluteY="12dp" />
+    </androidx.appcompat.widget.Toolbar>
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:fillViewport="false"
+        android:orientation="vertical"
+        android:padding="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/head_toolbar_drift_bottle">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingEnd="@dimen/dp_8"
+            android:paddingStart="@dimen/dp_8">
+
+            <TextView
+                android:id="@+id/text_bottle_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/dp_16"
+                android:layout_marginTop="@dimen/dp_16"
+                android:text="@string/drift_bottle"
+                android:textColor="@color/black" />
+
+            <TextView
+                android:id="@+id/text_bottle_info"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/fmt_bottle_info" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layout_bottle_audio"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/dp_16"
+                android:visibility="gone">
+
+                <ImageView
+                    android:id="@+id/image_bottle_audio_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="@string/fmt_bottle_audio_label"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/ic_baseline_keyboard_voice_24"
+                    app:tint="@color/green" />
+
+                <TextView
+                    android:id="@+id/text_bottle_audio_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:text="@string/fmt_bottle_audio_label"
+                    app:layout_constraintBottom_toBottomOf="@+id/image_bottle_audio_icon"
+                    app:layout_constraintStart_toEndOf="@+id/image_bottle_audio_icon"
+                    app:layout_constraintTop_toTopOf="@+id/image_bottle_audio_icon" />
+
+                <TextView
+                    android:id="@+id/text_bottle_audio"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:text="@string/play"
+                    app:layout_constraintBottom_toBottomOf="@+id/fab_bottle_audio"
+                    app:layout_constraintStart_toEndOf="@+id/fab_bottle_audio"
+                    app:layout_constraintTop_toTopOf="@+id/fab_bottle_audio" />
+
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/fab_bottle_audio"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginEnd="@dimen/dp_48"
+                    android:layout_marginTop="8dp"
+                    android:clickable="true"
+                    android:contentDescription="@string/play"
+                    android:focusable="true"
+                    app:backgroundTint="@color/green"
+                    app:fabCustomSize="@dimen/dp_24"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/ic_baseline_play_arrow_24" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layout_bottle_photo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone">
+
+                <ImageView
+                    android:id="@+id/image_bottle_photo_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:contentDescription="@string/photo_attached"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/ic_baseline_image_24"
+                    app:tint="@color/red" />
+
+                <ImageView
+                    android:id="@+id/image_bottle_photo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginTop="8dp"
+                    android:contentDescription="@string/photo_attached"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintHeight_max="@dimen/dp_200"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/image_bottle_photo_icon"
+                    tools:srcCompat="@tools:sample/avatars" />
+
+                <TextView
+                    android:id="@+id/text_bottle_photo_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:text="@string/photo_attached"
+                    app:layout_constraintBottom_toBottomOf="@+id/image_bottle_photo_icon"
+                    app:layout_constraintStart_toEndOf="@+id/image_bottle_photo_icon"
+                    app:layout_constraintTop_toTopOf="@+id/image_bottle_photo_icon" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layout_bottle_location"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="gone">
+
+                <ImageView
+                    android:id="@+id/image_bottle_location_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:contentDescription="@string/bottle_location_label"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/ic_baseline_place_24"
+                    app:tint="@color/blue" />
+
+                <TextView
+                    android:id="@+id/text_bottle_location_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:text="@string/bottle_location_label"
+                    app:layout_constraintBottom_toBottomOf="@+id/image_bottle_location_icon"
+                    app:layout_constraintStart_toEndOf="@+id/image_bottle_location_icon"
+                    app:layout_constraintTop_toTopOf="@+id/image_bottle_location_icon" />
+
+                <fragment
+                    android:id="@+id/map_bottle_location"
+                    android:name="com.google.android.gms.maps.SupportMapFragment"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/dp_160"
+                    android:layout_marginTop="8dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/image_bottle_location_icon" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

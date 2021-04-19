@@ -22,6 +22,9 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.MapStyleOptions;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -30,12 +33,17 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import edu.neu.cs5520.chatime.R;
 import edu.neu.cs5520.chatime.domain.executor.impl.ThreadExecutor;
+import edu.neu.cs5520.chatime.domain.model.DriftBottle;
 import edu.neu.cs5520.chatime.domain.model.User;
+import edu.neu.cs5520.chatime.domain.repository.DriftBottleRepository;
 import edu.neu.cs5520.chatime.domain.repository.UserRepository;
 import edu.neu.cs5520.chatime.network.FirebaseUserRepository;
 import edu.neu.cs5520.chatime.presentation.presenters.HomePresenter;
 import edu.neu.cs5520.chatime.presentation.presenters.impl.HomePresenterImpl;
 import edu.neu.cs5520.chatime.presentation.ui.activities.CreateBottleActivity;
+import edu.neu.cs5520.chatime.presentation.ui.activities.DriftBottleActivity;
+import edu.neu.cs5520.chatime.presentation.ui.viewmodel.DriftBottleViewModel;
+import edu.neu.cs5520.chatime.storage.FirebaseDriftBottleRepository;
 import edu.neu.cs5520.chatime.storage.FirebaseTopicRepository;
 import edu.neu.cs5520.chatime.threading.MainThreadImpl;
 
@@ -54,6 +62,7 @@ public class HomeFragment extends Fragment implements HomePresenter.View, OnMapR
     private static final int RC_SIGN_IN = 123;
     private HomePresenter mPresenter;
     private GoogleMap mMap;
+    private Marker mMarker;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
@@ -111,6 +120,17 @@ public class HomeFragment extends Fragment implements HomePresenter.View, OnMapR
     public void tmp() {
         UserRepository userRepository = new FirebaseUserRepository();
         User user = userRepository.getCurrentUser();
+        DriftBottleRepository repository = new FirebaseDriftBottleRepository();
+        repository.fetchDriftBottle(new OnCompleteListener<DriftBottle>() {
+            @Override
+            public void onComplete(@NonNull Task<DriftBottle> task) {
+                DriftBottle bottle = task.getResult();
+                DriftBottleViewModel model = new DriftBottleViewModel(bottle);
+                Intent intent = new Intent(getActivity(), DriftBottleActivity.class);
+                intent.putExtra(getString(R.string.current_drift_bottle), model);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override

@@ -1,6 +1,7 @@
 package edu.neu.cs5520.chatime.storage;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.firebase.Timestamp;
 import com.google.firebase.functions.FirebaseFunctions;
 import com.google.firebase.functions.HttpsCallableResult;
 
@@ -52,6 +53,8 @@ public class FirebaseDriftBottleRepository implements DriftBottleRepository {
                     driftBottle.setCreatorUid((String) map.get("creatorUid"));
                     driftBottle.setCreatorUsername((String) map.get("creatorUsername"));
                     driftBottle.setContent((String) map.get("content"));
+                    Map<String, Integer> tsMap = (Map<String, Integer>) map.get("createdAt");
+                    driftBottle.setCreatedAt(new Timestamp(tsMap.get("_seconds"), tsMap.get("_nanoseconds")));
                     if (map.containsKey("photoUrl")) {
                         driftBottle.setPhotoUrl((String) map.get("photoUrl"));
                     }

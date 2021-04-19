@@ -3,9 +3,12 @@ package edu.neu.cs5520.chatime.storage;
 import android.net.Uri;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+
+import java.io.File;
 
 import edu.neu.cs5520.chatime.domain.repository.StorageRepository;
 
@@ -27,5 +30,12 @@ public class FirebaseStorageRepository implements StorageRepository {
 
         // Register observers to listen for when the download is done or if it fails
         uploadTask.addOnCompleteListener(onCompleteListener);
+    }
+
+    @Override
+    public void download(String url, File file,
+            OnCompleteListener<FileDownloadTask.TaskSnapshot> onCompleteListener) {
+        StorageReference fileRef = FirebaseStorage.getInstance().getReferenceFromUrl(url);
+        fileRef.getFile(file).addOnCompleteListener(onCompleteListener);
     }
 }
