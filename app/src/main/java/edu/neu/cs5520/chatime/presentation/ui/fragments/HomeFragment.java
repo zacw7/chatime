@@ -23,8 +23,6 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.Marker;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -33,10 +31,6 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import edu.neu.cs5520.chatime.R;
 import edu.neu.cs5520.chatime.domain.executor.impl.ThreadExecutor;
-import edu.neu.cs5520.chatime.domain.model.DriftBottle;
-import edu.neu.cs5520.chatime.domain.model.User;
-import edu.neu.cs5520.chatime.domain.repository.DriftBottleRepository;
-import edu.neu.cs5520.chatime.domain.repository.UserRepository;
 import edu.neu.cs5520.chatime.network.FirebaseUserRepository;
 import edu.neu.cs5520.chatime.presentation.presenters.HomePresenter;
 import edu.neu.cs5520.chatime.presentation.presenters.impl.HomePresenterImpl;
@@ -75,7 +69,8 @@ public class HomeFragment extends Fragment implements HomePresenter.View, OnMapR
                 MainThreadImpl.getInstance(),
                 this,
                 new FirebaseTopicRepository(),
-                new FirebaseUserRepository()
+                new FirebaseUserRepository(),
+                new FirebaseDriftBottleRepository()
         );
 
         SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager()
@@ -117,25 +112,20 @@ public class HomeFragment extends Fragment implements HomePresenter.View, OnMapR
     }
 
     @OnClick(R.id.button_pick)
-    public void tmp() {
-        UserRepository userRepository = new FirebaseUserRepository();
-        User user = userRepository.getCurrentUser();
-        DriftBottleRepository repository = new FirebaseDriftBottleRepository();
-        repository.fetchDriftBottle(new OnCompleteListener<DriftBottle>() {
-            @Override
-            public void onComplete(@NonNull Task<DriftBottle> task) {
-                DriftBottle bottle = task.getResult();
-                DriftBottleViewModel model = new DriftBottleViewModel(bottle);
-                Intent intent = new Intent(getActivity(), DriftBottleActivity.class);
-                intent.putExtra(getString(R.string.current_drift_bottle), model);
-                startActivity(intent);
-            }
-        });
+    public void pickDriftBottle() {
+        mPresenter.pickDriftBottle();
     }
 
     @Override
     public void showCreatingSucceed() {
         Toast.makeText(getActivity(), "showCreatingSucceed", Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void displayBottle(DriftBottleViewModel model) {
+        Intent intent = new Intent(getActivity(), DriftBottleActivity.class);
+        intent.putExtra(getString(R.string.current_drift_bottle), model);
+        startActivity(intent);
     }
 
     @Override
