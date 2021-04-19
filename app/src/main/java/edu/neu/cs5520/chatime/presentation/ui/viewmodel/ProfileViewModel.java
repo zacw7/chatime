@@ -7,18 +7,18 @@ public class ProfileViewModel {
     private String mEmail;
     private String mPhotoUrl;
     private String mAbout;
-    private int mScore;
+    private int mPoints;
     private int mLevel;
-    private int mCurScore;
+    private int mCurPoints;
 
     public ProfileViewModel(User user) {
         mUsername = user.getUsername();
         mEmail = user.getEmail();
         mPhotoUrl = user.getPhotoUrl();
         mAbout = user.getAbout();
-        mScore = user.getScore();
-        mLevel = 1 + mScore / 100;
-        mCurScore = mScore % 100;
+        mPoints = user.getPoints();
+        mLevel = 1 + mPoints / 100;
+        mCurPoints = mPoints % 100;
     }
 
     public String getUsername() {
@@ -37,15 +37,15 @@ public class ProfileViewModel {
         return mAbout;
     }
 
-    public int getScore() {
-        return mScore;
+    public int getPoints() {
+        return mPoints;
     }
 
     public int getLevel() {
         return mLevel;
     }
 
-    public int getCurScore() {
-        return mCurScore;
+    public int getCurPoints() {
+        return mCurPoints;
     }
 }

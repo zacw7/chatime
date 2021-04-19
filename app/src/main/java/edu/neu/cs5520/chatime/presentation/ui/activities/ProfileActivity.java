@@ -38,8 +38,8 @@ public class ProfileActivity extends AppCompatActivity implements ProfilePresent
     TextView mTextEmail;
     @BindView(R.id.text_profile_lv)
     TextView mTextLv;
-    @BindView(R.id.text_profile_score)
-    TextView mTextScore;
+    @BindView(R.id.text_profile_points)
+    TextView mTextPoints;
     @BindView(R.id.field_username)
     EditText mFieldUsername;
     @BindView(R.id.field_about_me)
@@ -48,8 +48,8 @@ public class ProfileActivity extends AppCompatActivity implements ProfilePresent
     Button mButtonEdit;
     @BindView(R.id.button_profile_submit)
     Button mButtonSubmit;
-    @BindView(R.id.pb_profile_score)
-    ProgressBar mPbScore;
+    @BindView(R.id.pb_profile_points)
+    ProgressBar mPbPoints;
 
     private ProfilePresenter mPresenter;
     private EditProfilePhotoFragment mEditProfilePhotoFragment;
@@ -75,8 +75,8 @@ public class ProfileActivity extends AppCompatActivity implements ProfilePresent
         mFieldUsername.setText(user.getUsername());
         mFieldAboutMe.setText(user.getAbout());
         mTextLv.setText(getString(R.string.fmt_lv, user.getLevel()));
-        mTextScore.setText(getString(R.string.fmt_score, user.getCurScore()));
-        mPbScore.setProgress(user.getCurScore());
+        mTextPoints.setText(getString(R.string.fmt_points, user.getCurPoints()));
+        mPbPoints.setProgress(user.getCurPoints());
 
         if (user.getPhotoUrl() != null && !user.getPhotoUrl().isEmpty()) {
             StorageReference pictureRef = FirebaseStorage.getInstance().getReferenceFromUrl(

@@ -2,11 +2,7 @@ package edu.neu.cs5520.chatime.network;
 
 import android.net.Uri;
 
-import androidx.annotation.NonNull;
-
-import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
@@ -59,7 +55,7 @@ public class FirebaseUserRepository implements UserRepository {
                     user.setEmail((String) map.get("email"));
                     user.setPhotoUrl((String) map.get("photoUrl"));
                     user.setAbout((String) map.get("about"));
-                    user.setScore((int)map.get("scores"));
+                    user.setPoints((int)map.get("points"));
                     return user;
                 }).addOnCompleteListener(onCompleteListener);
     }

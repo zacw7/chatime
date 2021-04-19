@@ -43,7 +43,7 @@
     <string name="sign_out">Sign out</string>
     <string name="matching_failed">Not able to find anyone to chat with. Returning to Home...</string>
     <string name="fmt_lv">Lv %d</string>
-    <string name="fmt_score">%d/100</string>
+    <string name="fmt_points">%d/100</string>
     <string name="about_me">About Me</string>
     <string name="drift_bottle">Drift Bottle</string>
     <string name="fmt_bottle_audio_label">audio message attached (%d seconds)</string>

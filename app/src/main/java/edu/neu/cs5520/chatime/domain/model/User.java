@@ -7,19 +7,19 @@ public class User {
     private String mEmail;
     private String mPhotoUrl;
     private String mAbout;
-    private int mScore;
+    private int mPoints;
 
     public User() {
     }
 
     public User(String uid, String username, String email, String photoUrl, String about,
-            int score) {
+            int points) {
         mUid = uid;
         mUsername = username;
         mEmail = email;
         mPhotoUrl = photoUrl;
         mAbout = about;
-        mScore = score;
+        mPoints = points;
     }
 
     public String getUid() {
@@ -62,12 +62,12 @@ public class User {
         mAbout = about;
     }
 
-    public int getScore() {
-        return mScore;
+    public int getPoints() {
+        return mPoints;
     }
 
-    public void setScore(int score) {
-        mScore = score;
+    public void setPoints(int points) {
+        mPoints = points;
     }
 
     @Override
@@ -78,7 +78,7 @@ public class User {
                 ", mEmail='" + mEmail + '\'' +
                 ", mPhotoUrl='" + mPhotoUrl + '\'' +
                 ", mAbout='" + mAbout + '\'' +
-                ", mScore=" + mScore +
+                ", mPoints=" + mPoints +
                 '}';
     }
 }
