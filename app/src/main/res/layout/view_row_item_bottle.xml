@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="70dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_vertical">
+
+        <ImageView
+            android:id="@+id/image_bottle_list_item"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="10dp"
+            android:adjustViewBounds="false"
+            android:contentDescription="@string/title_bottle_list"
+            android:padding="3dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_baseline_receipt_24" />
+
+        <View
+            android:id="@+id/divider_bottle_list"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:background="?android:attr/listDivider"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/text_bottle_list_from"
+            app:layout_constraintStart_toStartOf="@+id/text_bottle_list_picked_at" />
+
+        <TextView
+            android:id="@+id/text_bottle_list_picked_at"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="@string/fmt_picked_at"
+            app:layout_constraintStart_toEndOf="@+id/image_bottle_list_item"
+            app:layout_constraintTop_toTopOf="@+id/image_bottle_list_item" />
+
+        <TextView
+            android:id="@+id/text_bottle_list_from"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:text="@string/fmt_from"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/image_bottle_list_item" />
+
+        <ImageView
+            android:id="@+id/image_bottle_list_item_audio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/fmt_bottle_audio_label"
+            app:layout_constraintBottom_toBottomOf="@+id/image_bottle_list_item"
+            app:layout_constraintStart_toStartOf="@+id/text_bottle_list_picked_at"
+            app:srcCompat="@drawable/ic_baseline_keyboard_voice_24"
+            app:tint="@color/green" />
+
+        <ImageView
+            android:id="@+id/image_bottle_list_item_photo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:contentDescription="@string/add_a_photo"
+            app:layout_constraintBottom_toBottomOf="@+id/image_bottle_list_item"
+            app:layout_constraintStart_toEndOf="@+id/image_bottle_list_item_audio"
+            app:srcCompat="@drawable/ic_baseline_image_24"
+            app:tint="@color/colorAccent" />
+
+        <ImageView
+            android:id="@+id/image_bottle_list_item_location"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:contentDescription="@string/bottle_location_label"
+            app:layout_constraintBottom_toBottomOf="@+id/image_bottle_list_item"
+            app:layout_constraintStart_toEndOf="@+id/image_bottle_list_item_photo"
+            app:srcCompat="@drawable/ic_baseline_place_24"
+            app:tint="@color/blue" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>

@@ -2,6 +2,8 @@ package edu.neu.cs5520.chatime.storage;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.firebase.Timestamp;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.functions.FirebaseFunctions;
 import com.google.firebase.functions.HttpsCallableResult;
 
@@ -15,9 +17,11 @@ public class FirebaseDriftBottleRepository implements DriftBottleRepository {
 
     private final String TAG = "DriftBottleRepository";
     private FirebaseFunctions mFunctions;
+    private FirebaseFirestore mDb;
 
     public FirebaseDriftBottleRepository() {
         mFunctions = FirebaseFunctions.getInstance();
+        mDb = FirebaseFirestore.getInstance();
     }
 
     @Override
@@ -53,8 +57,12 @@ public class FirebaseDriftBottleRepository implements DriftBottleRepository {
                     driftBottle.setCreatorUid((String) map.get("creatorUid"));
                     driftBottle.setCreatorUsername((String) map.get("creatorUsername"));
                     driftBottle.setContent((String) map.get("content"));
-                    Map<String, Integer> tsMap = (Map<String, Integer>) map.get("createdAt");
-                    driftBottle.setCreatedAt(new Timestamp(tsMap.get("_seconds"), tsMap.get("_nanoseconds")));
+                    Map<String, Integer> tsCreatedMap = (Map<String, Integer>) map.get("createdAt");
+                    driftBottle.setCreatedAt(new Timestamp(tsCreatedMap.get("_seconds"),
+                            tsCreatedMap.get("_nanoseconds")));
+                    Map<String, Integer> tsPickedMap = (Map<String, Integer>) map.get("pickedAt");
+                    driftBottle.setPickedAt(new Timestamp(tsPickedMap.get("_seconds"),
+                            tsPickedMap.get("_nanoseconds")));
                     if (map.containsKey("photoUrl")) {
                         driftBottle.setPhotoUrl((String) map.get("photoUrl"));
                     }
@@ -67,5 +75,12 @@ public class FirebaseDriftBottleRepository implements DriftBottleRepository {
                     }
                     return driftBottle;
                 }).addOnCompleteListener(onCompleteListener);
+    }
+
+    @Override
+    public void getBottleList(String uid, OnCompleteListener<QuerySnapshot> onCompleteListener) {
+        mDb.collection("users/" + uid + "/bottles")
+                .get()
+                .addOnCompleteListener(onCompleteListener);
     }
 }

@@ -5,7 +5,6 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.Locale;
 
 import edu.neu.cs5520.chatime.domain.model.DriftBottle;
@@ -16,6 +15,7 @@ public class DriftBottleViewModel implements Parcelable {
     private String mCreatorUsername;
     private String mContent;
     private String mCreatedAt;
+    private String mPickedAt;
     private String mPhotoUrl;
     private String mAudioUrl;
     private Double mLatitude;
@@ -36,6 +36,7 @@ public class DriftBottleViewModel implements Parcelable {
         mLatitude = origin.getLatitude();
         mLongitude = origin.getLongitude();
         mCreatedAt = DATETIME_FMT.format(origin.getCreatedAt().toDate());;
+        mPickedAt = DATETIME_FMT.format(origin.getPickedAt().toDate());;
     }
 
     protected DriftBottleViewModel(Parcel in) {
@@ -44,6 +45,7 @@ public class DriftBottleViewModel implements Parcelable {
         mCreatorUsername = in.readString();
         mContent = in.readString();
         mCreatedAt = in.readString();
+        mPickedAt = in.readString();
         mPhotoUrl = in.readString();
         mAudioUrl = in.readString();
         mLatitude = in.readDouble();
@@ -57,6 +59,7 @@ public class DriftBottleViewModel implements Parcelable {
         dest.writeString(mCreatorUsername);
         dest.writeString(mContent);
         dest.writeString(mCreatedAt);
+        dest.writeString(mPickedAt);
         if (mPhotoUrl != null) dest.writeString(mPhotoUrl);
         if (mAudioUrl != null) dest.writeString(mAudioUrl);
         if (mLatitude != null && mLongitude != null) {
@@ -101,6 +104,10 @@ public class DriftBottleViewModel implements Parcelable {
 
     public String getCreatedAt() {
         return mCreatedAt;
+    }
+
+    public String getPickedAt() {
+        return mPickedAt;
     }
 
     public String getPhotoUrl() {

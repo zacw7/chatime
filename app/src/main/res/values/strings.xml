@@ -50,4 +50,9 @@
     <string name="photo_attached">photo attached</string>
     <string name="bottle_location_label">This drift bottle is found at</string>
     <string name="fmt_bottle_info">By <i>%s</i> at <i>%s</i></string>
+    <string name="message_to_creator">Message to creator</string>
+    <string name="pick_another_one">Pick another one</string>
+    <string name="throw_it_back">Throw it back</string>
+    <string name="fmt_picked_at">Picked at %s</string>
+    <string name="fmt_from">from %s</string>
 </resources>

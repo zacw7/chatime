@@ -12,6 +12,7 @@ public class DriftBottle {
     private Double mLatitude;
     private Double mLongitude;
     private Timestamp mCreatedAt;
+    private Timestamp mPickedAt;
 
     public DriftBottle() {
     }
@@ -86,5 +87,13 @@ public class DriftBottle {
 
     public void setCreatedAt(Timestamp createdAt) {
         mCreatedAt = createdAt;
+    }
+
+    public Timestamp getPickedAt() {
+        return mPickedAt;
+    }
+
+    public void setPickedAt(Timestamp pickedAt) {
+        mPickedAt = pickedAt;
     }
 }

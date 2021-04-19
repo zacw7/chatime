@@ -3,7 +3,6 @@ package edu.neu.cs5520.chatime.presentation.presenters.impl;
 import android.net.Uri;
 
 import java.io.File;
-import java.util.concurrent.atomic.AtomicInteger;
 
 import edu.neu.cs5520.chatime.domain.executor.Executor;
 import edu.neu.cs5520.chatime.domain.executor.MainThread;
