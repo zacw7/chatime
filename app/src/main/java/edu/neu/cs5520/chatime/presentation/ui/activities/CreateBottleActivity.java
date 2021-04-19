@@ -147,7 +147,6 @@ public class CreateBottleActivity extends AppCompatActivity implements
         mMap.setBuildingsEnabled(false);
         mMap.setIndoorEnabled(false);
 
-        // Add a marker in Sydney and move the camera
         if (mMarker == null) {
             mMarker = mMap.addMarker(new MarkerOptions().position(new LatLng(38, -122)).title("Drop it here!"));
         }
@@ -367,6 +366,10 @@ public class CreateBottleActivity extends AppCompatActivity implements
             try {
                 mMediaPlayer.setDataSource(mCurrentAudioPath);
                 mMediaPlayer.prepare();
+                mMediaPlayer.setOnCompletionListener(mp -> {
+                    mFabAudioPlay.setImageResource(R.drawable.ic_baseline_play_arrow_24);
+                    mTextAudioPlay.setText(R.string.play);
+                });
                 mMediaPlayer.start();
             } catch (IOException e) {
                 Log.e(TAG, "prepare() failed");

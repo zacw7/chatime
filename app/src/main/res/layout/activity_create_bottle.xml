@@ -41,7 +41,6 @@
     </androidx.appcompat.widget.Toolbar>
 
     <ScrollView
-        android:id="@+id/scrollView2"
         android:layout_width="fill_parent"
         android:layout_height="0dp"
         android:fillViewport="false"
@@ -399,7 +398,7 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"/>
+                    app:layout_constraintTop_toTopOf="parent" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
