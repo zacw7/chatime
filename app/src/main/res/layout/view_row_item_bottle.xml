@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="70dp">
 
@@ -49,37 +50,42 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/image_bottle_list_item" />
 
-        <ImageView
-            android:id="@+id/image_bottle_list_item_audio"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:contentDescription="@string/fmt_bottle_audio_label"
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
             app:layout_constraintBottom_toBottomOf="@+id/image_bottle_list_item"
+            app:layout_constraintEnd_toEndOf="@+id/text_bottle_list_from"
             app:layout_constraintStart_toStartOf="@+id/text_bottle_list_picked_at"
-            app:srcCompat="@drawable/ic_baseline_keyboard_voice_24"
-            app:tint="@color/green" />
+            app:layout_constraintTop_toBottomOf="@+id/text_bottle_list_picked_at">
 
-        <ImageView
-            android:id="@+id/image_bottle_list_item_photo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:contentDescription="@string/add_a_photo"
-            app:layout_constraintBottom_toBottomOf="@+id/image_bottle_list_item"
-            app:layout_constraintStart_toEndOf="@+id/image_bottle_list_item_audio"
-            app:srcCompat="@drawable/ic_baseline_image_24"
-            app:tint="@color/colorAccent" />
+            <ImageView
+                android:id="@+id/image_bottle_list_item_audio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/fmt_bottle_audio_label"
+                app:srcCompat="@drawable/ic_baseline_keyboard_voice_24"
+                app:tint="@color/green" />
 
-        <ImageView
-            android:id="@+id/image_bottle_list_item_location"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:contentDescription="@string/bottle_location_label"
-            app:layout_constraintBottom_toBottomOf="@+id/image_bottle_list_item"
-            app:layout_constraintStart_toEndOf="@+id/image_bottle_list_item_photo"
-            app:srcCompat="@drawable/ic_baseline_place_24"
-            app:tint="@color/blue" />
+            <ImageView
+                android:id="@+id/image_bottle_list_item_photo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:contentDescription="@string/add_a_photo"
+                app:srcCompat="@drawable/ic_baseline_image_24"
+                app:tint="@color/colorAccent" />
+
+            <ImageView
+                android:id="@+id/image_bottle_list_item_location"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:contentDescription="@string/bottle_location_label"
+                app:srcCompat="@drawable/ic_baseline_place_24"
+                app:tint="@color/blue" />
+        </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

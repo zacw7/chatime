@@ -83,4 +83,14 @@ public class FirebaseDriftBottleRepository implements DriftBottleRepository {
                 .get()
                 .addOnCompleteListener(onCompleteListener);
     }
+
+    @Override
+    public void throwBackDriftBottle(String bottleId,
+            OnCompleteListener<HttpsCallableResult> onCompleteListener) {
+        Map<String, Object> data = new HashMap<>();
+        data.put("bottleId", bottleId);
+
+        mFunctions.getHttpsCallable("throwBackDriftBottle").call(data).addOnCompleteListener(
+                onCompleteListener);
+    }
 }

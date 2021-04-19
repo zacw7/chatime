@@ -12,6 +12,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".presentation.ui.activities.DriftBottleActivity"
+            android:noHistory="true"
             android:screenOrientation="portrait" />
         <activity
             android:name=".presentation.ui.activities.ProfileActivity"

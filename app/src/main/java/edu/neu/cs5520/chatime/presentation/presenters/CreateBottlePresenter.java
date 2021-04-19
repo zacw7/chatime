@@ -34,5 +34,6 @@ public interface CreateBottlePresenter extends BasePresenter {
         void saveLocation(String location);
         void clearLocation();
         void closeLocationPicker();
+        void finish();
     }
 }

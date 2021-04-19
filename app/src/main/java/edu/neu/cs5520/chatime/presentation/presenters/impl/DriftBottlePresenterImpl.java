@@ -7,7 +7,12 @@ import java.io.File;
 import edu.neu.cs5520.chatime.domain.executor.Executor;
 import edu.neu.cs5520.chatime.domain.executor.MainThread;
 import edu.neu.cs5520.chatime.domain.interactors.DownloadAudioInteractor;
+import edu.neu.cs5520.chatime.domain.interactors.PickDriftBottleInteractor;
+import edu.neu.cs5520.chatime.domain.interactors.ThrowBackDriftBottleInteractor;
 import edu.neu.cs5520.chatime.domain.interactors.impl.DownloadAudioInteractorImpl;
+import edu.neu.cs5520.chatime.domain.interactors.impl.PickDriftBottleInteractorImpl;
+import edu.neu.cs5520.chatime.domain.interactors.impl.ThrowBackDriftBottleInteractorImpl;
+import edu.neu.cs5520.chatime.domain.model.DriftBottle;
 import edu.neu.cs5520.chatime.domain.repository.DriftBottleRepository;
 import edu.neu.cs5520.chatime.domain.repository.StorageRepository;
 import edu.neu.cs5520.chatime.presentation.presenters.DriftBottlePresenter;
@@ -15,10 +20,12 @@ import edu.neu.cs5520.chatime.presentation.presenters.base.AbstractPresenter;
 import edu.neu.cs5520.chatime.presentation.ui.viewmodel.DriftBottleViewModel;
 
 public class DriftBottlePresenterImpl extends AbstractPresenter implements DriftBottlePresenter,
-        DownloadAudioInteractor.Callback {
+        DownloadAudioInteractor.Callback, PickDriftBottleInteractor.Callback,
+        ThrowBackDriftBottleInteractor.Callback {
 
     private final String TAG = "EditProfilePhotoPresenter";
     private View mView;
+    private DriftBottleRepository mDriftBottleRepository;
     private StorageRepository mStorageRepository;
     private DriftBottleViewModel mDriftBottle;
     private Uri audioUri;
@@ -28,6 +35,7 @@ public class DriftBottlePresenterImpl extends AbstractPresenter implements Drift
             DriftBottleRepository driftBottleRepository, DriftBottleViewModel driftBottle) {
         super(executor, mainThread);
         mView = view;
+        mDriftBottleRepository = driftBottleRepository;
         mStorageRepository = storageRepository;
         mDriftBottle = driftBottle;
     }
@@ -42,6 +50,47 @@ public class DriftBottlePresenterImpl extends AbstractPresenter implements Drift
     public void onDownloadAudioFailed(String error) {
         mView.showError(error);
         mView.hideProgress();
+    }
+
+    @Override
+    public void onPickDriftBottleSucceed(DriftBottle driftBottle) {
+        mView.displayBottle(new DriftBottleViewModel(driftBottle));
+    }
+
+    @Override
+    public void onPickDriftBottleFailed(String error) {
+        mView.showError(error);
+    }
+
+    @Override
+    public void onThrowBackDriftBottleSucceed(String message) {
+        // TODO show message
+        mView.finish();
+    }
+
+    @Override
+    public void onThrowBackDriftBottleFailed(String error) {
+        mView.showError(error);
+    }
+
+    @Override
+    public void pickDriftBottle() {
+        PickDriftBottleInteractor interactor = new PickDriftBottleInteractorImpl(mExecutor,
+                mMainThread, this, mDriftBottleRepository);
+        interactor.execute();
+    }
+
+    @Override
+    public void throwBackDriftBottle() {
+        ThrowBackDriftBottleInteractor interactor = new ThrowBackDriftBottleInteractorImpl(
+                mExecutor,
+                mMainThread, this, mDriftBottleRepository, mDriftBottle.getId());
+        interactor.execute();
+    }
+
+    @Override
+    public void messageToCreator() {
+        // TODO
     }
 
     @Override
@@ -63,7 +112,8 @@ public class DriftBottlePresenterImpl extends AbstractPresenter implements Drift
         if (mDriftBottle.getPhotoUrl() != null) {
             mView.loadPhoto(mDriftBottle.getPhotoUrl());
         }
-        if (mDriftBottle.getLatitude() != null && mDriftBottle.getLongitude() != null) {
+        if (mDriftBottle.getLatitude() != null && mDriftBottle.getLongitude() != null
+                && mDriftBottle.getLatitude() <= 200 && mDriftBottle.getLongitude() <= 200) {
             mView.loadLocation(mDriftBottle.getLatitude(), mDriftBottle.getLongitude());
         }
         mView.showProgress();

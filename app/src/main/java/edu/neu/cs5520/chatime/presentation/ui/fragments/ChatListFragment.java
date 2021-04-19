@@ -3,38 +3,24 @@ package edu.neu.cs5520.chatime.presentation.ui.fragments;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import edu.neu.cs5520.chatime.R;
 import edu.neu.cs5520.chatime.domain.executor.impl.ThreadExecutor;
-import edu.neu.cs5520.chatime.domain.repository.UserRepository;
 import edu.neu.cs5520.chatime.network.FirebaseUserRepository;
 import edu.neu.cs5520.chatime.presentation.presenters.ChatListPresenter;
-import edu.neu.cs5520.chatime.presentation.presenters.HomePresenter;
 import edu.neu.cs5520.chatime.presentation.presenters.impl.ChatListPresenterImpl;
-import edu.neu.cs5520.chatime.presentation.presenters.impl.HomePresenterImpl;
 import edu.neu.cs5520.chatime.presentation.ui.activities.ChatActivity;
 import edu.neu.cs5520.chatime.presentation.ui.adapters.ChatListAdapter;
-import edu.neu.cs5520.chatime.presentation.ui.adapters.ChatMessageAdapter;
-import edu.neu.cs5520.chatime.presentation.ui.viewmodel.ChatListViewModel;
-import edu.neu.cs5520.chatime.presentation.ui.viewmodel.MessageViewModel;
 import edu.neu.cs5520.chatime.storage.FirebaseChatroomRepository;
-import edu.neu.cs5520.chatime.storage.FirebaseTopicRepository;
 import edu.neu.cs5520.chatime.threading.MainThreadImpl;
 
 public class ChatListFragment extends Fragment implements ChatListPresenter.View {

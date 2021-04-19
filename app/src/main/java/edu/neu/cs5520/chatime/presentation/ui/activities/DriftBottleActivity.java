@@ -1,5 +1,6 @@
 package edu.neu.cs5520.chatime.presentation.ui.activities;
 
+import android.content.Intent;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
@@ -146,14 +147,25 @@ public class DriftBottleActivity extends AppCompatActivity implements DriftBottl
         }
     }
 
+    @OnClick(R.id.button_bottle_pick)
+    public void pickAnotherOne() {
+        mPresenter.pickDriftBottle();
+    }
+    @OnClick(R.id.button_bottle_throw)
+    public void throwBackDriftBottle() {
+        mPresenter.throwBackDriftBottle();
+    }
+
+    @OnClick(R.id.button_bottle_message)
+    public void messageToCreator() {
+        mPresenter.messageToCreator();
+    }
+
     @Override
     public void loadPhoto(String url) {
         mLayoutPhoto.setVisibility(View.VISIBLE);
         StorageReference pictureRef = FirebaseStorage.getInstance().getReferenceFromUrl(url);
         Glide.with(this).load(pictureRef).into(mImagePhoto);
-//        mImagePhoto.setImageURI(uri);
-//        Bitmap myBitmap = BitmapFactory.decodeFile(file);
-//        mImagePhoto.setImageBitmap(myBitmap);
     }
 
     @Override
@@ -168,6 +180,13 @@ public class DriftBottleActivity extends AppCompatActivity implements DriftBottl
     @Override
     public File getCacheFile(String filename) {
         return new File(getCacheDir().getAbsolutePath() + "/" + filename);
+    }
+
+    @Override
+    public void displayBottle(DriftBottleViewModel model) {
+        Intent intent = new Intent(this, DriftBottleActivity.class);
+        intent.putExtra(getString(R.string.current_drift_bottle), model);
+        startActivity(intent);
     }
 
     @Override

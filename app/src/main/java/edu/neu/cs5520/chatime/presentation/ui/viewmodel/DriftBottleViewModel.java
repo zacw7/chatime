@@ -46,10 +46,10 @@ public class DriftBottleViewModel implements Parcelable {
         mContent = in.readString();
         mCreatedAt = in.readString();
         mPickedAt = in.readString();
-        mPhotoUrl = in.readString();
-        mAudioUrl = in.readString();
         mLatitude = in.readDouble();
         mLongitude = in.readDouble();
+        mPhotoUrl = in.readString();
+        mAudioUrl = in.readString();
     }
 
     @Override
@@ -60,12 +60,15 @@ public class DriftBottleViewModel implements Parcelable {
         dest.writeString(mContent);
         dest.writeString(mCreatedAt);
         dest.writeString(mPickedAt);
-        if (mPhotoUrl != null) dest.writeString(mPhotoUrl);
-        if (mAudioUrl != null) dest.writeString(mAudioUrl);
         if (mLatitude != null && mLongitude != null) {
             dest.writeDouble(mLatitude);
             dest.writeDouble(mLongitude);
+        } else {
+            dest.writeDouble(999);
+            dest.writeDouble(999);
         }
+        if (mPhotoUrl != null) dest.writeString(mPhotoUrl);
+        if (mAudioUrl != null) dest.writeString(mAudioUrl);
     }
 
     @Override

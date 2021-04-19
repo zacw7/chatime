@@ -135,6 +135,10 @@ public class CreateBottlePresenterImpl extends AbstractPresenter implements
                     mMainThread, this, mStorageRepository, mAudioUri);
             interactor.execute();
         }
+        if (mLocation != null) {
+            mDriftBottle.setLatitude(mLocation.latitude);
+            mDriftBottle.setLongitude(mLocation.longitude);
+        }
 
         if (mNumOfBackgroundTasks.get() == 0) {
             fireDriftBottleCreatingTask();
@@ -145,6 +149,7 @@ public class CreateBottlePresenterImpl extends AbstractPresenter implements
     public void onCreateDriftBottleSucceed(String message) {
         mView.showError("The drift bottle has been dropped!");
         mView.hideProgress();
+        mView.finish();
     }
 
     @Override
