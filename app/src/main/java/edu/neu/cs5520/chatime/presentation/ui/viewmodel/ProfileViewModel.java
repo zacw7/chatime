@@ -10,6 +10,7 @@ public class ProfileViewModel {
     private int mPoints;
     private int mLevel;
     private int mCurPoints;
+    private boolean mCheckedIn;
 
     public ProfileViewModel(User user) {
         mUsername = user.getUsername();
@@ -19,6 +20,7 @@ public class ProfileViewModel {
         mPoints = user.getPoints();
         mLevel = 1 + mPoints / 100;
         mCurPoints = mPoints % 100;
+        mCheckedIn = user.isCheckedIn();
     }
 
     public String getUsername() {
@@ -47,5 +49,9 @@ public class ProfileViewModel {
 
     public int getCurPoints() {
         return mCurPoints;
+    }
+
+    public boolean isCheckedIn() {
+        return mCheckedIn;
     }
 }

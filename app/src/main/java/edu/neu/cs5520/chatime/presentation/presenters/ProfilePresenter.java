@@ -9,6 +9,8 @@ public interface ProfilePresenter extends BasePresenter {
 
     void editProfile(String username, String aboutMe);
 
+    void dailyCheckIn();
+
     interface View extends BaseView {
         void resetElements();
 

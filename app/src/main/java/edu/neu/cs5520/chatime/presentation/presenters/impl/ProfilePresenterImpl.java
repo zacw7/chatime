@@ -2,8 +2,10 @@ package edu.neu.cs5520.chatime.presentation.presenters.impl;
 
 import edu.neu.cs5520.chatime.domain.executor.Executor;
 import edu.neu.cs5520.chatime.domain.executor.MainThread;
+import edu.neu.cs5520.chatime.domain.interactors.DailyCheckInInteractor;
 import edu.neu.cs5520.chatime.domain.interactors.RetrieveUserProfileInteractor;
 import edu.neu.cs5520.chatime.domain.interactors.UpdateUserProfileInteractor;
+import edu.neu.cs5520.chatime.domain.interactors.impl.DailyCheckInInteractorImpl;
 import edu.neu.cs5520.chatime.domain.interactors.impl.RetrieveUserProfileInteractorImpl;
 import edu.neu.cs5520.chatime.domain.interactors.impl.UpdateUserProfileInteractorImpl;
 import edu.neu.cs5520.chatime.domain.model.User;
@@ -13,8 +15,8 @@ import edu.neu.cs5520.chatime.presentation.presenters.base.AbstractPresenter;
 import edu.neu.cs5520.chatime.presentation.ui.viewmodel.ProfileViewModel;
 
 public class ProfilePresenterImpl extends AbstractPresenter implements ProfilePresenter,
-        RetrieveUserProfileInteractor.Callback,
-        UpdateUserProfileInteractor.Callback {
+        RetrieveUserProfileInteractor.Callback, UpdateUserProfileInteractor.Callback,
+        DailyCheckInInteractor.Callback {
 
     private final String TAG = "ProfilePresenter";
     private View mView;
@@ -53,9 +55,29 @@ public class ProfilePresenterImpl extends AbstractPresenter implements ProfilePr
     }
 
     @Override
+    public void onDailyCheckInSucceed(String message) {
+        mView.hideProgress();
+        reloadProfile();
+    }
+
+    @Override
+    public void onDailyCheckInFailed(String error) {
+        mView.hideProgress();
+        mView.showError(error);
+    }
+
+    @Override
     public void editProfile(String username, String about) {
         UpdateUserProfileInteractor interactor = new UpdateUserProfileInteractorImpl(mExecutor,
                 mMainThread, this, mUserRepository, username, about);
+        interactor.execute();
+        mView.showProgress();
+    }
+
+    @Override
+    public void dailyCheckIn() {
+        DailyCheckInInteractor interactor = new DailyCheckInInteractorImpl(mExecutor,
+                mMainThread, this, mUserRepository);
         interactor.execute();
         mView.showProgress();
     }

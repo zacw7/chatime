@@ -70,10 +70,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="24dp"
                 android:layout_marginStart="24dp"
-                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintBottom_toBottomOf="@+id/text_profile_lv"
                 app:layout_constraintEnd_toStartOf="@+id/text_profile_points"
                 app:layout_constraintStart_toEndOf="@+id/text_profile_lv"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="@+id/text_profile_lv" />
 
             <TextView
                 android:id="@+id/text_profile_lv"
@@ -82,8 +82,7 @@
                 android:layout_marginStart="32dp"
                 android:text="@string/fmt_lv"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintStart_toStartOf="parent" />
 
             <TextView
                 android:id="@+id/text_profile_points"
@@ -91,10 +90,34 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="32dp"
                 android:text="@string/fmt_points"
-                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintBottom_toBottomOf="@+id/pb_profile_points"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/pb_profile_points"
                 app:layout_constraintVertical_bias="0.0" />
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/fab_check_in"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:clickable="true"
+                android:focusable="true"
+                app:fabCustomSize="@dimen/dp_32"
+                app:layout_constraintBottom_toTopOf="@+id/text_profile_lv"
+                app:layout_constraintStart_toStartOf="@+id/text_profile_lv"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="1.0"
+                app:srcCompat="@drawable/ic_baseline_check_24" />
+
+            <TextView
+                android:id="@+id/text_profile_check_in"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="@string/check_in"
+                app:layout_constraintBottom_toBottomOf="@+id/fab_check_in"
+                app:layout_constraintStart_toEndOf="@+id/fab_check_in"
+                app:layout_constraintTop_toTopOf="@+id/fab_check_in" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -121,7 +144,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
                 android:layout_marginStart="32dp"
-                android:layout_marginTop="60dp"
+                android:layout_marginTop="32dp"
                 android:labelFor="@id/field_username"
                 android:text="@string/username"
                 app:layout_constraintBottom_toBottomOf="parent"

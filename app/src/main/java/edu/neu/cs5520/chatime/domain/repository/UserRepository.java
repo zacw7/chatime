@@ -13,4 +13,6 @@ public interface UserRepository {
     void updateProfile(String username, String about, OnCompleteListener<HttpsCallableResult> onCompleteListener);
 
     void updatePhotoUrl(String photoUrl, OnCompleteListener<Void> onCompleteListener);
+
+    void dailyCheckIn(OnCompleteListener<HttpsCallableResult> onCompleteListener);
 }

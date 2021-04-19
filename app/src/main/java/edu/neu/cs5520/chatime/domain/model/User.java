@@ -8,18 +8,9 @@ public class User {
     private String mPhotoUrl;
     private String mAbout;
     private int mPoints;
+    private boolean mCheckedIn;
 
     public User() {
-    }
-
-    public User(String uid, String username, String email, String photoUrl, String about,
-            int points) {
-        mUid = uid;
-        mUsername = username;
-        mEmail = email;
-        mPhotoUrl = photoUrl;
-        mAbout = about;
-        mPoints = points;
     }
 
     public String getUid() {
@@ -70,6 +61,14 @@ public class User {
         mPoints = points;
     }
 
+    public boolean isCheckedIn() {
+        return mCheckedIn;
+    }
+
+    public void setCheckedIn(boolean checkedIn) {
+        mCheckedIn = checkedIn;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -79,6 +78,7 @@ public class User {
                 ", mPhotoUrl='" + mPhotoUrl + '\'' +
                 ", mAbout='" + mAbout + '\'' +
                 ", mPoints=" + mPoints +
+                ", mCheckedIn=" + mCheckedIn +
                 '}';
     }
 }

@@ -5,7 +5,7 @@
     <string name="title_chat_list">Chats</string>
     <string name="title_bottle_list">Bottles</string>
     <string name="title_profile">Profile</string>
-    <string name="hint_chat_key"><i>What\'s in your mind?</i></string>
+    <string name="hint_chat_key"><i>What\'s on your mind?</i></string>
     <string name="pick_a_bottle">Pick a bottle</string>
     <string name="create_a_bottle">Create a bottle</string>
     <string name="username">Username</string>
@@ -55,4 +55,6 @@
     <string name="throw_it_back">Throw it back</string>
     <string name="fmt_picked_at">Picked at %s</string>
     <string name="fmt_from">from %s</string>
+    <string name="check_in">Check in to get 10 points</string>
+    <string name="check_in_already">You\'ve already checked in. Come back tomorrow!</string>
 </resources>

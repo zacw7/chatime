@@ -55,7 +55,8 @@ public class FirebaseUserRepository implements UserRepository {
                     user.setEmail((String) map.get("email"));
                     user.setPhotoUrl((String) map.get("photoUrl"));
                     user.setAbout((String) map.get("about"));
-                    user.setPoints((int)map.get("points"));
+                    user.setPoints((int) map.get("points"));
+                    user.setCheckedIn((boolean) map.get("checkedIn"));
                     return user;
                 }).addOnCompleteListener(onCompleteListener);
     }
@@ -81,5 +82,11 @@ public class FirebaseUserRepository implements UserRepository {
                     .build();
             firebaseUser.updateProfile(profileUpdate).addOnCompleteListener(onCompleteListener);
         }
+    }
+
+    @Override
+    public void dailyCheckIn(OnCompleteListener<HttpsCallableResult> onCompleteListener) {
+        mFunctions.getHttpsCallable("dailyCheckIn").call().addOnCompleteListener(
+                onCompleteListener);
     }
 }
