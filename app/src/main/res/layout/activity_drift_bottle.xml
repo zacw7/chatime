@@ -256,13 +256,25 @@
             app:layout_constraintStart_toEndOf="@+id/bottom_divider_left_bottle"
             app:layout_constraintTop_toTopOf="@+id/bottom_toolbar_drift_bottle" />
 
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/bottom_toolbar_drift_bottle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimaryDark"
+            android:minHeight="?attr/actionBarSize"
+            android:theme="?attr/actionBarTheme"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <View
             android:id="@+id/bottom_divider_right_bottle"
             android:layout_width="1dp"
             android:layout_height="0dp"
             android:layout_marginBottom="16dp"
             android:layout_marginTop="16dp"
-            android:background="?android:attr/listDivider"
+            android:background="@color/colorSecond"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.66"
@@ -275,22 +287,10 @@
             android:layout_height="0dp"
             android:layout_marginBottom="16dp"
             android:layout_marginTop="16dp"
-            android:background="?android:attr/listDivider"
+            android:background="@color/colorSecond"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.33"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/bottom_toolbar_drift_bottle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/colorPrimary"
-            android:minHeight="?attr/actionBarSize"
-            android:theme="?attr/actionBarTheme"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 

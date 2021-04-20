@@ -1,27 +1,24 @@
 package edu.neu.cs5520.chatime.domain.model;
 
-import java.util.List;
+import com.google.firebase.Timestamp;
 
 public class Room {
-    private String mRoomId;
+    private String mId;
     private String mTopic;
-    private List<User> mMembers;
+    private String mRecipientUid;
+    private String mRecipientUsername;
+    private Timestamp mCreatedAt;
+    private Timestamp mLastMessageTime;
 
     public Room() {
     }
 
-    public Room(String roomId, String topic, List<User> members) {
-        mRoomId = roomId;
-        mTopic = topic;
-        mMembers = members;
+    public String getId() {
+        return mId;
     }
 
-    public String getRoomId() {
-        return mRoomId;
-    }
-
-    public void setRoomId(String roomId) {
-        mRoomId = roomId;
+    public void setId(String id) {
+        mId = id;
     }
 
     public String getTopic() {
@@ -29,14 +26,38 @@ public class Room {
     }
 
     public void setTopic(String topic) {
-        this.mTopic = topic;
+        mTopic = topic;
     }
 
-    public List<User> getMembers() {
-        return mMembers;
+    public String getRecipientUid() {
+        return mRecipientUid;
     }
 
-    public void setMembers(List<User> members) {
-        this.mMembers = members;
+    public void setRecipientUid(String recipientUid) {
+        mRecipientUid = recipientUid;
+    }
+
+    public String getRecipientUsername() {
+        return mRecipientUsername;
+    }
+
+    public void setRecipientUsername(String recipientUsername) {
+        mRecipientUsername = recipientUsername;
+    }
+
+    public Timestamp getCreatedAt() {
+        return mCreatedAt;
+    }
+
+    public void setCreatedAt(Timestamp createdAt) {
+        mCreatedAt = createdAt;
+    }
+
+    public Timestamp getLastMessageTime() {
+        return mLastMessageTime;
+    }
+
+    public void setLastMessageTime(Timestamp lastMessageTime) {
+        mLastMessageTime = lastMessageTime;
     }
 }

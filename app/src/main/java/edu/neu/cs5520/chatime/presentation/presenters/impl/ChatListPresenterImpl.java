@@ -27,7 +27,8 @@ public class ChatListPresenterImpl extends AbstractPresenter implements ChatList
     private List<ChatViewModel> mItemList;
     private String mMeUid;
 
-    public ChatListPresenterImpl(Executor executor, MainThread mainThread, View view, ChatroomRepository chatroomRepository, UserRepository userRepository) {
+    public ChatListPresenterImpl(Executor executor, MainThread mainThread, View view,
+            ChatroomRepository chatroomRepository, UserRepository userRepository) {
         super(executor, mainThread);
         mView = view;
         mChatroomRepository = chatroomRepository;
@@ -35,8 +36,6 @@ public class ChatListPresenterImpl extends AbstractPresenter implements ChatList
         mMeUid = mUserRepository.getCurrentUser().getUid();
         mItemList = new ArrayList<>();
     }
-
-
 
     @Override
     public void resume() {
@@ -47,8 +46,7 @@ public class ChatListPresenterImpl extends AbstractPresenter implements ChatList
         GetRoomListInteractor interactor = new GetRoomListInteractorImpl(mExecutor,
                 mMainThread,
                 this,
-                mChatroomRepository,
-                mMeUid);
+                mChatroomRepository);
         interactor.execute();
     }
 
@@ -73,21 +71,21 @@ public class ChatListPresenterImpl extends AbstractPresenter implements ChatList
     }
 
     @Override
-    public void onRoomListRetrieved(List<Room> roomList) {
+    public void onRoomListRetrieveSucceed(List<Room> roomList) {
         mItemList.clear();
         for (Room room : roomList) {
             ChatViewModel model = new ChatViewModel();
-            model.setRoomId(room.getRoomId());
+            model.setRoomId(room.getId());
             model.setTopic(room.getTopic());
-            for (User member : room.getMembers()) {
-                if (!mMeUid.equals(member.getUid())) {
-                    model.setUsername(member.getUsername());
-                    model.setPictureUrl(member.getPhotoUrl());
-                }
-            }
+            model.setUsername(room.getRecipientUsername());
             mItemList.add(model);
         }
         mAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onRoomListRetrieveFailed(String error) {
+        mView.showError(error);
     }
 
     @Override

@@ -5,7 +5,6 @@ import edu.neu.cs5520.chatime.domain.executor.Executor;
 import edu.neu.cs5520.chatime.domain.executor.MainThread;
 import edu.neu.cs5520.chatime.domain.interactors.GetRoomInfoInteractor;
 import edu.neu.cs5520.chatime.domain.interactors.base.AbstractInteractor;
-import edu.neu.cs5520.chatime.domain.model.Room;
 import edu.neu.cs5520.chatime.domain.repository.ChatroomRepository;
 
 public class GetRoomInfoInteractorImpl extends AbstractInteractor implements GetRoomInfoInteractor {
@@ -24,9 +23,12 @@ public class GetRoomInfoInteractorImpl extends AbstractInteractor implements Get
 
     @Override
     public void run() {
-        mChatroomRepository.getRoomInfo(documentSnapshot -> {
-            Room room = documentSnapshot.toObject(Room.class);
-            mMainThread.post(() -> mCallback.onRoomInfoRetrieved(room));
+        mChatroomRepository.getRoomInfo(task -> {
+            if (task.isSuccessful()) {
+                mCallback.onRoomInfoRetrieveSucceed(task.getResult());
+            } else {
+                mCallback.onRoomInfoRetrieveFailed(task.getException().getMessage());
+            }
         });
     }
 }

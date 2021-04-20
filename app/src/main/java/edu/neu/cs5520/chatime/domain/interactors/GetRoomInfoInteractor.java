@@ -5,6 +5,7 @@ import edu.neu.cs5520.chatime.domain.model.Room;
 
 public interface GetRoomInfoInteractor extends Interactor {
     interface Callback {
-        void onRoomInfoRetrieved(Room room);
+        void onRoomInfoRetrieveSucceed(Room room);
+        void onRoomInfoRetrieveFailed(String error);
     }
 }

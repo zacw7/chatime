@@ -1,9 +1,7 @@
 package edu.neu.cs5520.chatime.presentation.presenters.impl;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import edu.neu.cs5520.chatime.domain.executor.Executor;
 import edu.neu.cs5520.chatime.domain.executor.MainThread;
@@ -36,8 +34,9 @@ public class ChatPresenterImpl extends AbstractPresenter implements ChatPresente
     private UserRepository mUserRepository;
     private List<MessageViewModel> mItemList;
     private String mMeUid;
+    private String mMeUsername;
     private String mToUid;
-    private Map<String, User> mUidMap;
+    private String mToUsername;
     private GetRoomInfoInteractor mGetRoomInfoInteractor;
     private ReceiveMessageInteractor mReceiveMessageInteractor;
 
@@ -50,7 +49,6 @@ public class ChatPresenterImpl extends AbstractPresenter implements ChatPresente
         mChatroomRepository = chatroomRepository;
         mUserRepository = userRepository;
         mItemList = new ArrayList<>();
-        mUidMap = new HashMap<>();
         mGetRoomInfoInteractor = new GetRoomInfoInteractorImpl(
                 mExecutor,
                 mMainThread,
@@ -93,8 +91,10 @@ public class ChatPresenterImpl extends AbstractPresenter implements ChatPresente
 
     @Override
     public void resume() {
-        // set my uid
-        mMeUid = mUserRepository.getCurrentUser().getUid();
+        // set my info
+        User user = mUserRepository.getCurrentUser();
+        mMeUid = user.getUid();
+        mMeUsername = user.getUsername();
 
         // room info retrieval
         mView.showProgress();
@@ -126,25 +126,36 @@ public class ChatPresenterImpl extends AbstractPresenter implements ChatPresente
     }
 
     @Override
-    public void onRoomInfoRetrieved(Room room) {
-        for (User user : room.getMembers()) {
-            mUidMap.put(user.getUid(), user);
-            if (!user.getUid().equals(mMeUid)) {
-                mToUid = user.getUid();
-            }
-        }
-        mView.setRecipient(mUidMap.get(mToUid).getUsername());
+    public void onRoomInfoRetrieveSucceed(Room room) {
+        mToUid = room.getRecipientUid();
+        mToUsername = room.getRecipientUsername();
+        mView.setRecipient(mToUsername);
         mView.setChatTopic(room.getTopic());
         mView.enableChat();
         mReceiveMessageInteractor.execute();
     }
 
     @Override
+    public void onRoomInfoRetrieveFailed(String error) {
+        mView.showError(error);
+    }
+
+    @Override
     public void onMessagesReceived(List<Message> messageList) {
         mItemList.clear();
         for (Message message : messageList) {
-            MessageViewModel item = new MessageViewModel(message, mUidMap);
-            MessageViewModel last = mItemList.isEmpty() ? null : mItemList.get(mItemList.size() - 1);
+            MessageViewModel item = new MessageViewModel(message);
+            item.setFromUid(message.getFrom());
+            item.setToUid(message.getTo());
+            if (mToUid.equals(message.getFrom())) {
+                item.setToUid(mToUsername);
+                item.setFromUsername(mMeUsername);
+            } else {
+                item.setToUid(mMeUsername);
+                item.setFromUsername(mToUsername);
+            }
+            MessageViewModel last = mItemList.isEmpty() ? null : mItemList.get(
+                    mItemList.size() - 1);
             item.setDateShowing(last == null || !item.getDate().equals(last.getDate()));
             mItemList.add(item);
         }

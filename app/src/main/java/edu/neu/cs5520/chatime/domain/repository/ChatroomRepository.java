@@ -1,10 +1,12 @@
 package edu.neu.cs5520.chatime.domain.repository;
 
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
+import com.google.android.gms.tasks.OnCompleteListener;
+
+import java.util.List;
+
+import edu.neu.cs5520.chatime.domain.model.Room;
 
 public interface ChatroomRepository {
-    void getRoomInfo(OnSuccessListener<DocumentSnapshot> listener);
-    void getRoomList(OnSuccessListener<QuerySnapshot> listener);
+    void getRoomInfo(OnCompleteListener<Room> onCompleteListener);
+    void getRoomList(OnCompleteListener<List<Room>> onCompleteListener);
 }
