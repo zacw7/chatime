@@ -31,12 +31,12 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.switchmaterial.SwitchMaterial;
 
 import java.io.File;
 import java.io.IOException;
@@ -148,7 +148,8 @@ public class CreateBottleActivity extends AppCompatActivity implements
         mMap.setIndoorEnabled(false);
 
         if (mMarker == null) {
-            mMarker = mMap.addMarker(new MarkerOptions().position(new LatLng(38, -122)).title("Drop it here!"));
+            mMarker = mMap.addMarker(new MarkerOptions().position(new LatLng(38, -122)).icon(
+                    BitmapDescriptorFactory.defaultMarker(213)).title("Drop it here!"));
         }
 
         mMarker.showInfoWindow();

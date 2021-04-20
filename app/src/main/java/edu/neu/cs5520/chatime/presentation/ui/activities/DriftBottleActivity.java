@@ -16,6 +16,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -92,7 +93,8 @@ public class DriftBottleActivity extends AppCompatActivity implements DriftBottl
         mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
 
         if (mLocation != null) {
-            mMap.addMarker(new MarkerOptions().position(mLocation));
+            mMap.addMarker(new MarkerOptions().position(mLocation).icon(
+                    BitmapDescriptorFactory.defaultMarker(213)));
             mMap.moveCamera(CameraUpdateFactory.newLatLng(mLocation));
         }
 
@@ -151,6 +153,7 @@ public class DriftBottleActivity extends AppCompatActivity implements DriftBottl
     public void pickAnotherOne() {
         mPresenter.pickDriftBottle();
     }
+
     @OnClick(R.id.button_bottle_throw)
     public void throwBackDriftBottle() {
         mPresenter.throwBackDriftBottle();

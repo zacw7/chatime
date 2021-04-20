@@ -21,10 +21,15 @@ import com.firebase.ui.auth.IdpResponse;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+
+import java.util.Random;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -53,6 +58,7 @@ public class HomeFragment extends Fragment implements HomePresenter.View, OnMapR
     @BindView(R.id.button_home_create_bottle)
     Button mButtonThrow;
 
+    private static final int NUM_MARKS = 3;
     private static final int RC_SIGN_IN = 123;
     private HomePresenter mPresenter;
     private GoogleMap mMap;
@@ -94,6 +100,16 @@ public class HomeFragment extends Fragment implements HomePresenter.View, OnMapR
         mMap.getUiSettings().setRotateGesturesEnabled(false);
         mMap.getUiSettings().setScrollGesturesEnabled(false);
         mMap.getUiSettings().setMapToolbarEnabled(false);
+
+        Random rand = new Random();
+        for (int i = 0; i < NUM_MARKS; i++) {
+            int latitude = rand.nextInt(100) - 50;
+            int longitude = rand.nextInt(360) - 180;
+            System.out.println("laclon " + latitude + " " + longitude);
+            mMap.addMarker(new MarkerOptions().position(new LatLng(latitude, longitude)).icon(
+                    BitmapDescriptorFactory.defaultMarker(213)).title(
+                    "Pick it up!"));
+        }
     }
 
     @OnClick(R.id.button_start_chat)
