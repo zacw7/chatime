@@ -88,7 +88,7 @@ public class ProfileActivity extends AppCompatActivity implements ProfilePresent
             mFabCheckIn.setEnabled(false);
             mFabCheckIn.setFocusable(false);
             mFabCheckIn.setBackgroundTintList(
-                    ColorStateList.valueOf(getResources().getColor(R.color.grey)));
+                    ColorStateList.valueOf(getResources().getColor(R.color.colorSecond)));
             mTextCheckIn.setText(R.string.check_in_already);
         }
 

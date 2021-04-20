@@ -55,7 +55,7 @@
                 android:layout_marginBottom="@dimen/dp_16"
                 android:layout_marginTop="@dimen/dp_16"
                 android:text="@string/drift_bottle"
-                android:textColor="@color/black" />
+                android:textColor="@color/colorPrimaryDark" />
 
             <TextView
                 android:id="@+id/text_bottle_info"
@@ -79,7 +79,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:srcCompat="@drawable/ic_baseline_keyboard_voice_24"
-                    app:tint="@color/green" />
+                    app:tint="@color/colorPrimary" />
 
                 <TextView
                     android:id="@+id/text_bottle_audio_label"
@@ -111,7 +111,7 @@
                     android:clickable="true"
                     android:contentDescription="@string/play"
                     android:focusable="true"
-                    app:backgroundTint="@color/green"
+                    app:backgroundTint="@color/colorPrimary"
                     app:fabCustomSize="@dimen/dp_24"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -134,7 +134,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:srcCompat="@drawable/ic_baseline_image_24"
-                    app:tint="@color/red" />
+                    app:tint="@color/colorPrimary" />
 
                 <ImageView
                     android:id="@+id/image_bottle_photo"
@@ -175,7 +175,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:srcCompat="@drawable/ic_baseline_place_24"
-                    app:tint="@color/blue" />
+                    app:tint="@color/colorPrimary" />
 
                 <TextView
                     android:id="@+id/text_bottle_location_label"
@@ -207,21 +207,65 @@
         android:id="@+id/layout_bottom_toolbar_drift_bottle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.43"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/scrollView3">
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/bottom_toolbar_drift_bottle"
-            android:layout_width="match_parent"
+        <Button
+            android:id="@+id/button_bottle_throw"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="?attr/colorPrimary"
-            android:minHeight="?attr/actionBarSize"
-            android:theme="?attr/actionBarTheme"
+            android:background="@android:color/transparent"
+            android:text="@string/throw_it_back"
+            android:textColor="@color/colorLight"
+            android:textColorHint="@color/colorPrimary"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@+id/bottom_toolbar_drift_bottle"
+            app:layout_constraintEnd_toStartOf="@+id/bottom_divider_left_bottle"
+            app:layout_constraintStart_toStartOf="@+id/bottom_toolbar_drift_bottle"
+            app:layout_constraintTop_toTopOf="@+id/bottom_toolbar_drift_bottle" />
+
+        <Button
+            android:id="@+id/button_bottle_message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:text="@string/message_to_creator"
+            android:textColor="@color/colorLight"
+            android:textColorHint="@color/colorPrimary"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@+id/bottom_toolbar_drift_bottle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/bottom_divider_right_bottle"
+            app:layout_constraintTop_toTopOf="@+id/bottom_toolbar_drift_bottle" />
+
+        <Button
+            android:id="@+id/button_bottle_pick"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:text="@string/pick_another_one"
+            android:textColor="@color/colorLight"
+            android:textColorHint="@color/colorPrimary"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@+id/bottom_toolbar_drift_bottle"
+            app:layout_constraintEnd_toStartOf="@+id/bottom_divider_right_bottle"
+            app:layout_constraintStart_toEndOf="@+id/bottom_divider_left_bottle"
+            app:layout_constraintTop_toTopOf="@+id/bottom_toolbar_drift_bottle" />
+
+        <View
+            android:id="@+id/bottom_divider_right_bottle"
+            android:layout_width="1dp"
+            android:layout_height="0dp"
+            android:layout_marginBottom="16dp"
+            android:layout_marginTop="16dp"
+            android:background="?android:attr/listDivider"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.66"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -238,60 +282,17 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <View
-            android:id="@+id/bottom_divider_right_bottle"
-            android:layout_width="1dp"
-            android:layout_height="0dp"
-            android:layout_marginBottom="16dp"
-            android:layout_marginTop="16dp"
-            android:background="?android:attr/listDivider"
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/bottom_toolbar_drift_bottle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary"
+            android:minHeight="?attr/actionBarSize"
+            android:theme="?attr/actionBarTheme"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.66"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-
-        <Button
-            android:id="@+id/button_bottle_throw"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@android:color/transparent"
-            android:text="@string/throw_it_back"
-            android:textColor="@color/white"
-            android:textColorHint="@color/colorPrimary"
-            android:textSize="12sp"
-            app:layout_constraintBottom_toBottomOf="@+id/bottom_toolbar_drift_bottle"
-            app:layout_constraintEnd_toStartOf="@+id/bottom_divider_left_bottle"
-            app:layout_constraintStart_toStartOf="@+id/bottom_toolbar_drift_bottle"
-            app:layout_constraintTop_toTopOf="@+id/bottom_toolbar_drift_bottle" />
-
-        <Button
-            android:id="@+id/button_bottle_message"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@android:color/transparent"
-            android:text="@string/message_to_creator"
-            android:textColor="@color/white"
-            android:textColorHint="@color/colorPrimary"
-            android:textSize="12sp"
-            app:layout_constraintBottom_toBottomOf="@+id/bottom_toolbar_drift_bottle"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/bottom_divider_right_bottle"
-            app:layout_constraintTop_toTopOf="@+id/bottom_toolbar_drift_bottle" />
-
-        <Button
-            android:id="@+id/button_bottle_pick"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@android:color/transparent"
-            android:text="@string/pick_another_one"
-            android:textColor="@color/white"
-            android:textColorHint="@color/colorPrimary"
-            android:textSize="12sp"
-            app:layout_constraintBottom_toBottomOf="@+id/bottom_toolbar_drift_bottle"
-            app:layout_constraintEnd_toStartOf="@+id/bottom_divider_right_bottle"
-            app:layout_constraintStart_toEndOf="@+id/bottom_divider_left_bottle"
-            app:layout_constraintTop_toTopOf="@+id/bottom_toolbar_drift_bottle" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -197,7 +197,7 @@ public class CreateBottleActivity extends AppCompatActivity implements
     @Override
     public void saveLocation(String location) {
         mTextLocation.setText(getString(R.string.fmt_add_location, location));
-        mImageSendTo.setColorFilter(getResources().getColor(R.color.blue));
+        mImageSendTo.setColorFilter(getResources().getColor(R.color.colorPrimary));
 
         mButtonLocationConfirm.setVisibility(View.GONE);
         mButtonLocationClear.setVisibility(View.VISIBLE);
@@ -268,7 +268,7 @@ public class CreateBottleActivity extends AppCompatActivity implements
     @Override
     public void displayAddedPhoto(Uri uri) {
         mLayoutAddPhoto.setVisibility(View.VISIBLE);
-        mImageAddPhoto.setColorFilter(getResources().getColor(R.color.red));
+        mImageAddPhoto.setColorFilter(getResources().getColor(R.color.colorPrimary));
         Glide.with(this).load(uri).into(mImageBottlePhoto);
         mRadioFromCamera.setEnabled(false);
         mRadioFromGallery.setEnabled(false);
@@ -305,7 +305,7 @@ public class CreateBottleActivity extends AppCompatActivity implements
 
     @Override
     public void startAudioPlayer() {
-        mImageAddAudio.setColorFilter(getResources().getColor(R.color.green));
+        mImageAddAudio.setColorFilter(getResources().getColor(R.color.colorPrimary));
         mLayoutAddAudio.setVisibility(View.VISIBLE);
         mMediaPlayer = null;
         mFabAudioPlay.setImageResource(R.drawable.ic_baseline_play_arrow_24);

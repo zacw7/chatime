@@ -1,11 +1,11 @@
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginBottom="@dimen/dp_8"
     android:layout_marginTop="@dimen/dp_8"
+    android:background="@color/colorSecond"
     android:orientation="vertical">
 
     <TextView
@@ -16,6 +16,34 @@
         android:gravity="center"
         android:text="@string/edit_profile_photo"
         android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/text_edit_photo_camera"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_48"
+        android:layout_marginEnd="@dimen/dp_16"
+        android:layout_marginStart="@dimen/dp_16"
+        android:backgroundTint="@color/colorSecond"
+        android:drawablePadding="@dimen/dp_32"
+        android:drawableStart="@drawable/ic_baseline_camera_alt_24"
+        android:gravity="start|center_vertical"
+        android:text="@string/take_photo_from_camera"
+        android:textSize="16sp"
+        tools:ignore="UseCompatTextViewDrawableXml" />
+
+    <TextView
+        android:id="@+id/text_edit_photo_gallery"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginEnd="@dimen/dp_16"
+        android:layout_marginStart="@dimen/dp_16"
+        android:backgroundTint="@color/colorSecond"
+        android:drawablePadding="@dimen/dp_32"
+        android:drawableStart="@drawable/ic_baseline_image_24"
+        android:gravity="start|center_vertical"
+        android:text="@string/upload_from_gallery"
+        android:textSize="16sp"
+        tools:ignore="UseCompatTextViewDrawableXml" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layout_photo_preview"
@@ -42,33 +70,5 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:src="@tools:sample/avatars" />
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <TextView
-        android:id="@+id/text_edit_photo_camera"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_48"
-        android:layout_marginEnd="@dimen/dp_16"
-        android:layout_marginStart="@dimen/dp_16"
-        android:backgroundTint="@android:color/white"
-        android:drawablePadding="@dimen/dp_32"
-        android:drawableStart="@drawable/ic_baseline_camera_alt_24"
-        android:gravity="start|center_vertical"
-        android:text="@string/take_photo_from_camera"
-        android:textSize="16sp"
-        tools:ignore="UseCompatTextViewDrawableXml" />
-
-    <TextView
-        android:id="@+id/text_edit_photo_gallery"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:layout_marginEnd="@dimen/dp_16"
-        android:layout_marginStart="@dimen/dp_16"
-        android:backgroundTint="@android:color/white"
-        android:drawablePadding="@dimen/dp_32"
-        android:gravity="start|center_vertical"
-        android:text="@string/upload_from_gallery"
-        android:textSize="16sp"
-        android:drawableStart="@drawable/ic_baseline_image_24"
-        tools:ignore="UseCompatTextViewDrawableXml" />
 
 </LinearLayout>
