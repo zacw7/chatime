@@ -48,14 +48,13 @@ public class HomePresenterImpl extends AbstractPresenter implements HomePresente
     public void submitTopic(String topic) {
         SubscribeTopicInteractor interactor = new SubscribeTopicInteractorImpl(mExecutor,
                 mMainThread,
-                this, mTopicRepository, mUserRepository.getCurrentUser().getUid(), topic);
+                this, mTopicRepository, topic);
         interactor.execute();
     }
 
     // callbacks
     @Override
     public void onSubscribeTopicSucceed(String message) {
-        mView.showErrorMessage("onSubscribeTopicSucceed");
         mView.launchActivity(MatchingActivity.class);
     }
 
@@ -98,6 +97,4 @@ public class HomePresenterImpl extends AbstractPresenter implements HomePresente
     public void onError(String message) {
 
     }
-
-
 }

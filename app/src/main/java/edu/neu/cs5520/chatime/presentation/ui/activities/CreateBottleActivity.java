@@ -262,7 +262,7 @@ public class CreateBottleActivity extends AppCompatActivity implements
             mCurrentAudioPath = generateAudioFile();
             mPresenter.startAudioAdding();
         } else {
-            showError("Permission denied");
+            showMessage("Permission denied");
         }
     }
 
@@ -432,7 +432,7 @@ public class CreateBottleActivity extends AppCompatActivity implements
     }
 
     @Override
-    public void showError(String message) {
+    public void showMessage(String message) {
         Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
     }
 

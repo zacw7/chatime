@@ -209,7 +209,7 @@ public class DriftBottleActivity extends AppCompatActivity implements DriftBottl
     }
 
     @Override
-    public void showError(String message) {
+    public void showMessage(String message) {
 
     }
 

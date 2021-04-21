@@ -171,7 +171,7 @@ public class ProfileActivity extends AppCompatActivity implements ProfilePresent
     }
 
     @Override
-    public void showError(String message) {
+    public void showMessage(String message) {
 
     }
 }

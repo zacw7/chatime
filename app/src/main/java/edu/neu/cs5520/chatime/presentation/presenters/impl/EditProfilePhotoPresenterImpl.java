@@ -57,7 +57,7 @@ public class EditProfilePhotoPresenterImpl extends AbstractPresenter implements
     @Override
     public void onUserProfilePhotoUpdateFailed(String message) {
         mView.hideProgress();
-        mView.showError(message);
+        mView.showMessage(message);
     }
 
     @Override
@@ -70,7 +70,7 @@ public class EditProfilePhotoPresenterImpl extends AbstractPresenter implements
     @Override
     public void onUploadProfilePhotoFailed(String error) {
         mView.hideProgress();
-        mView.showError(error);
+        mView.showMessage(error);
     }
 
     @Override
@@ -94,7 +94,7 @@ public class EditProfilePhotoPresenterImpl extends AbstractPresenter implements
 
     @Override
     public void onError(String message) {
-        mView.showError(message);
+        mView.showMessage(message);
     }
 
 }

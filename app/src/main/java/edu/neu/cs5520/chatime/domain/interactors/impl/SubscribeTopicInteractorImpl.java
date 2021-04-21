@@ -11,26 +11,23 @@ public class SubscribeTopicInteractorImpl extends AbstractInteractor implements
 
     private Callback mCallback;
     private TopicRepository mTopicRepository;
-    private String mUserId;
     private String mTopic;
 
     public SubscribeTopicInteractorImpl(Executor threadExecutor,
             MainThread mainThread,
             Callback callback,
             TopicRepository topicRepository,
-            String userId,
             String topic) {
         super(threadExecutor, mainThread);
         mCallback = callback;
         mTopicRepository = topicRepository;
-        mUserId = userId;
         mTopic = topic;
     }
 
     @Override
     public void run() {
         try {
-            mTopicRepository.subscribeTopic(mUserId, mTopic);
+            mTopicRepository.subscribeTopic(mTopic);
             mMainThread.post(() -> mCallback.onSubscribeTopicSucceed("Succeed!"));
         } catch (Exception e) {
             e.printStackTrace();

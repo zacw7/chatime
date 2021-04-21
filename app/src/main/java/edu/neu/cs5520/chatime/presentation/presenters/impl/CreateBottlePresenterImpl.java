@@ -5,7 +5,6 @@ import android.net.Uri;
 import com.google.android.gms.maps.model.LatLng;
 
 import java.util.Locale;
-import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import edu.neu.cs5520.chatime.domain.executor.Executor;
@@ -113,7 +112,7 @@ public class CreateBottlePresenterImpl extends AbstractPresenter implements
     @Override
     public void createBottle(String content) {
         if (content == null || content.isEmpty()) {
-            mView.showError("Content cannot be null");
+            mView.showMessage("Content cannot be null");
             return;
         }
         mView.showProgress();
@@ -147,14 +146,14 @@ public class CreateBottlePresenterImpl extends AbstractPresenter implements
 
     @Override
     public void onCreateDriftBottleSucceed(String message) {
-        mView.showError("The drift bottle has been dropped!");
+        mView.showMessage("The drift bottle has been dropped!");
         mView.hideProgress();
         mView.finish();
     }
 
     @Override
     public void onCreateDriftBottleFailed(String error) {
-        mView.showError("Something went wrong.");
+        mView.showMessage("Something went wrong.");
         mView.hideProgress();
     }
 
@@ -168,7 +167,7 @@ public class CreateBottlePresenterImpl extends AbstractPresenter implements
 
     @Override
     public void onUploadAudioFailed(String error) {
-        mView.showError(error);
+        mView.showMessage(error);
         if (mNumOfBackgroundTasks.decrementAndGet() == 0) {
             fireDriftBottleCreatingTask();
         }
@@ -184,7 +183,7 @@ public class CreateBottlePresenterImpl extends AbstractPresenter implements
 
     @Override
     public void onUploadDriftBottlePhotoFailed(String error) {
-        mView.showError(error);
+        mView.showMessage(error);
         if (mNumOfBackgroundTasks.decrementAndGet() == 0) {
             fireDriftBottleCreatingTask();
         }
@@ -211,7 +210,7 @@ public class CreateBottlePresenterImpl extends AbstractPresenter implements
 
     @Override
     public void onError(String message) {
-        mView.showError(message);
+        mView.showMessage(message);
     }
 
     private void fireDriftBottleCreatingTask() {

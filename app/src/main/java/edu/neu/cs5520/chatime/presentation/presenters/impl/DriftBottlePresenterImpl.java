@@ -48,7 +48,7 @@ public class DriftBottlePresenterImpl extends AbstractPresenter implements Drift
 
     @Override
     public void onDownloadAudioFailed(String error) {
-        mView.showError(error);
+        mView.showMessage(error);
         mView.hideProgress();
     }
 
@@ -59,7 +59,7 @@ public class DriftBottlePresenterImpl extends AbstractPresenter implements Drift
 
     @Override
     public void onPickDriftBottleFailed(String error) {
-        mView.showError(error);
+        mView.showMessage(error);
     }
 
     @Override
@@ -70,7 +70,7 @@ public class DriftBottlePresenterImpl extends AbstractPresenter implements Drift
 
     @Override
     public void onThrowBackDriftBottleFailed(String error) {
-        mView.showError(error);
+        mView.showMessage(error);
     }
 
     @Override
@@ -136,6 +136,6 @@ public class DriftBottlePresenterImpl extends AbstractPresenter implements Drift
 
     @Override
     public void onError(String message) {
-        mView.showError(message);
+        mView.showMessage(message);
     }
 }

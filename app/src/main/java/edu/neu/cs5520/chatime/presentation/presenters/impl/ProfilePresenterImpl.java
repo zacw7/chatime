@@ -36,19 +36,19 @@ public class ProfilePresenterImpl extends AbstractPresenter implements ProfilePr
 
     @Override
     public void onRetrieveUserProfileFailed(String error) {
-        mView.showError(error);
+        mView.showMessage(error);
     }
 
     @Override
     public void onUserProfileUpdateSucceed(String message) {
-        mView.showError(message);
+        mView.showMessage(message);
         mView.hideProgress();
         mView.resetElements();
     }
 
     @Override
     public void onUserProfileUpdateFailed(String message) {
-        mView.showError(message);
+        mView.showMessage(message);
         mView.hideProgress();
         mView.resetElements();
         reloadProfile();
@@ -63,7 +63,7 @@ public class ProfilePresenterImpl extends AbstractPresenter implements ProfilePr
     @Override
     public void onDailyCheckInFailed(String error) {
         mView.hideProgress();
-        mView.showError(error);
+        mView.showMessage(error);
     }
 
     @Override
@@ -104,7 +104,7 @@ public class ProfilePresenterImpl extends AbstractPresenter implements ProfilePr
 
     @Override
     public void onError(String message) {
-        mView.showError(message);
+        mView.showMessage(message);
     }
 
     private void reloadProfile() {

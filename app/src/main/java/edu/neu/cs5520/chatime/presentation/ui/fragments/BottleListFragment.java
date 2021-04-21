@@ -77,7 +77,7 @@ public class BottleListFragment extends Fragment implements BottleListPresenter.
     }
 
     @Override
-    public void showError(String message) {
+    public void showMessage(String message) {
 
     }
 }

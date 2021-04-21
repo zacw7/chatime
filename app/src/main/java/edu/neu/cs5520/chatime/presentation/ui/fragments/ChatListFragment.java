@@ -76,7 +76,7 @@ public class ChatListFragment extends Fragment implements ChatListPresenter.View
     }
 
     @Override
-    public void showError(String message) {
+    public void showMessage(String message) {
 
     }
 }

@@ -122,7 +122,7 @@ public class ChatPresenterImpl extends AbstractPresenter implements ChatPresente
 
     @Override
     public void onError(String message) {
-        mView.showError(message);
+        mView.showMessage(message);
     }
 
     @Override
@@ -137,7 +137,7 @@ public class ChatPresenterImpl extends AbstractPresenter implements ChatPresente
 
     @Override
     public void onRoomInfoRetrieveFailed(String error) {
-        mView.showError(error);
+        mView.showMessage(error);
     }
 
     @Override

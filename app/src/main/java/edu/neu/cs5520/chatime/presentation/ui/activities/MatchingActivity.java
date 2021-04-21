@@ -10,16 +10,19 @@ import android.os.CountDownTimer;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import edu.neu.cs5520.chatime.R;
 import edu.neu.cs5520.chatime.domain.executor.impl.ThreadExecutor;
 import edu.neu.cs5520.chatime.presentation.presenters.MatchingPresenter;
 import edu.neu.cs5520.chatime.presentation.presenters.impl.MatchingPresenterImpl;
+import edu.neu.cs5520.chatime.storage.FirebaseTopicRepository;
 import edu.neu.cs5520.chatime.threading.MainThreadImpl;
 
 @SuppressLint("NonConstantResourceId")
@@ -43,7 +46,8 @@ public class MatchingActivity extends AppCompatActivity implements MatchingPrese
         mPresenter = new MatchingPresenterImpl(
                 ThreadExecutor.getInstance(),
                 MainThreadImpl.getInstance(),
-                this
+                this,
+                new FirebaseTopicRepository()
         );
 
         mCountDownTimer = new CountDownTimer(60000, 1000) {
@@ -56,7 +60,7 @@ public class MatchingActivity extends AppCompatActivity implements MatchingPrese
             @Override
             public void onFinish() {
                 mTextMatching.setText(R.string.matching_failed);
-                mPresenter.matchTimeout();
+                mPresenter.cancel();
             }
         };
 
@@ -71,6 +75,11 @@ public class MatchingActivity extends AppCompatActivity implements MatchingPrese
 
         LocalBroadcastManager.getInstance(this).registerReceiver(mRoomIdReceiver,
                 new IntentFilter("room-id-event"));
+    }
+
+    @OnClick(R.id.button_matching_cancel)
+    public void onCancel() {
+        mPresenter.cancel();
     }
 
     @Override
@@ -115,8 +124,8 @@ public class MatchingActivity extends AppCompatActivity implements MatchingPrese
     }
 
     @Override
-    public void showError(String message) {
-
+    public void showMessage(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 
     @Override

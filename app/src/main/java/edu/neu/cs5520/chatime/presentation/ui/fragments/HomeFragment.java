@@ -103,9 +103,8 @@ public class HomeFragment extends Fragment implements HomePresenter.View, OnMapR
 
         Random rand = new Random();
         for (int i = 0; i < NUM_MARKS; i++) {
-            int latitude = rand.nextInt(100) - 50;
+            int latitude = rand.nextInt(80) - 40;
             int longitude = rand.nextInt(360) - 180;
-            System.out.println("laclon " + latitude + " " + longitude);
             mMap.addMarker(new MarkerOptions().position(new LatLng(latitude, longitude)).icon(
                     BitmapDescriptorFactory.defaultMarker(213)).title(
                     "Pick it up!"));
@@ -172,8 +171,8 @@ public class HomeFragment extends Fragment implements HomePresenter.View, OnMapR
     }
 
     @Override
-    public void showError(String message) {
-
+    public void showMessage(String message) {
+        Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
     }
 
     @Override

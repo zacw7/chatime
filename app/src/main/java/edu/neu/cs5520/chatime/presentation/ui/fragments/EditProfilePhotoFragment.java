@@ -120,7 +120,7 @@ public class EditProfilePhotoFragment extends BottomSheetDialogFragment implemen
     }
 
     @Override
-    public void showError(String message) {
+    public void showMessage(String message) {
 
     }
 

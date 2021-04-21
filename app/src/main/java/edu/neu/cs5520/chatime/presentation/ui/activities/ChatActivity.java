@@ -100,7 +100,7 @@ public class ChatActivity extends AppCompatActivity implements ChatPresenter.Vie
     }
 
     @Override
-    public void showError(String message) {
+    public void showMessage(String message) {
 
     }
 }

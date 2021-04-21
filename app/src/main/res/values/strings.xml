@@ -6,8 +6,8 @@
     <string name="title_bottle_list">Bottles</string>
     <string name="title_profile">Profile</string>
     <string name="hint_chat_key"><i>What\'s on your mind?</i></string>
-    <string name="pick_a_bottle">Pick a bottle</string>
-    <string name="create_a_bottle">Create a bottle</string>
+    <string name="pick_a_bottle">Pick a drift bottle</string>
+    <string name="create_a_bottle">Create a drift bottle</string>
     <string name="username">Username</string>
     <string name="email">Email</string>
     <string name="edit">Edit</string>

@@ -47,7 +47,7 @@ public class BottleListPresenterImpl extends AbstractPresenter implements Bottle
 
     @Override
     public void onBottleListRetrievedFailed(String error) {
-        mView.showError(error);
+        mView.showMessage(error);
     }
 
     @Override
@@ -83,6 +83,6 @@ public class BottleListPresenterImpl extends AbstractPresenter implements Bottle
 
     @Override
     public void onError(String message) {
-        mView.showError(message);
+        mView.showMessage(message);
     }
 }

@@ -54,7 +54,7 @@ public class MainPresenterImpl extends AbstractPresenter implements MainPresente
 
     @Override
     public void onError(String message) {
-        mView.showError(message);
+        mView.showMessage(message);
     }
 
     private void subscribeTo(String uid) {

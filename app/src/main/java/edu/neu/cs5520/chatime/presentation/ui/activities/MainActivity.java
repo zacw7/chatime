@@ -131,7 +131,7 @@ public class MainActivity extends AppCompatActivity implements MainPresenter.Vie
     }
 
     @Override
-    public void showError(String message) {
+    public void showMessage(String message) {
 
     }
 }

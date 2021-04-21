@@ -5,7 +5,7 @@ import edu.neu.cs5520.chatime.presentation.ui.BaseView;
 
 public interface MatchingPresenter extends BasePresenter {
 
-    void matchTimeout();
+    void cancel();
 
     void checkRoomId(String roomId);
 

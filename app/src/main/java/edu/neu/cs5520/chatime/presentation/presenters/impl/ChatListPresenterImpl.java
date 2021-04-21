@@ -1,7 +1,6 @@
 package edu.neu.cs5520.chatime.presentation.presenters.impl;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import edu.neu.cs5520.chatime.domain.executor.Executor;
@@ -9,7 +8,6 @@ import edu.neu.cs5520.chatime.domain.executor.MainThread;
 import edu.neu.cs5520.chatime.domain.interactors.GetRoomListInteractor;
 import edu.neu.cs5520.chatime.domain.interactors.impl.GetRoomListInteractorImpl;
 import edu.neu.cs5520.chatime.domain.model.Room;
-import edu.neu.cs5520.chatime.domain.model.User;
 import edu.neu.cs5520.chatime.domain.repository.ChatroomRepository;
 import edu.neu.cs5520.chatime.domain.repository.UserRepository;
 import edu.neu.cs5520.chatime.presentation.presenters.ChatListPresenter;
@@ -68,7 +66,7 @@ public class ChatListPresenterImpl extends AbstractPresenter implements ChatList
 
     @Override
     public void onError(String message) {
-        mView.showError(message);
+        mView.showMessage(message);
     }
 
     @Override
@@ -87,7 +85,7 @@ public class ChatListPresenterImpl extends AbstractPresenter implements ChatList
 
     @Override
     public void onRoomListRetrieveFailed(String error) {
-        mView.showError(error);
+        mView.showMessage(error);
     }
 
     @Override
