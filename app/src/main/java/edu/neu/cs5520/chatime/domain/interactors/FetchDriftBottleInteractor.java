@@ -6,6 +6,7 @@ import edu.neu.cs5520.chatime.domain.model.DriftBottle;
 public interface FetchDriftBottleInteractor extends Interactor {
     interface Callback {
         void onFetchDriftBottleSucceed(DriftBottle driftBottle);
+
         void onFetchDriftBottleFailed(String error);
     }
 }

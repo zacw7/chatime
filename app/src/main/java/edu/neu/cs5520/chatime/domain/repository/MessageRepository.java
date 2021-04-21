@@ -5,5 +5,6 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 public interface MessageRepository {
     void sendMessage(String to, String content);
+
     void setMessageEventListener(EventListener<QuerySnapshot> listener);
 }

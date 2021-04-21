@@ -22,7 +22,8 @@ public class FirebaseMessageRepository implements MessageRepository {
     public FirebaseMessageRepository(String roomId) {
         mRoomId = roomId;
         mFunctions = FirebaseFunctions.getInstance();
-        mMessagesRef = FirebaseFirestore.getInstance().collection(String.format(COLLECTION_PATH_FMT, roomId));
+        mMessagesRef = FirebaseFirestore.getInstance().collection(
+                String.format(COLLECTION_PATH_FMT, roomId));
     }
 
     @Override

@@ -10,7 +10,8 @@ public interface UserRepository {
 
     void getProfile(OnCompleteListener<User> onCompleteListener);
 
-    void updateProfile(String username, String about, OnCompleteListener<HttpsCallableResult> onCompleteListener);
+    void updateProfile(String username, String about,
+            OnCompleteListener<HttpsCallableResult> onCompleteListener);
 
     void updatePhotoUrl(String photoUrl, OnCompleteListener<Void> onCompleteListener);
 

@@ -133,7 +133,6 @@ public class EditProfilePhotoFragment extends BottomSheetDialogFragment implemen
             try {
                 photoFile = createImageFile();
             } catch (IOException ex) {
-                // TODO
                 // Error occurred while creating the File
             }
             // Continue only if the File was successfully created

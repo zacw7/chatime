@@ -111,10 +111,6 @@ public class ChatMessageAdapter extends RecyclerView.Adapter {
             } else {
                 mTextDate.setVisibility(View.GONE);
             }
-
-            // TODO: Insert the profile image from the URL into the ImageView.
-//            Utils.displayRoundImageFromUrl(mContext, message.getSender().getProfileUrl(),
-//            profileImage);
         }
     }
 

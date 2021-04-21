@@ -86,7 +86,8 @@ public class ChatListAdapter extends RecyclerView.Adapter {
             mTextChatRecipient.setText(message.getUsername());
             mTextChatTopic.setText(message.getTopic());
             if (message.getLastTime() != null && !message.getLastTime().isEmpty()) {
-                mTextChatLastTime.setText(itemView.getContext().getString(R.string.fmt_last_message, message.getLastTime()));
+                mTextChatLastTime.setText(itemView.getContext().getString(R.string.fmt_last_message,
+                        message.getLastTime()));
             }
         }
 

@@ -8,6 +8,7 @@ import edu.neu.cs5520.chatime.presentation.ui.adapters.ChatListAdapter;
 public interface ChatListPresenter extends BasePresenter {
     interface View extends BaseView {
         void setupAdapter(ChatListAdapter mAdapter);
+
         void enterChatRoom(String roomId);
     }
 }

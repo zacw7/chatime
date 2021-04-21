@@ -8,6 +8,7 @@ import edu.neu.cs5520.chatime.domain.model.Room;
 public interface GetRoomListInteractor extends Interactor {
     interface Callback {
         void onRoomListRetrieveSucceed(List<Room> roomList);
+
         void onRoomListRetrieveFailed(String error);
     }
 }

@@ -14,7 +14,8 @@ public class ChatViewModel {
     String mTopic;
     String mLastTime;
 
-    private static final SimpleDateFormat DATETIME_FMT = new SimpleDateFormat("MMM dd, HH:mm a", Locale.US);
+    private static final SimpleDateFormat DATETIME_FMT = new SimpleDateFormat("MMM dd, HH:mm a",
+            Locale.US);
 
     public ChatViewModel() {
 

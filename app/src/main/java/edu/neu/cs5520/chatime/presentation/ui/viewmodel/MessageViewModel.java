@@ -3,10 +3,8 @@ package edu.neu.cs5520.chatime.presentation.ui.viewmodel;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
-import java.util.Map;
 
 import edu.neu.cs5520.chatime.domain.model.Message;
-import edu.neu.cs5520.chatime.domain.model.User;
 
 public class MessageViewModel {
     String mContent;

@@ -8,6 +8,7 @@ import edu.neu.cs5520.chatime.presentation.ui.viewmodel.DriftBottleViewModel;
 public interface BottleListPresenter extends BasePresenter {
     interface View extends BaseView {
         void setupAdapter(BottleListAdapter mAdapter);
+
         void displayBottle(DriftBottleViewModel model);
     }
 }
