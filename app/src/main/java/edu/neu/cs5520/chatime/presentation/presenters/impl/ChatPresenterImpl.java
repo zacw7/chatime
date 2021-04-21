@@ -149,12 +149,12 @@ public class ChatPresenterImpl extends AbstractPresenter implements ChatPresente
             MessageViewModel item = new MessageViewModel(message);
             item.setFromUid(message.getFrom());
             item.setToUid(message.getTo());
-            if (mToUid.equals(message.getFrom())) {
-                item.setToUid(mToUsername);
+            if (mMeUid.equals(message.getFrom())) {
                 item.setFromUsername(mMeUsername);
+                item.setToUsername(mToUsername);
             } else {
-                item.setToUid(mMeUsername);
                 item.setFromUsername(mToUsername);
+                item.setToUsername(mMeUsername);
             }
             MessageViewModel last = mItemList.isEmpty() ? null : mItemList.get(
                     mItemList.size() - 1);

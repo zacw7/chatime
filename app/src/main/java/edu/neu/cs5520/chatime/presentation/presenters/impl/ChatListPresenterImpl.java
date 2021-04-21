@@ -1,6 +1,7 @@
 package edu.neu.cs5520.chatime.presentation.presenters.impl;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import edu.neu.cs5520.chatime.domain.executor.Executor;
@@ -79,9 +80,11 @@ public class ChatListPresenterImpl extends AbstractPresenter implements ChatList
             model.setRoomId(room.getId());
             model.setTopic(room.getTopic());
             model.setUsername(room.getRecipientUsername());
-            model.setLastTime(room.getLastMessageTime());
+            model.setTsLast(room.getLastMessageTime());
+            model.setTsCreated(room.getCreatedAt());
             mItemList.add(model);
         }
+        Collections.sort(mItemList);
         mAdapter.notifyDataSetChanged();
     }
 

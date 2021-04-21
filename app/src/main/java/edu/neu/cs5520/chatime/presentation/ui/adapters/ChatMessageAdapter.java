@@ -104,7 +104,6 @@ public class ChatMessageAdapter extends RecyclerView.Adapter {
             mTextDate.setText(message.getDate());
             mTextTime.setText(message.getTime());
             mTextUsername.setText(message.getFromUsername());
-//            mImageProfile.setImageResource(message.getProfileUrl());
 
             if (message.isDateShowing()) {
                 mTextDate.setVisibility(View.VISIBLE);

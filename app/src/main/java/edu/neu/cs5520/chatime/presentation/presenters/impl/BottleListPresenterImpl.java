@@ -1,6 +1,8 @@
 package edu.neu.cs5520.chatime.presentation.presenters.impl;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import edu.neu.cs5520.chatime.domain.executor.Executor;
@@ -43,6 +45,7 @@ public class BottleListPresenterImpl extends AbstractPresenter implements Bottle
         for (DriftBottle origin : bottleList) {
             mItemList.add(new DriftBottleViewModel(origin));
         }
+        Collections.sort(mItemList);
         mAdapter.notifyDataSetChanged();
     }
 

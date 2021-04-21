@@ -4,18 +4,21 @@ package edu.neu.cs5520.chatime.presentation.ui.viewmodel;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.google.firebase.Timestamp;
+
 import java.text.SimpleDateFormat;
 import java.util.Locale;
 
 import edu.neu.cs5520.chatime.domain.model.DriftBottle;
 
-public class DriftBottleViewModel implements Parcelable {
+public class DriftBottleViewModel implements Parcelable, Comparable<DriftBottleViewModel> {
     private String mId;
     private String mCreatorUid;
     private String mCreatorUsername;
     private String mContent;
     private String mCreatedAt;
     private String mPickedAt;
+    private Timestamp mTsPicked;
     private String mPhotoUrl;
     private String mAudioUrl;
     private Double mLatitude;
@@ -39,6 +42,7 @@ public class DriftBottleViewModel implements Parcelable {
         mLongitude = origin.getLongitude();
         mCreatedAt = DATETIME_FMT.format(origin.getCreatedAt().toDate());
         mPickedAt = DATETIME_FMT.format(origin.getPickedAt().toDate());
+        mTsPicked = origin.getPickedAt();
         mRoomId = origin.getRoomId();
     }
 
@@ -67,6 +71,11 @@ public class DriftBottleViewModel implements Parcelable {
         if (mRoomId.equals("NULL")) {
             mRoomId = null;
         }
+    }
+
+    @Override
+    public int compareTo(DriftBottleViewModel o) {
+        return o.getTsPicked().compareTo(mTsPicked);
     }
 
     @Override
@@ -141,6 +150,10 @@ public class DriftBottleViewModel implements Parcelable {
 
     public String getPickedAt() {
         return mPickedAt;
+    }
+
+    public Timestamp getTsPicked() {
+        return mTsPicked;
     }
 
     public String getPhotoUrl() {

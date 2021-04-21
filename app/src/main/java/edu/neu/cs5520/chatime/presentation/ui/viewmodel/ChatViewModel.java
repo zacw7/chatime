@@ -8,17 +8,27 @@ import java.util.Locale;
 
 import edu.neu.cs5520.chatime.domain.repository.TopicRepository;
 
-public class ChatViewModel {
+public class ChatViewModel implements Comparable<ChatViewModel> {
     String roomId;
     String mUsername;
     String mTopic;
+    Timestamp mTsLast;
+    Timestamp mTsCreated;
     String mLastTime;
+    String mCreatedTime;
 
     private static final SimpleDateFormat DATETIME_FMT = new SimpleDateFormat("MMM dd, HH:mm a",
             Locale.US);
 
     public ChatViewModel() {
 
+    }
+
+    @Override
+    public int compareTo(ChatViewModel o) {
+        Timestamp thisTs = mTsLast == null ? mTsCreated : mTsLast;
+        Timestamp oTs = o.getTsLast() == null ? o.getTsCreated() : o.getTsLast();
+        return oTs.compareTo(thisTs);
     }
 
     public String getRoomId() {
@@ -47,17 +57,41 @@ public class ChatViewModel {
         }
     }
 
+    public Timestamp getTsLast() {
+        return mTsLast;
+    }
+
+    public void setTsLast(Timestamp tsLast) {
+        if (tsLast != null) {
+            mLastTime = DATETIME_FMT.format(tsLast.toDate());
+        }
+        mTsLast = tsLast;
+    }
+
+    public Timestamp getTsCreated() {
+        return mTsCreated;
+    }
+
+    public void setTsCreated(Timestamp tsCreated) {
+        if (tsCreated != null) {
+            mCreatedTime = DATETIME_FMT.format(tsCreated.toDate());
+        }
+        mTsCreated = tsCreated;
+    }
+
+    public String getCreatedTime() {
+        return mCreatedTime;
+    }
+
+    public void setCreatedTime(String createdTime) {
+        mCreatedTime = createdTime;
+    }
+
     public String getLastTime() {
         return mLastTime;
     }
 
     public void setLastTime(String lastTime) {
         mLastTime = lastTime;
-    }
-
-    public void setLastTime(Timestamp timestamp) {
-        if (timestamp != null) {
-            mLastTime = DATETIME_FMT.format(timestamp.toDate());
-        }
     }
 }
