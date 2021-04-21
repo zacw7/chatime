@@ -8,6 +8,8 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
+import java.util.Map;
+
 public class CustomFirebaseMessagingService extends FirebaseMessagingService {
 
     public CustomFirebaseMessagingService() {
@@ -21,11 +23,13 @@ public class CustomFirebaseMessagingService extends FirebaseMessagingService {
 
         if (!remoteMessage.getData().isEmpty()) {
             Log.d("TAG", "Received Data: " + remoteMessage.getData().toString());
-            String roomId = remoteMessage.getData().get("roomId");
-            Intent intent = new Intent("room-id-event");
-            // You can also include some extra data.
-            intent.putExtra("roomId", roomId);
-            LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
+            Map<String, String> dataMap = remoteMessage.getData();
+            if (dataMap.containsKey("roomId")) {
+                Intent intent = new Intent("room-id-event");
+                // You can also include some extra data.
+                intent.putExtra("roomId", dataMap.get("roomId"));
+                LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
+            }
         }
     }
 }

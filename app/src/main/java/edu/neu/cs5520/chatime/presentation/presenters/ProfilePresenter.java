@@ -11,6 +11,8 @@ public interface ProfilePresenter extends BasePresenter {
 
     void dailyCheckIn();
 
+    void onSignOut();
+
     interface View extends BaseView {
         void resetElements();
 

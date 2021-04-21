@@ -141,6 +141,7 @@ public class ProfileActivity extends AppCompatActivity implements ProfilePresent
 
     @OnClick(R.id.button_sign_out)
     public void onSignOut() {
+        mPresenter.onSignOut();
         AuthUI.getInstance()
                 .signOut(this)
                 .addOnCompleteListener(task -> startActivity(new Intent(this, MainActivity.class)));

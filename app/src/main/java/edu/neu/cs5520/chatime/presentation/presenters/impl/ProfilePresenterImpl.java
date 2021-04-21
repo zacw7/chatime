@@ -1,5 +1,9 @@
 package edu.neu.cs5520.chatime.presentation.presenters.impl;
 
+import android.util.Log;
+
+import com.google.firebase.messaging.FirebaseMessaging;
+
 import edu.neu.cs5520.chatime.domain.executor.Executor;
 import edu.neu.cs5520.chatime.domain.executor.MainThread;
 import edu.neu.cs5520.chatime.domain.interactors.DailyCheckInInteractor;
@@ -85,6 +89,11 @@ public class ProfilePresenterImpl extends AbstractPresenter implements ProfilePr
     }
 
     @Override
+    public void onSignOut() {
+        unsubscribeTo(mUserRepository.getCurrentUser().getUid());
+    }
+
+    @Override
     public void resume() {
         reloadProfile();
     }
@@ -114,5 +123,16 @@ public class ProfilePresenterImpl extends AbstractPresenter implements ProfilePr
         RetrieveUserProfileInteractor interactor = new RetrieveUserProfileInteractorImpl(mExecutor,
                 mMainThread, this, mUserRepository);
         interactor.execute();
+    }
+
+    private void unsubscribeTo(String uid) {
+        FirebaseMessaging.getInstance().unsubscribeFromTopic(uid)
+                .addOnCompleteListener(task -> {
+                    String msg = "Unsubscribed: " + uid;
+                    if (!task.isSuccessful()) {
+                        msg = "Unsubscribe failed";
+                    }
+                    Log.d(TAG, msg);
+                });
     }
 }
