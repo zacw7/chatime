@@ -65,6 +65,8 @@ public class ChatListAdapter extends RecyclerView.Adapter {
         TextView mTextChatRecipient;
         @BindView(R.id.text_chat_topic)
         TextView mTextChatTopic;
+        @BindView(R.id.text_chat_last_time)
+        TextView mTextChatLastTime;
         @BindView(R.id.image_chat_profile)
         ImageView mImageProfile;
         @BindView(R.id.divider_chat_list)
@@ -83,6 +85,9 @@ public class ChatListAdapter extends RecyclerView.Adapter {
         void bind(ChatViewModel message) {
             mTextChatRecipient.setText(message.getUsername());
             mTextChatTopic.setText(message.getTopic());
+            if (message.getLastTime() != null && !message.getLastTime().isEmpty()) {
+                mTextChatLastTime.setText(itemView.getContext().getString(R.string.fmt_last_message, message.getLastTime()));
+            }
             // TODO
 //            mImageProfile.setText(message.getTime());
         }

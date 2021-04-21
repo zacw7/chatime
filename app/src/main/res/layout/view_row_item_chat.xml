@@ -8,7 +8,6 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/colorSecond"
         android:gravity="center_vertical">
 
         <ImageView
@@ -17,41 +16,47 @@
             android:layout_height="50dp"
             android:layout_marginStart="10dp"
             android:adjustViewBounds="false"
+            android:contentDescription="@string/edit_profile_photo"
             android:padding="3dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_outline_person_24" />
+            app:srcCompat="@drawable/ic_outline_person_24"
+            app:tint="@color/colorPrimary" />
 
         <TextView
             android:id="@+id/text_chat_recipient"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="0dp"
-            android:layout_marginBottom="1dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginStart="8dp"
+            android:textColor="@color/colorPrimary"
             android:textSize="18sp"
-            app:layout_constraintBottom_toTopOf="@+id/text_chat_topic"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/image_chat_profile"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="@+id/image_chat_profile" />
 
         <TextView
             android:id="@+id/text_chat_topic"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:textColor="@color/colorSecond"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="@+id/text_chat_recipient"
+            app:layout_constraintEnd_toEndOf="@+id/text_chat_last_time"
+            app:layout_constraintTop_toTopOf="@+id/text_chat_recipient" />
+
+        <TextView
+            android:id="@+id/text_chat_last_time"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginBottom="10dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginStart="10dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
             android:layout_marginTop="1dp"
             android:textColor="@android:color/darker_gray"
-            android:textSize="18sp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:textStyle="italic"
+            app:layout_constraintBottom_toBottomOf="@+id/image_chat_profile"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/image_chat_profile"
-            app:layout_constraintTop_toBottomOf="@+id/text_chat_recipient"
-            app:layout_constraintVertical_bias="1.0" />
+            app:layout_constraintTop_toBottomOf="@+id/text_chat_recipient" />
 
         <View
             android:id="@+id/divider_chat_list"

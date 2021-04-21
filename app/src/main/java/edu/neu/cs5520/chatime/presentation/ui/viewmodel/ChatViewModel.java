@@ -1,12 +1,20 @@
 package edu.neu.cs5520.chatime.presentation.ui.viewmodel;
 
+
+import com.google.firebase.Timestamp;
+
+import java.text.SimpleDateFormat;
+import java.util.Locale;
+
 import edu.neu.cs5520.chatime.domain.repository.TopicRepository;
 
 public class ChatViewModel {
     String roomId;
     String mUsername;
     String mTopic;
-    String mPictureUrl;
+    String mLastTime;
+
+    private static final SimpleDateFormat DATETIME_FMT = new SimpleDateFormat("MMM dd, HH:mm a", Locale.US);
 
     public ChatViewModel() {
 
@@ -38,11 +46,15 @@ public class ChatViewModel {
         }
     }
 
-    public String getPictureUrl() {
-        return mPictureUrl;
+    public String getLastTime() {
+        return mLastTime;
     }
 
-    public void setPictureUrl(String pictureUrl) {
-        mPictureUrl = pictureUrl;
+    public void setLastTime(String lastTime) {
+        mLastTime = lastTime;
+    }
+
+    public void setLastTime(Timestamp timestamp) {
+        mLastTime = DATETIME_FMT.format(timestamp.toDate());
     }
 }
