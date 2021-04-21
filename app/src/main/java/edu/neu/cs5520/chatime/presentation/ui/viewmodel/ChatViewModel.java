@@ -55,6 +55,8 @@ public class ChatViewModel {
     }
 
     public void setLastTime(Timestamp timestamp) {
-        mLastTime = DATETIME_FMT.format(timestamp.toDate());
+        if (timestamp != null) {
+            mLastTime = DATETIME_FMT.format(timestamp.toDate());
+        }
     }
 }

@@ -15,4 +15,6 @@ public interface DriftBottleRepository {
     void getBottleList(String uid, OnCompleteListener<QuerySnapshot> onCompleteListener);
 
     void throwBackDriftBottle(String bottleId, OnCompleteListener<HttpsCallableResult> onCompleteListener);
+
+    void messageToCreator(String bottleId, OnCompleteListener<String> onCompleteListener);
 }

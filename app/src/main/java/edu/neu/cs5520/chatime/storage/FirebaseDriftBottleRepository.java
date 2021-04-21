@@ -73,6 +73,9 @@ public class FirebaseDriftBottleRepository implements DriftBottleRepository {
                         driftBottle.setLatitude((double) map.get("latitude"));
                         driftBottle.setLongitude((double) map.get("longitude"));
                     }
+                    if (map.containsKey("roomId")) {
+                        driftBottle.setRoomId((String) map.get("roomId"));
+                    }
                     return driftBottle;
                 }).addOnCompleteListener(onCompleteListener);
     }
@@ -91,6 +94,16 @@ public class FirebaseDriftBottleRepository implements DriftBottleRepository {
         data.put("bottleId", bottleId);
 
         mFunctions.getHttpsCallable("throwBackDriftBottle").call(data).addOnCompleteListener(
+                onCompleteListener);
+    }
+
+    @Override
+    public void messageToCreator(String bottleId, OnCompleteListener<String> onCompleteListener) {
+        Map<String, Object> data = new HashMap<>();
+        data.put("bottleId", bottleId);
+
+        mFunctions.getHttpsCallable("messageToCreator").call(data).continueWith(
+                task -> (String) task.getResult().getData()).addOnCompleteListener(
                 onCompleteListener);
     }
 }

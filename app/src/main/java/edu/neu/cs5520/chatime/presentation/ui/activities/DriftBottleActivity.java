@@ -193,6 +193,13 @@ public class DriftBottleActivity extends AppCompatActivity implements DriftBottl
     }
 
     @Override
+    public void enterChatRoom(String roomId) {
+        Intent intent = new Intent(this, ChatActivity.class);
+        intent.putExtra(getString(R.string.current_chat_room_id), roomId);
+        startActivity(intent);
+    }
+
+    @Override
     protected void onResume() {
         super.onResume();
         mPresenter.resume();

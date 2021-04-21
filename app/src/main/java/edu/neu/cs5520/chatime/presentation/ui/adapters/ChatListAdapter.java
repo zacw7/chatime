@@ -88,8 +88,6 @@ public class ChatListAdapter extends RecyclerView.Adapter {
             if (message.getLastTime() != null && !message.getLastTime().isEmpty()) {
                 mTextChatLastTime.setText(itemView.getContext().getString(R.string.fmt_last_message, message.getLastTime()));
             }
-            // TODO
-//            mImageProfile.setText(message.getTime());
         }
 
         public void bindListener(final ChatViewModel model, final OnItemClickListener listener) {

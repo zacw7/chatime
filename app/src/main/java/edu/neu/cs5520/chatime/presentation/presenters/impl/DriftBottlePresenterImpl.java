@@ -7,9 +7,11 @@ import java.io.File;
 import edu.neu.cs5520.chatime.domain.executor.Executor;
 import edu.neu.cs5520.chatime.domain.executor.MainThread;
 import edu.neu.cs5520.chatime.domain.interactors.DownloadAudioInteractor;
+import edu.neu.cs5520.chatime.domain.interactors.MessageBottleCreatorInteractor;
 import edu.neu.cs5520.chatime.domain.interactors.PickDriftBottleInteractor;
 import edu.neu.cs5520.chatime.domain.interactors.ThrowBackDriftBottleInteractor;
 import edu.neu.cs5520.chatime.domain.interactors.impl.DownloadAudioInteractorImpl;
+import edu.neu.cs5520.chatime.domain.interactors.impl.MessageBottleCreatorInteractorImpl;
 import edu.neu.cs5520.chatime.domain.interactors.impl.PickDriftBottleInteractorImpl;
 import edu.neu.cs5520.chatime.domain.interactors.impl.ThrowBackDriftBottleInteractorImpl;
 import edu.neu.cs5520.chatime.domain.model.DriftBottle;
@@ -21,7 +23,7 @@ import edu.neu.cs5520.chatime.presentation.ui.viewmodel.DriftBottleViewModel;
 
 public class DriftBottlePresenterImpl extends AbstractPresenter implements DriftBottlePresenter,
         DownloadAudioInteractor.Callback, PickDriftBottleInteractor.Callback,
-        ThrowBackDriftBottleInteractor.Callback {
+        ThrowBackDriftBottleInteractor.Callback, MessageBottleCreatorInteractor.Callback {
 
     private final String TAG = "EditProfilePhotoPresenter";
     private View mView;
@@ -64,8 +66,20 @@ public class DriftBottlePresenterImpl extends AbstractPresenter implements Drift
 
     @Override
     public void onThrowBackDriftBottleSucceed(String message) {
-        // TODO show message
+        mView.showMessage("The bottle has been thrown back to ocean");
         mView.finish();
+    }
+
+    @Override
+    public void onMessageBottleCreatorSucceed(String roomId) {
+        if (roomId != null) {
+            mView.enterChatRoom(roomId);
+        }
+    }
+
+    @Override
+    public void onMessageBottleCreatorFailed(String error) {
+        mView.showMessage(error);
     }
 
     @Override
@@ -90,7 +104,14 @@ public class DriftBottlePresenterImpl extends AbstractPresenter implements Drift
 
     @Override
     public void messageToCreator() {
-        // TODO
+        if (mDriftBottle.getRoomId() == null) {
+            MessageBottleCreatorInteractor interactor = new MessageBottleCreatorInteractorImpl(
+                    mExecutor,
+                    mMainThread, this, mDriftBottleRepository, mDriftBottle.getId());
+            interactor.execute();
+        } else {
+            mView.enterChatRoom(mDriftBottle.getRoomId());
+        }
     }
 
     @Override
@@ -112,8 +133,7 @@ public class DriftBottlePresenterImpl extends AbstractPresenter implements Drift
         if (mDriftBottle.getPhotoUrl() != null) {
             mView.loadPhoto(mDriftBottle.getPhotoUrl());
         }
-        if (mDriftBottle.getLatitude() != null && mDriftBottle.getLongitude() != null
-                && mDriftBottle.getLatitude() <= 200 && mDriftBottle.getLongitude() <= 200) {
+        if (mDriftBottle.getLatitude() != null && mDriftBottle.getLongitude() != null) {
             mView.loadLocation(mDriftBottle.getLatitude(), mDriftBottle.getLongitude());
         }
         mView.showProgress();

@@ -20,8 +20,10 @@ public class DriftBottleViewModel implements Parcelable {
     private String mAudioUrl;
     private Double mLatitude;
     private Double mLongitude;
+    private String mRoomId;
 
-    private static final SimpleDateFormat DATETIME_FMT = new SimpleDateFormat("MMM dd, yyyy, hh:ss a", Locale.US);
+    private static final SimpleDateFormat DATETIME_FMT = new SimpleDateFormat(
+            "MMM dd, yyyy, hh:ss a", Locale.US);
 
     public DriftBottleViewModel() {
     }
@@ -35,8 +37,9 @@ public class DriftBottleViewModel implements Parcelable {
         mAudioUrl = origin.getAudioUrl();
         mLatitude = origin.getLatitude();
         mLongitude = origin.getLongitude();
-        mCreatedAt = DATETIME_FMT.format(origin.getCreatedAt().toDate());;
-        mPickedAt = DATETIME_FMT.format(origin.getPickedAt().toDate());;
+        mCreatedAt = DATETIME_FMT.format(origin.getCreatedAt().toDate());
+        mPickedAt = DATETIME_FMT.format(origin.getPickedAt().toDate());
+        mRoomId = origin.getRoomId();
     }
 
     protected DriftBottleViewModel(Parcel in) {
@@ -50,6 +53,20 @@ public class DriftBottleViewModel implements Parcelable {
         mLongitude = in.readDouble();
         mPhotoUrl = in.readString();
         mAudioUrl = in.readString();
+        mRoomId = in.readString();
+        if (mLatitude > 200 || mLongitude > 200) {
+            mLatitude = null;
+            mLongitude = null;
+        }
+        if (mPhotoUrl.equals("NULL")) {
+            mPhotoUrl = null;
+        }
+        if (mAudioUrl.equals("NULL")) {
+            mAudioUrl = null;
+        }
+        if (mRoomId.equals("NULL")) {
+            mRoomId = null;
+        }
     }
 
     @Override
@@ -67,8 +84,21 @@ public class DriftBottleViewModel implements Parcelable {
             dest.writeDouble(999);
             dest.writeDouble(999);
         }
-        if (mPhotoUrl != null) dest.writeString(mPhotoUrl);
-        if (mAudioUrl != null) dest.writeString(mAudioUrl);
+        if (mPhotoUrl != null) {
+            dest.writeString(mPhotoUrl);
+        } else {
+            dest.writeString("NULL");
+        }
+        if (mAudioUrl != null) {
+            dest.writeString(mAudioUrl);
+        } else {
+            dest.writeString("NULL");
+        }
+        if (mRoomId != null) {
+            dest.writeString(mRoomId);
+        } else {
+            dest.writeString("NULL");
+        }
     }
 
     @Override
@@ -127,5 +157,9 @@ public class DriftBottleViewModel implements Parcelable {
 
     public Double getLongitude() {
         return mLongitude;
+    }
+
+    public String getRoomId() {
+        return mRoomId;
     }
 }

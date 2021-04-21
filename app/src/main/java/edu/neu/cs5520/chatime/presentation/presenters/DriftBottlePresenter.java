@@ -30,6 +30,8 @@ public interface DriftBottlePresenter extends BasePresenter {
 
         void displayBottle(DriftBottleViewModel model);
 
+        void enterChatRoom(String roomId);
+
         void finish();
     }
 }

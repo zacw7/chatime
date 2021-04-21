@@ -13,6 +13,7 @@ public class DriftBottle {
     private Double mLongitude;
     private Timestamp mCreatedAt;
     private Timestamp mPickedAt;
+    private String mRoomId;
 
     public DriftBottle() {
     }
@@ -95,5 +96,13 @@ public class DriftBottle {
 
     public void setPickedAt(Timestamp pickedAt) {
         mPickedAt = pickedAt;
+    }
+
+    public String getRoomId() {
+        return mRoomId;
+    }
+
+    public void setRoomId(String roomId) {
+        mRoomId = roomId;
     }
 }
