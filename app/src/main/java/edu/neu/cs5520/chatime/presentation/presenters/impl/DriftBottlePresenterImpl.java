@@ -44,34 +44,38 @@ public class DriftBottlePresenterImpl extends AbstractPresenter implements Drift
 
     @Override
     public void onDownloadAudioSucceed(String message) {
-        mView.loadAudioPlayer(audioUri);
         mView.hideProgress();
+        mView.loadAudioPlayer(audioUri);
     }
 
     @Override
     public void onDownloadAudioFailed(String error) {
-        mView.showMessage(error);
         mView.hideProgress();
+        mView.showMessage(error);
     }
 
     @Override
     public void onPickDriftBottleSucceed(DriftBottle driftBottle) {
+        mView.hideProgress();
         mView.displayBottle(new DriftBottleViewModel(driftBottle));
     }
 
     @Override
     public void onPickDriftBottleFailed(String error) {
+        mView.hideProgress();
         mView.showMessage(error);
     }
 
     @Override
     public void onThrowBackDriftBottleSucceed(String message) {
+        mView.hideProgress();
         mView.showMessage("The bottle has been thrown back to ocean");
         mView.finish();
     }
 
     @Override
     public void onMessageBottleCreatorSucceed(String roomId) {
+        mView.hideProgress();
         if (roomId != null) {
             mView.enterChatRoom(roomId);
         }
@@ -79,11 +83,13 @@ public class DriftBottlePresenterImpl extends AbstractPresenter implements Drift
 
     @Override
     public void onMessageBottleCreatorFailed(String error) {
+        mView.hideProgress();
         mView.showMessage(error);
     }
 
     @Override
     public void onThrowBackDriftBottleFailed(String error) {
+        mView.hideProgress();
         mView.showMessage(error);
     }
 
@@ -91,6 +97,7 @@ public class DriftBottlePresenterImpl extends AbstractPresenter implements Drift
     public void pickDriftBottle() {
         PickDriftBottleInteractor interactor = new PickDriftBottleInteractorImpl(mExecutor,
                 mMainThread, this, mDriftBottleRepository);
+        mView.showProgress();
         interactor.execute();
     }
 
@@ -99,6 +106,7 @@ public class DriftBottlePresenterImpl extends AbstractPresenter implements Drift
         ThrowBackDriftBottleInteractor interactor = new ThrowBackDriftBottleInteractorImpl(
                 mExecutor,
                 mMainThread, this, mDriftBottleRepository, mDriftBottle.getId());
+        mView.showProgress();
         interactor.execute();
     }
 
@@ -108,6 +116,7 @@ public class DriftBottlePresenterImpl extends AbstractPresenter implements Drift
             MessageBottleCreatorInteractor interactor = new MessageBottleCreatorInteractorImpl(
                     mExecutor,
                     mMainThread, this, mDriftBottleRepository, mDriftBottle.getId());
+            mView.showProgress();
             interactor.execute();
         } else {
             mView.enterChatRoom(mDriftBottle.getRoomId());
@@ -127,6 +136,7 @@ public class DriftBottlePresenterImpl extends AbstractPresenter implements Drift
             } else {
                 DownloadAudioInteractor interactor = new DownloadAudioInteractorImpl(mExecutor,
                         mMainThread, this, mStorageRepository, url, file);
+                mView.showProgress();
                 interactor.execute();
             }
         }
@@ -136,7 +146,6 @@ public class DriftBottlePresenterImpl extends AbstractPresenter implements Drift
         if (mDriftBottle.getLatitude() != null && mDriftBottle.getLongitude() != null) {
             mView.loadLocation(mDriftBottle.getLatitude(), mDriftBottle.getLongitude());
         }
-        mView.showProgress();
     }
 
     @Override

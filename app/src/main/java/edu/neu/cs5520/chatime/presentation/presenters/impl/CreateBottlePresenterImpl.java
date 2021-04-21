@@ -146,15 +146,15 @@ public class CreateBottlePresenterImpl extends AbstractPresenter implements
 
     @Override
     public void onCreateDriftBottleSucceed(String message) {
-        mView.showMessage("The drift bottle has been dropped!");
         mView.hideProgress();
+        mView.showMessage("The drift bottle has been dropped!");
         mView.finish();
     }
 
     @Override
     public void onCreateDriftBottleFailed(String error) {
-        mView.showMessage("Something went wrong.");
         mView.hideProgress();
+        mView.showMessage("Something went wrong.");
     }
 
     @Override

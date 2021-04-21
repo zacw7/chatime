@@ -38,6 +38,7 @@ public class ChatListPresenterImpl extends AbstractPresenter implements ChatList
 
     @Override
     public void resume() {
+        mView.showProgress();
         // setup adapter
         mAdapter = new ChatListAdapter(mItemList, this);
         mView.setupAdapter(mAdapter);
@@ -71,6 +72,7 @@ public class ChatListPresenterImpl extends AbstractPresenter implements ChatList
 
     @Override
     public void onRoomListRetrieveSucceed(List<Room> roomList) {
+        mView.hideProgress();
         mItemList.clear();
         for (Room room : roomList) {
             ChatViewModel model = new ChatViewModel();
@@ -85,6 +87,7 @@ public class ChatListPresenterImpl extends AbstractPresenter implements ChatList
 
     @Override
     public void onRoomListRetrieveFailed(String error) {
+        mView.hideProgress();
         mView.showMessage(error);
     }
 

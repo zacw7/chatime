@@ -37,6 +37,7 @@ public class HomePresenterImpl extends AbstractPresenter implements HomePresente
 
     @Override
     public void pickDriftBottle() {
+        mView.showProgress();
         PickDriftBottleInteractor interactor = new PickDriftBottleInteractorImpl(mExecutor,
                 mMainThread,
                 this,
@@ -46,6 +47,7 @@ public class HomePresenterImpl extends AbstractPresenter implements HomePresente
 
     @Override
     public void submitTopic(String topic) {
+        mView.showProgress();
         SubscribeTopicInteractor interactor = new SubscribeTopicInteractorImpl(mExecutor,
                 mMainThread,
                 this, mTopicRepository, topic);
@@ -55,21 +57,25 @@ public class HomePresenterImpl extends AbstractPresenter implements HomePresente
     // callbacks
     @Override
     public void onSubscribeTopicSucceed(String message) {
+        mView.hideProgress();
         mView.launchActivity(MatchingActivity.class);
     }
 
     @Override
     public void onSubscribeTopicFailed(String error) {
+        mView.hideProgress();
         mView.showErrorMessage(error);
     }
 
     @Override
     public void onPickDriftBottleSucceed(DriftBottle driftBottle) {
+        mView.hideProgress();
         mView.displayBottle(new DriftBottleViewModel(driftBottle));
     }
 
     @Override
     public void onPickDriftBottleFailed(String error) {
+        mView.hideProgress();
         mView.showErrorMessage(error);
     }
 

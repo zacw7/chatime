@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -56,6 +57,8 @@ public class ProfileActivity extends AppCompatActivity implements ProfilePresent
     FloatingActionButton mFabCheckIn;
     @BindView(R.id.text_profile_check_in)
     TextView mTextCheckIn;
+    @BindView(R.id.pb_profile)
+    ProgressBar mProgressBar;
 
     private ProfilePresenter mPresenter;
     private EditProfilePhotoFragment mEditProfilePhotoFragment;
@@ -162,16 +165,16 @@ public class ProfileActivity extends AppCompatActivity implements ProfilePresent
 
     @Override
     public void showProgress() {
-
+        mProgressBar.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void hideProgress() {
-
+        mProgressBar.setVisibility(View.GONE);
     }
 
     @Override
     public void showMessage(String message) {
-
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 }

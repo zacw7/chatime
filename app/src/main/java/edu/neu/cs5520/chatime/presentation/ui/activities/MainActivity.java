@@ -127,11 +127,11 @@ public class MainActivity extends AppCompatActivity implements MainPresenter.Vie
 
     @Override
     public void hideProgress() {
-        Toast.makeText(this, "Retrieved!", Toast.LENGTH_LONG).show();
+
     }
 
     @Override
     public void showMessage(String message) {
-
+        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
     }
 }

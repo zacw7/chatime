@@ -6,7 +6,9 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -59,6 +61,8 @@ public class DriftBottleActivity extends AppCompatActivity implements DriftBottl
     FloatingActionButton mFabAudio;
     @BindView(R.id.image_bottle_photo)
     ImageView mImagePhoto;
+    @BindView(R.id.pb_drift_bottle)
+    ProgressBar mProgressBar;
 
     private static final String TAG = "DriftBottleActivity";
     private DriftBottlePresenter mPresenter;
@@ -207,17 +211,17 @@ public class DriftBottleActivity extends AppCompatActivity implements DriftBottl
 
     @Override
     public void showProgress() {
-
+        mProgressBar.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void hideProgress() {
-
+        mProgressBar.setVisibility(View.GONE);
     }
 
     @Override
     public void showMessage(String message) {
-
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 
     @Override

@@ -31,7 +31,7 @@ public class MatchingActivity extends AppCompatActivity implements MatchingPrese
     @BindView(R.id.text_matching)
     TextView mTextMatching;
     @BindView(R.id.pb_matching)
-    ProgressBar mProgressBarMatching;
+    ProgressBar mProgressBar;
 
     private MatchingPresenter mPresenter;
     private CountDownTimer mCountDownTimer;
@@ -115,12 +115,12 @@ public class MatchingActivity extends AppCompatActivity implements MatchingPrese
 
     @Override
     public void showProgress() {
-        mProgressBarMatching.setVisibility(View.VISIBLE);
+        mProgressBar.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void hideProgress() {
-        mProgressBarMatching.setVisibility(View.INVISIBLE);
+        mProgressBar.setVisibility(View.INVISIBLE);
     }
 
     @Override

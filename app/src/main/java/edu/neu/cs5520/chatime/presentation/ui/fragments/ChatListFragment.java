@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -27,6 +29,8 @@ public class ChatListFragment extends Fragment implements ChatListPresenter.View
 
     @BindView(R.id.recycler_chat_list)
     RecyclerView mChatListRecycler;
+    @BindView(R.id.pb_chat_list)
+    ProgressBar mProgressBar;
 
     private ChatListPresenter mPresenter;
 
@@ -67,16 +71,16 @@ public class ChatListFragment extends Fragment implements ChatListPresenter.View
 
     @Override
     public void showProgress() {
-
+        mProgressBar.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void hideProgress() {
-
+        mProgressBar.setVisibility(View.GONE);
     }
 
     @Override
     public void showMessage(String message) {
-
+        Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
     }
 }

@@ -3,7 +3,9 @@ package edu.neu.cs5520.chatime.presentation.ui.activities;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -32,6 +34,8 @@ public class ChatActivity extends AppCompatActivity implements ChatPresenter.Vie
     TextView mTextRecipient;
     @BindView(R.id.text_title_topic)
     TextView mTextTopic;
+    @BindView(R.id.pb_chat)
+    ProgressBar mProgressBar;
 
     private ChatPresenter mPresenter;
 
@@ -91,16 +95,16 @@ public class ChatActivity extends AppCompatActivity implements ChatPresenter.Vie
 
     @Override
     public void showProgress() {
-
+        mProgressBar.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void hideProgress() {
-
+        mProgressBar.setVisibility(View.GONE);
     }
 
     @Override
     public void showMessage(String message) {
-
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 }

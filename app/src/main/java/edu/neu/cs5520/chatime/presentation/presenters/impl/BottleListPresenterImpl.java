@@ -38,6 +38,7 @@ public class BottleListPresenterImpl extends AbstractPresenter implements Bottle
 
     @Override
     public void onBottleListRetrieveSucceed(List<DriftBottle> bottleList) {
+        mView.hideProgress();
         mItemList.clear();
         for (DriftBottle origin : bottleList) {
             mItemList.add(new DriftBottleViewModel(origin));
@@ -47,6 +48,7 @@ public class BottleListPresenterImpl extends AbstractPresenter implements Bottle
 
     @Override
     public void onBottleListRetrievedFailed(String error) {
+        mView.hideProgress();
         mView.showMessage(error);
     }
 
@@ -57,6 +59,7 @@ public class BottleListPresenterImpl extends AbstractPresenter implements Bottle
 
     @Override
     public void resume() {
+        mView.showProgress();
         // setup adapter
         mAdapter = new BottleListAdapter(mItemList, this);
         mView.setupAdapter(mAdapter);

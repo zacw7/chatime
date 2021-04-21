@@ -127,6 +127,7 @@ public class ChatPresenterImpl extends AbstractPresenter implements ChatPresente
 
     @Override
     public void onRoomInfoRetrieveSucceed(Room room) {
+        mView.hideProgress();
         mToUid = room.getRecipientUid();
         mToUsername = room.getRecipientUsername();
         mView.setRecipient(mToUsername);
@@ -137,6 +138,7 @@ public class ChatPresenterImpl extends AbstractPresenter implements ChatPresente
 
     @Override
     public void onRoomInfoRetrieveFailed(String error) {
+        mView.hideProgress();
         mView.showMessage(error);
     }
 

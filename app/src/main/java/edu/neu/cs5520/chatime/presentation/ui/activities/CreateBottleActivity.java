@@ -433,7 +433,7 @@ public class CreateBottleActivity extends AppCompatActivity implements
 
     @Override
     public void showMessage(String message) {
-        Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 
     private void dispatchTakePictureIntent() {

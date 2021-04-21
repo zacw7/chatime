@@ -31,25 +31,27 @@ public class ProfilePresenterImpl extends AbstractPresenter implements ProfilePr
 
     @Override
     public void onRetrieveUserProfileSucceed(User user) {
+        mView.hideProgress();
         mView.loadUserProfile(new ProfileViewModel(user));
     }
 
     @Override
     public void onRetrieveUserProfileFailed(String error) {
+        mView.hideProgress();
         mView.showMessage(error);
     }
 
     @Override
     public void onUserProfileUpdateSucceed(String message) {
-        mView.showMessage(message);
         mView.hideProgress();
+        mView.showMessage(message);
         mView.resetElements();
     }
 
     @Override
     public void onUserProfileUpdateFailed(String message) {
-        mView.showMessage(message);
         mView.hideProgress();
+        mView.showMessage(message);
         mView.resetElements();
         reloadProfile();
     }
@@ -68,18 +70,18 @@ public class ProfilePresenterImpl extends AbstractPresenter implements ProfilePr
 
     @Override
     public void editProfile(String username, String about) {
+        mView.showProgress();
         UpdateUserProfileInteractor interactor = new UpdateUserProfileInteractorImpl(mExecutor,
                 mMainThread, this, mUserRepository, username, about);
         interactor.execute();
-        mView.showProgress();
     }
 
     @Override
     public void dailyCheckIn() {
+        mView.showProgress();
         DailyCheckInInteractor interactor = new DailyCheckInInteractorImpl(mExecutor,
                 mMainThread, this, mUserRepository);
         interactor.execute();
-        mView.showProgress();
     }
 
     @Override
@@ -108,6 +110,7 @@ public class ProfilePresenterImpl extends AbstractPresenter implements ProfilePr
     }
 
     private void reloadProfile() {
+        mView.showProgress();
         RetrieveUserProfileInteractor interactor = new RetrieveUserProfileInteractorImpl(mExecutor,
                 mMainThread, this, mUserRepository);
         interactor.execute();

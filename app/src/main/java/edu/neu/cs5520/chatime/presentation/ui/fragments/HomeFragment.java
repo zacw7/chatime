@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -57,6 +58,8 @@ public class HomeFragment extends Fragment implements HomePresenter.View, OnMapR
     Button mButtonPick;
     @BindView(R.id.button_home_create_bottle)
     Button mButtonThrow;
+    @BindView(R.id.pb_home)
+    ProgressBar mProgressBar;
 
     private static final int NUM_MARKS = 3;
     private static final int RC_SIGN_IN = 123;
@@ -162,12 +165,12 @@ public class HomeFragment extends Fragment implements HomePresenter.View, OnMapR
 
     @Override
     public void showProgress() {
-
+        mProgressBar.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void hideProgress() {
-
+        mProgressBar.setVisibility(View.GONE);
     }
 
     @Override
