@@ -93,14 +93,13 @@ public class MainActivity extends AppCompatActivity implements MainPresenter.Vie
     @Override
     public void showSignIn() {
         // Choose authentication providers
-        List<AuthUI.IdpConfig> providers = Arrays.asList(
-                new AuthUI.IdpConfig.EmailBuilder().build(),
-                new AuthUI.IdpConfig.PhoneBuilder().build());
+        List<AuthUI.IdpConfig> providers = Arrays.asList(new AuthUI.IdpConfig.EmailBuilder().build());
         // Create and launch sign-in intent
         startActivityForResult(
                 AuthUI.getInstance()
                         .createSignInIntentBuilder()
                         .setAvailableProviders(providers)
+                        .setTheme(R.style.AppTheme)
                         .build(),
                 RC_SIGN_IN);
     }
