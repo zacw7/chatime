@@ -5,7 +5,6 @@
     android:layout_height="wrap_content"
     android:layout_marginBottom="@dimen/dp_8"
     android:layout_marginTop="@dimen/dp_8"
-    android:background="@color/colorSecond"
     android:orientation="vertical">
 
     <TextView
@@ -13,6 +12,7 @@
         android:layout_height="@dimen/dp_56"
         android:layout_marginEnd="@dimen/dp_16"
         android:layout_marginStart="@dimen/dp_16"
+        android:fontFamily="@font/raleway"
         android:gravity="center"
         android:text="@string/edit_profile_photo"
         android:textSize="16sp" />
@@ -26,6 +26,7 @@
         android:backgroundTint="@color/colorSecond"
         android:drawablePadding="@dimen/dp_32"
         android:drawableStart="@drawable/ic_baseline_camera_alt_24"
+        android:fontFamily="@font/raleway"
         android:gravity="start|center_vertical"
         android:text="@string/take_photo_from_camera"
         android:textSize="16sp"
@@ -40,6 +41,7 @@
         android:backgroundTint="@color/colorSecond"
         android:drawablePadding="@dimen/dp_32"
         android:drawableStart="@drawable/ic_baseline_image_24"
+        android:fontFamily="@font/raleway"
         android:gravity="start|center_vertical"
         android:text="@string/upload_from_gallery"
         android:textSize="16sp"
@@ -55,6 +57,7 @@
             android:id="@+id/button_upload_profile_photo"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/raleway_bold"
             android:text="@string/upload"
             app:layout_constraintEnd_toEndOf="@+id/image_selected_photo"
             app:layout_constraintHorizontal_bias="0.0"

@@ -5,7 +5,7 @@
     <string name="title_chat_list">Chats</string>
     <string name="title_bottle_list">Bottles</string>
     <string name="title_profile">Profile</string>
-    <string name="hint_chat_key"><i>What\'s on your mind?</i></string>
+    <string name="hint_chat_key">What\'s on your mind?</string>
     <string name="pick_a_bottle">Pick a drift bottle</string>
     <string name="create_a_bottle">Create a drift bottle</string>
     <string name="username">Username</string>
