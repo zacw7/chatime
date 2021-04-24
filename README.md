@@ -10,10 +10,15 @@ Final project for CS5520 Mobile Application Development.
 
 Wen, Zhi (wen.zhi@northeastern.edu)
 
+## Representation & Video Tour
+
+[Youtube](https://youtu.be/dR8v60DicwQ)
+
 ## Features
 ### Chat
 
 Connect with another random user and start chat.
+
 ![chat](https://raw.githubusercontent.com/zacw7/chatime/main/static/chat.gif)
 
 ### Drift Bottle
@@ -50,7 +55,6 @@ Pick a drift bottle, read the message and start a conversation.
 ## Libraries used
 
 - [Butterknife](https://github.com/JakeWharton/butterknife) for view injection.
-- [Retrofit](https://github.com/square/retrofit) for network code.
 - [Glide](https://github.com/bumptech/glide) for image loading.
 - [Timber](https://github.com/JakeWharton/timber) for logging.
 
