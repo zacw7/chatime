@@ -10,10 +10,15 @@ Final project for CS5520 Mobile Application Development.
 
 Wen, Zhi (wen.zhi@northeastern.edu)
 
+## Representation & Video Tour
+
+[Youtube](https://youtu.be/dR8v60DicwQ)
+
 ## Features
 ### Chat
 
 Connect with another random user and start chat.
+
 ![chat](https://raw.githubusercontent.com/zacw7/chatime/main/static/chat.gif)
 
 ### Drift Bottle
@@ -28,7 +33,7 @@ Pick a drift bottle, read the message and start a conversation.
 
 ## Installation
 
-1. Download the [APK]().
+1. Download the [APK](https://github.com/zacw7/chatime/releases).
 2. Connect to an android device.
 3. Enable adb debugging on your device following the [instruction](https://developer.android.com/studio/command-line/adb#Enabling).
 4. Use adb to install an APK on an emulator or connected device with the install command:
@@ -50,7 +55,6 @@ Pick a drift bottle, read the message and start a conversation.
 ## Libraries used
 
 - [Butterknife](https://github.com/JakeWharton/butterknife) for view injection.
-- [Retrofit](https://github.com/square/retrofit) for network code.
 - [Glide](https://github.com/bumptech/glide) for image loading.
 - [Timber](https://github.com/JakeWharton/timber) for logging.
 
